@@ -5,8 +5,8 @@ description = "A super format documentation document preparation system for SAAS
 authors = ["P.R. Water <p.r.water@setbased.nl>"]
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/SDoc/py-sdoc"
-documentation = "https://github.com/SDoc/py-sdoc"
+repository = "https://github.com/SDoc/SDoc"
+documentation = "https://github.com/SDoc/SDoc"
 keywords = ["Documentation", "SAAS"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
