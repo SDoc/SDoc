@@ -424,7 +424,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         # Open a stream for the sub-document.
         file_name = SDoc.unescape(ctx.SIMPLE_ARG().getText())
         if not os.path.isabs(file_name):
-            file_name = os.path.join(self._root_dir, file_name + '.sdoc')
+            file_name = os.path.join(self._root_dir, file_name)
         real_path = os.path.relpath(file_name)
         self._io.write_line("Including <fso>{0!s}</fso>".format(real_path))
         try:
@@ -449,7 +449,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
             # Run the visitor on the parse tree.
             visitor.visit(tree)
 
-            # Copy  properties from the child document.
+            # Copy properties from the child document.
             self._errors += visitor.errors
 
             self.put_position(ctx, 'stop')
