@@ -20,7 +20,7 @@ A super format document preparation system for SAAS and multi-tenant application
 <a href="https://badge.fury.io/py/sdoc" target="_blank"><img src="https://badge.fury.io/py/SDoc.svg" alt="Latest Stable Version"/></a><br/>
 </td>
 <td>
-<a href="https://codecov.io/gh/SDoc/SDoc" target="_blank"><img src="https://codecov.io/gh/SDoc/SDoc/graph/badge.svg   " alt="Code Coverage"/></a>
+<a href="https://codecov.io/gh/SDoc/SDoc" target="_blank"><img src="https://codecov.io/gh/SDoc/SDoc/graph/badge.svg" alt="Code Coverage"/></a>
 <a href="https://github.com/SDoc/SDoc/actions/workflows/unit.yml"><img src="https://github.com/SDoc/SDoc/actions/workflows/unit.yml/badge.svg" alt="unit Tests"/></a>
 </td>
 </tr>
