@@ -1,11 +1,12 @@
-**/__pycache__
+**/__pycache__/
 /.coverage
 /.idea/
-/SDoc.egg-info/
 /bin/phing
+/bin/yaml-lint
 /composer.lock
 /dist/
 /doc/
+/poetry.lock
 /sdoc/antlr/*.interp
 /test/html/
 /vendor/
