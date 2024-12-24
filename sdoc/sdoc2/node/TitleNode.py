@@ -23,13 +23,6 @@ class TitleNode(Node):
         Node.__init__(self, io, 'title', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_command(self) -> str:
-        """
-        Returns the command of this node, i.e., title.
-        """
-        return 'title'
-
-    # ------------------------------------------------------------------------------------------------------------------
     def get_hierarchy_level(self, parent_hierarchy_level: int = -1) -> int:
         """
         Returns 0.

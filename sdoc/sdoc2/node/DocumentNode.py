@@ -41,13 +41,6 @@ class DocumentNode(Node):
         """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_command(self) -> str:
-        """
-        Returns the command of this node, i.e., document.
-        """
-        return 'document'
-
-    # ------------------------------------------------------------------------------------------------------------------
     def get_hierarchy_level(self, parent_hierarchy_level: int = -1) -> int:
         """
         Returns 0.

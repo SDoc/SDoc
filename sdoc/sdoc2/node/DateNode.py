@@ -23,13 +23,6 @@ class DateNode(Node):
         Node.__init__(self, io, 'date', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_command(self) -> str:
-        """
-        Returns the command of this node, i.e., date.
-        """
-        return 'date'
-
-    # ------------------------------------------------------------------------------------------------------------------
     def get_hierarchy_level(self, parent_hierarchy_level: int = -1) -> int:
         """
         Returns 0.

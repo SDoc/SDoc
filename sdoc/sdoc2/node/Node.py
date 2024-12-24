@@ -32,12 +32,12 @@ class Node(metaclass=abc.ABCMeta):
         The ID of this SDoc2 node.
         """
 
-        self.name: str = name
+        self.__name: str = name
         """
         The (command) name of this node.
         """
 
-        self._argument: str = argument
+        self.__argument: str = argument
         """
         The argument of this node (inline commands only).
         """
@@ -72,21 +72,28 @@ class Node(metaclass=abc.ABCMeta):
 
     # ------------------------------------------------------------------------------------------------------------------
     @property
+    def name(self) -> str:
+        """
+        Returns the name of this node.
+        """
+        return self.__name
+
+    # ------------------------------------------------------------------------------------------------------------------
+    @property
     def argument(self) -> str:
         """
         Getter for argument.
         """
-        return self._argument
+        return self.__argument
 
     # ------------------------------------------------------------------------------------------------------------------
-    @argument.setter
-    def argument(self, new_argument: str) -> None:
+    def _set_argument(self, new_argument: str) -> None:
         """
         Setter for argument.
 
         :param new_argument: The new argument.
         """
-        self._argument = new_argument
+        self.__argument = new_argument
 
     # ------------------------------------------------------------------------------------------------------------------
     def print_info(self, level: int) -> None:
@@ -120,14 +127,6 @@ class Node(metaclass=abc.ABCMeta):
         Returns the hierarchy name if this node is a part of a hierarchy. Otherwise, returns None.
         """
         return None
-
-    # ------------------------------------------------------------------------------------------------------------------
-    @abc.abstractmethod
-    def get_command(self) -> str:
-        """
-        Returns command of this node.
-        """
-        raise NotImplementedError()
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_hierarchy_level(self, parent_hierarchy_level: int = -1) -> int:
@@ -243,7 +242,7 @@ class Node(metaclass=abc.ABCMeta):
 
         # First append the enumeration of this node (if any).
         if 'number' in self._options:
-            items.append((self.get_command(), self._options['number'], self._argument))
+            items.append((self.name, self._options['number'], self.argument))
 
         # Second append the enumeration of child nodes (if any).
         for node_id in self.child_nodes:
@@ -276,7 +275,7 @@ class Node(metaclass=abc.ABCMeta):
         for node_id in self.child_nodes:
             node = in_scope(node_id)
 
-            if node.get_command() == 'label':
+            if node.name == 'label':
                 # Appending in Node labels list.
                 self.labels.append(node.id)
 
@@ -337,7 +336,7 @@ class Node(metaclass=abc.ABCMeta):
         for node_id in self.child_nodes:
             node = in_scope(node_id)
 
-            if node.get_command() == 'ref':
+            if node.name == 'ref':
 
                 if node.argument in node_store.labels:
                     node.set_option_value('href', '#{0}'.format(node.argument))

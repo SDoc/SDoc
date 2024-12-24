@@ -23,13 +23,6 @@ class VersionNode(Node):
         Node.__init__(self, io, 'version', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_command(self) -> str:
-        """
-        Returns the command of this node, i.e., version.
-        """
-        return 'version'
-
-    # ------------------------------------------------------------------------------------------------------------------
     def get_hierarchy_level(self, parent_hierarchy_level: int = -1) -> int:
         """
         Returns 0.

@@ -26,13 +26,6 @@ class ParagraphNode(HeadingNode):
         HeadingNode.__init__(self, io, 'paragraph', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_command(self) -> str:
-        """
-        Returns the command of this node, i.e., paragraph.
-        """
-        return 'paragraph'
-
-    # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:
         """
         Returns False.

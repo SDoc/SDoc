@@ -30,13 +30,6 @@ class ItemNode(Node):
         """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_command(self) -> str:
-        """
-        Returns the command of this node, i.e., item.
-        """
-        return 'item'
-
-    # ------------------------------------------------------------------------------------------------------------------
     def get_hierarchy_level(self, parent_hierarchy_level: int = -1) -> int:
         """
         Returns parent_hierarchy_level.

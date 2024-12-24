@@ -23,13 +23,6 @@ class CaptionNode(Node):
         Node.__init__(self, io, 'caption', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_command(self) -> str:
-        """
-        Returns the command of this node, i.e., caption.
-        """
-        return 'caption'
-
-    # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:
         """
         Returns False.

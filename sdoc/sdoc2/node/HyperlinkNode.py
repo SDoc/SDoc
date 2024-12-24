@@ -46,7 +46,7 @@ class HyperlinkNode(Node):
         if 'href' in self._options:
             self.set_scheme(self._options['href'])
         else:
-            self.set_scheme(self._argument)
+            self.set_scheme(self.argument)
 
         # Trying to connect
         self.try_connect()
@@ -99,14 +99,6 @@ class HyperlinkNode(Node):
             self.io.warning("Unable to retrieve URL: '{0!s}'".format(self._options['href']))
             self.io.warning(str(exception.__class__))
             self.io.warning(str(exception))
-
-            # ------------------------------------------------------------------------------------------------------------------
-
-    def get_command(self) -> str:
-        """
-        Returns the command of this node, i.e., hyperlink.
-        """
-        return 'hyperlink'
 
     # ------------------------------------------------------------------------------------------------------------------
     def is_phrasing(self) -> bool:

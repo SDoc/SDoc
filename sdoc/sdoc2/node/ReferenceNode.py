@@ -30,13 +30,6 @@ class ReferenceNode(Node):
         """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_command(self) -> str:
-        """
-        Returns the command of this node, i.e., reference.
-        """
-        return 'ref'
-
-    # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:
         """
         Returns False.

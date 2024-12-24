@@ -23,13 +23,6 @@ class Sub2SectionNode(HeadingNode):
         HeadingNode.__init__(self, io, 'sub2section', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_command(self) -> str:
-        """
-        Returns the command of this node, i.e., sub2section.
-        """
-        return 'sub2section'
-
-    # ------------------------------------------------------------------------------------------------------------------
     def get_hierarchy_level(self, parent_hierarchy_level: int = -1) -> int:
         """
         Returns 4.

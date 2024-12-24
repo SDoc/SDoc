@@ -49,13 +49,6 @@ class TableNode(Node):
         """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_command(self) -> str:
-        """
-        Returns the command of this node, i.e., table.
-        """
-        return 'table'
-
-    # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:
         """
         Returns True.
@@ -151,7 +144,7 @@ class TableNode(Node):
         table_text_repr = ''
 
         for node in nodes:
-            if node.get_command() == 'TEXT':
+            if node.name == 'TEXT':
                 table_text_repr += node.argument
             else:
                 table_data.append(table_text_repr)

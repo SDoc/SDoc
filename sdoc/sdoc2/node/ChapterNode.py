@@ -23,13 +23,6 @@ class ChapterNode(HeadingNode):
         HeadingNode.__init__(self, io, 'chapter', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_command(self) -> str:
-        """
-        Returns the command of this node, i.e., chapter.
-        """
-        return 'chapter'
-
-    # ------------------------------------------------------------------------------------------------------------------
     def get_hierarchy_level(self, parent_hierarchy_level: int = -1) -> int:
         """
         Returns 1.

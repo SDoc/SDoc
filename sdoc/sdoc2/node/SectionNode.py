@@ -23,13 +23,6 @@ class SectionNode(HeadingNode):
         HeadingNode.__init__(self, io, 'section', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_command(self) -> str:
-        """
-        Returns the command of this node, i.e., section.
-        """
-        return 'section'
-
-    # ------------------------------------------------------------------------------------------------------------------
     def get_hierarchy_level(self, parent_hierarchy_level: int = -1) -> int:
         """
         Returns 2.

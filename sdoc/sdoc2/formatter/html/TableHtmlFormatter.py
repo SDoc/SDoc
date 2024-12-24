@@ -100,7 +100,7 @@ class TableHtmlFormatter(HtmlFormatter):
             is_html = False
         else:
             # Generates HTML in nested node ('cell') with specified formatter.
-            formatter = NodeStore.get_formatter('html', cell.get_command())
+            formatter = NodeStore.get_formatter('html', cell.name)
             data = formatter.get_html(cell)
             is_html = True
 

@@ -24,13 +24,6 @@ class PartNode(HeadingNode):
         HeadingNode.__init__(self, io, 'part', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_command(self) -> str:
-        """
-        Returns command of this node (i.e. 'part').
-        """
-        return 'part'
-
-    # ------------------------------------------------------------------------------------------------------------------
     def get_hierarchy_level(self, parent_hierarchy_level: int = -1) -> int:
         """
         Returns 0.

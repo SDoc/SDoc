@@ -26,13 +26,6 @@ class EndParagraphNode(Node):
         Node.__init__(self, io, 'end_paragraph', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_command(self) -> str:
-        """
-        Returns the command of this node, i.e., end_paragraph.
-        """
-        return 'end_paragraph'
-
-    # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:
         """
         Returns False.

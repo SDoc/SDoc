@@ -23,13 +23,6 @@ class SmileNode(Node):
         Node.__init__(self, io, 'smile', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_command(self) -> str:
-        """
-        Returns the command of this node, i.e., smile.
-        """
-        return 'smile'
-
-    # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:
         """
         Returns False.

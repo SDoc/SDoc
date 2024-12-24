@@ -211,7 +211,6 @@ class NodeStore:
             # @todo set error status
             constructor = inline_creators['unknown']
             node = constructor(self._io, options, argument)
-            node.name = command
 
         else:
             # Create the new node.
@@ -419,10 +418,10 @@ class NodeStore:
     # ------------------------------------------------------------------------------------------------------------------
     def generate_toc(self) -> None:
         """
-        Checks if we have table of contents in document. If yes, we generate table of contents.
+        Checks if we have a table of contents in the document. If yes, we generate the table of contents.
         """
         for node in self.nodes.values():
-            if node.get_command() == 'toc':
+            if node.name == 'toc':
                 node.generate_toc()
 
     # ------------------------------------------------------------------------------------------------------------------

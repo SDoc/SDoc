@@ -34,13 +34,6 @@ class TextNode(Node):
         self.io.write_line("{0!s}{1:4d} {2!s} {3!s}".format(' ' * 4 * level, self.id, self.name, ''))
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_command(self) -> str:
-        """
-        Returns the command of this node, i.e., TEXT.
-        """
-        return 'TEXT'
-
-    # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:
         """
         Returns False.
@@ -70,7 +63,7 @@ class TextNode(Node):
         Returns a list of node IDs.
         """
         text_ids = []
-        list_of_texts = re.split("\n\n", self._argument)
+        list_of_texts = re.split("\n\n", self.argument)
 
         # Cleaning the text parts.
         if "\n" in list_of_texts:
@@ -109,11 +102,12 @@ class TextNode(Node):
         :param leading: Whether to remove leading whitespaces.
         :param trailing: Whether to remove trailing whitespaces.
         """
+        argument = self.argument
         if leading:
-            self._argument = self._argument.lstrip()
+            argument = argument.lstrip()
         if trailing:
-            self._argument = self._argument.rstrip()
-        self._argument = re.sub(r'\s+', ' ', self._argument)
+            argument = argument.rstrip()
+        self._set_argument(re.sub(r'\s+', ' ', argument))
 
 
 # ----------------------------------------------------------------------------------------------------------------------

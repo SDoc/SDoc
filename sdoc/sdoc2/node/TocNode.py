@@ -26,13 +26,6 @@ class TocNode(Node):
         Node.__init__(self, io, 'toc', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_command(self) -> str:
-        """
-        Returns the command of this node (i.e. toc).
-        """
-        return 'toc'
-
-    # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:
         """
         Returns False.

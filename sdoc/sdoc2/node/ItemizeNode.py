@@ -33,13 +33,6 @@ class ItemizeNode(Node):
         node_store.first = True
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_command(self) -> str:
-        """
-        Returns the command of this node, i.e., itemize.
-        """
-        return 'itemize'
-
-    # ------------------------------------------------------------------------------------------------------------------
     def get_hierarchy_level(self, parent_hierarchy_level: int = -1) -> int:
         """
         Returns parent_hierarchy_level + 1.

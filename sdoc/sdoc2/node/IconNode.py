@@ -31,13 +31,6 @@ class IconNode(Node):
         Node.__init__(self, io, 'icon', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_command(self) -> str:
-        """
-        Returns the command of this node, i.e., icon.
-        """
-        return 'icon'
-
-    # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:
         """
         Returns False.

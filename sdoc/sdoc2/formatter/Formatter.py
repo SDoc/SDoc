@@ -79,7 +79,7 @@ class Formatter:
         for node_id in node.child_nodes:
             child_node = in_scope(node_id)
 
-            formatter = node_store.create_formatter(self._io, child_node.get_command(), self)
+            formatter = node_store.create_formatter(self._io, child_node.name, self)
             formatter.generate(child_node, file)
 
             out_scope(child_node)

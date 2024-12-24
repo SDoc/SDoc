@@ -23,13 +23,6 @@ class LabelNode(Node):
         Node.__init__(self, io, 'label', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_command(self) -> str:
-        """
-        Returns the command of this node, i.e., label.
-        """
-        return 'label'
-
-    # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:
         """
         Returns False.
