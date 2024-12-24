@@ -44,7 +44,7 @@ class PartNode(HeadingNode):
         enumerable_numbers['part'].increment_last_level()
         enumerable_numbers['part'].remove_starting_zeros()
 
-        super().number(enumerable_numbers)
+        HeadingNode.number(self, enumerable_numbers)
 
 
 # ----------------------------------------------------------------------------------------------------------------------

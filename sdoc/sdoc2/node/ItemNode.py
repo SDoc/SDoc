@@ -129,7 +129,7 @@ class ItemNode(Node):
 
         self._options['number'] = numbers['item']
 
-        super().number(numbers)
+        Node.number(self, numbers)
 
 
 # ----------------------------------------------------------------------------------------------------------------------

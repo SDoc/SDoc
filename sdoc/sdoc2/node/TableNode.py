@@ -78,7 +78,7 @@ class TableNode(Node):
 
         self._options['number'] = numbers['table'].get_string()
 
-        super().number(numbers)
+        Node.number(self, numbers)
 
     # ------------------------------------------------------------------------------------------------------------------
     def prepare_content_tree(self) -> None:

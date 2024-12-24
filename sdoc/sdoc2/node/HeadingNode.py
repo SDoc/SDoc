@@ -74,7 +74,7 @@ class HeadingNode(Node, ABC):
 
         self._options['number'] = enumerable_numbers['heading'].get_string()
 
-        super().number(enumerable_numbers)
+        Node.number(self, enumerable_numbers)
 
     # ------------------------------------------------------------------------------------------------------------------
     def set_toc_id(self) -> None:
@@ -94,7 +94,7 @@ class HeadingNode(Node, ABC):
         """
         Prepares the content tree. Create paragraph nodes.
         """
-        super().prepare_content_tree()
+        Node.prepare_content_tree(self)
 
         self.set_numbering()
 

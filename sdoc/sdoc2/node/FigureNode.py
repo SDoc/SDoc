@@ -117,7 +117,7 @@ class FigureNode(Node):
 
         self._options['number'] = enumerable_numbers['figures']
 
-        super().number(enumerable_numbers)
+        Node.number(self, enumerable_numbers)
 
 
 # ----------------------------------------------------------------------------------------------------------------------

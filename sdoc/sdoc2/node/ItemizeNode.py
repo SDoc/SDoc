@@ -140,7 +140,7 @@ class ItemizeNode(Node):
         """
         self.level_up(numbers)
 
-        super().number(numbers)
+        Node.number(self, numbers)
 
         numbers['item'] = self.level_down(numbers['item'])
 
