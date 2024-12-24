@@ -293,7 +293,7 @@ class NodeStore:
         Creates a formatter for generating the output of nodes in the requested output format.
 
         :param io: The IO object.
-        :param command: The inline of block command.
+        :param command: The inline or block command.
         :param parent: The parent formatter.
         """
         if self.format not in formatters:
