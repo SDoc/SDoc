@@ -22,7 +22,7 @@ class HyperlinkNode(Node):
         :param options: The options of the hyperlink.
         :param argument: Not used.
         """
-        super().__init__(io, 'hyperlink', options, argument)
+        Node.__init__(self, io, 'hyperlink', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_html_attributes(self) -> Dict[str, str]:

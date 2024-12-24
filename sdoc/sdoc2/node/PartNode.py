@@ -21,7 +21,7 @@ class PartNode(HeadingNode):
         :param dict[str, str] options: The options of this part.
         :param argument: The title of this part.
         """
-        super().__init__(io, 'part', options, argument)
+        HeadingNode.__init__(self, io, 'part', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:

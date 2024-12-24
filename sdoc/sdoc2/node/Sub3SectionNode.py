@@ -20,7 +20,7 @@ class Sub3SectionNode(HeadingNode):
         :param options: The options of this section.
         :param argument: The title of this section.
         """
-        super().__init__(io, 'sub3section', options, argument)
+        HeadingNode.__init__(self, io, 'sub3section', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:

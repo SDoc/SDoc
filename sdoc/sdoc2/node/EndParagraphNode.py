@@ -23,7 +23,7 @@ class EndParagraphNode(Node):
         :param options: Not used.
         :param argument: Not used.
         """
-        super().__init__(io, 'end_paragraph', options, argument)
+        Node.__init__(self, io, 'end_paragraph', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:

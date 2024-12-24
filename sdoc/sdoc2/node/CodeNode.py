@@ -20,7 +20,7 @@ class CodeNode(Node):
         :param options: The options of this figure.
         :param argument: Not used.
         """
-        super().__init__(io, 'code', options, argument)
+        Node.__init__(self, io, 'code', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:

@@ -20,7 +20,7 @@ class VersionNode(Node):
         :param options: The options of the version.
         :param argument:
         """
-        super().__init__(io, 'version', options, argument)
+        Node.__init__(self, io, 'version', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:

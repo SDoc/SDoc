@@ -28,7 +28,7 @@ class IconNode(Node):
         :param options: The options of this figure.
         :param argument: Not used.
         """
-        super().__init__(io, 'icon', options, argument)
+        Node.__init__(self, io, 'icon', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:

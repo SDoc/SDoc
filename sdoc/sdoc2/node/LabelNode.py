@@ -20,7 +20,7 @@ class LabelNode(Node):
         :param options: The options of this label.
         :param argument: The title of this label.
         """
-        super().__init__(io, 'label', options, argument)
+        Node.__init__(self, io, 'label', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:

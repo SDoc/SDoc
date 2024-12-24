@@ -22,7 +22,7 @@ class ItemNode(Node):
         :param options: The options of this item.
         :param argument: Not used.
         """
-        super().__init__(io, 'item', options, argument)
+        Node.__init__(self, io, 'item', options, argument)
 
         self._hierarchy_level: int = 0
         """

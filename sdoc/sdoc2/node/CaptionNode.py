@@ -20,7 +20,7 @@ class CaptionNode(Node):
         :param options: The options of this caption.
         :param argument: The title of this caption.
         """
-        super().__init__(io, 'caption', options, argument)
+        Node.__init__(self, io, 'caption', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:

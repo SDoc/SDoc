@@ -20,7 +20,7 @@ class ChapterNode(HeadingNode):
         :param options: The options of this chapter.
         :param argument: The title of this chapter.
         """
-        super().__init__(io, 'chapter', options, argument)
+        HeadingNode.__init__(self, io, 'chapter', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:

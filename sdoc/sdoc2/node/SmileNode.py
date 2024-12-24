@@ -20,7 +20,7 @@ class SmileNode(Node):
         :param options: The options of this smile.
         :param argument: Not used.
         """
-        super().__init__(io, 'smile', options, argument)
+        Node.__init__(self, io, 'smile', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:

@@ -27,7 +27,7 @@ class HeadingNode(Node, ABC):
         :param options: The options of this heading.
         :param argument: The title of this heading.
         """
-        super().__init__(io, name, options, argument)
+        Node.__init__(self, io, name, options, argument)
 
         self.numbering: bool = True
         """

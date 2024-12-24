@@ -20,7 +20,7 @@ class ReferenceNode(Node):
         :param options: The options of this reference.
         :param argument: The title of this reference.
         """
-        super().__init__(io, 'ref', options, argument)
+        Node.__init__(self, io, 'ref', options, argument)
 
         self.text = ''
         """

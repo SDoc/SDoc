@@ -23,7 +23,7 @@ class ParagraphNode(HeadingNode):
         :param options: Not used.
         :param argument: The text of this paragraph.
         """
-        super().__init__(io, 'paragraph', options, argument)
+        HeadingNode.__init__(self, io, 'paragraph', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:

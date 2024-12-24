@@ -20,7 +20,7 @@ class UnknownNode(Node):
         :param options: The options of this smile.
         :param argument: Not used.
         """
-        super().__init__(io, 'unknown', options, argument)
+        Node.__init__(self, io, 'unknown', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:

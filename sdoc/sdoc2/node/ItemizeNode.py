@@ -23,7 +23,7 @@ class ItemizeNode(Node):
         :param io: The IO object.
         :param options: The options of this itemize.
         """
-        super().__init__(io, 'itemize', options)
+        Node.__init__(self, io, 'itemize', options)
 
         self._hierarchy_level: int = 0
         """

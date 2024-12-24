@@ -22,7 +22,7 @@ class FigureNode(Node):
         :param io: The IO object.
         :param options: The options of this figure.
         """
-        super().__init__(io, 'figure', options)
+        Node.__init__(self, io, 'figure', options)
 
         self.caption: str | None = None
         """

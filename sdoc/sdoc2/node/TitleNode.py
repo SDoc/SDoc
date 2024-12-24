@@ -20,7 +20,7 @@ class TitleNode(Node):
         :param options: The options of the title.
         :param argument:
         """
-        super().__init__(io, 'title', options, argument)
+        Node.__init__(self, io, 'title', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:

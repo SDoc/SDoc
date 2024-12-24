@@ -22,7 +22,7 @@ class TextNode(Node):
         :param options: Not used.
         :param argument: The actual text.
         """
-        super().__init__(io, 'TEXT', options, argument)
+        Node.__init__(self, io, 'TEXT', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def print_info(self, level: int) -> None:

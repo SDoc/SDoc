@@ -23,7 +23,7 @@ class DocumentNode(Node):
         :param io: The IO object.
         :param options: The options of this document.
         """
-        super().__init__(io, 'document', options)
+        Node.__init__(self, io, 'document', options)
 
         self.title_node_id: int | None = None
         """

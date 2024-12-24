@@ -20,7 +20,7 @@ class DateNode(Node):
         :param options: The options of the date.
         :param argument: The date.
         """
-        super().__init__(io, 'date', options, argument)
+        Node.__init__(self, io, 'date', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:
