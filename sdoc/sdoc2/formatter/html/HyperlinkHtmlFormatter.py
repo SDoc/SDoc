@@ -16,8 +16,8 @@ class HyperlinkHtmlFormatter(HtmlFormatter):
         """
         Generates the HTML code for a hyperlink node.
 
-        :param HyperlinkNode node: The hyperlink node.
-        :param any file: The output file.
+        :param node: The hyperlink node.
+        :param file: The output file.
         """
         file.write(HyperlinkHtmlFormatter.get_html(node))
 
@@ -27,7 +27,7 @@ class HyperlinkHtmlFormatter(HtmlFormatter):
         """
         Returns string with generated HTML tag.
 
-        :param HyperlinkNode node: The hyperlink node.
+        :param node: The hyperlink node.
         """
         return Html.generate_element('a', node.get_html_attributes(), node.argument)
 

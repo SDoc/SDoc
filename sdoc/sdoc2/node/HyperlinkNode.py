@@ -18,16 +18,16 @@ class HyperlinkNode(Node):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param dict[str,str] options: The options of the hyperlink.
-        :param str argument: Not used.
+        :param io: The IO object.
+        :param options: The options of the hyperlink.
+        :param argument: Not used.
         """
         super().__init__(io, 'hyperlink', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_html_attributes(self) -> Dict[str, str]:
         """
-        Checks valid html attributes for hyperlinks and returns a list of attributes.
+        Checks valid HTML attributes for hyperlinks and returns a list of attributes.
         """
         valid_html_attributes = ('href', 'class', 'id', 'download', 'hreflang', 'media', 'rel', 'target', 'type')
         attributes_dict = {}
@@ -43,7 +43,6 @@ class HyperlinkNode(Node):
         """
         Prepares the content of the node. Checks URL of 'href' attribute. Sets if needed.
         """
-        # Setting scheme if we haven't.
         if 'href' in self._options:
             self.set_scheme(self._options['href'])
         else:
@@ -55,9 +54,9 @@ class HyperlinkNode(Node):
     # ------------------------------------------------------------------------------------------------------------------
     def set_scheme(self, url: str):
         """
-        Checks if we haven't got a scheme. Sets scheme if needed.
+        Checks if we haven't got a scheme. Sets the scheme if needed.
 
-        :param str url: The URL with scheme or without.
+        :param url: The URL with scheme or without.
         """
         if not request.urlparse(url).scheme:
             if url.startswith('ftp.'):
@@ -105,7 +104,7 @@ class HyperlinkNode(Node):
 
     def get_command(self) -> str:
         """
-        Returns the command of this node, i.e. hyperlink.
+        Returns the command of this node, i.e., hyperlink.
         """
         return 'hyperlink'
 

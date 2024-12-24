@@ -15,8 +15,8 @@ class UnknownHtmlFormatter(HtmlFormatter):
         """
         Generates the HTML code for an unknown node.
 
-        :param Node node: The unknown node.
-        :param any file: The output file.
+        :param node: The unknown node.
+        :param file: The output file.
         """
         self.write_into_file(node)
 
@@ -25,8 +25,8 @@ class UnknownHtmlFormatter(HtmlFormatter):
         """
         Generates the HTML code for an unknown node.
 
-        :param Node node: The unknown node.
-        :param any file: The output file.
+        :param node: The unknown node.
+        :param file: The output file.
         """
         if file:
             self.write_into_file(node)
@@ -34,11 +34,11 @@ class UnknownHtmlFormatter(HtmlFormatter):
     # ------------------------------------------------------------------------------------------------------------------
     def write_into_file(self, node: Node):
         """
-        Writes into opened file.
+        Writes into the opened file.
 
-        :param Node node: The unknown node.
+        :param node: The unknown node.
         """
-        self.error('Unknown SDoc2 command {0}'.format(node.name), node)
+        self.error(f"Unknown SDoc2 command '{node.name}'", node)
 
 
 # ----------------------------------------------------------------------------------------------------------------------

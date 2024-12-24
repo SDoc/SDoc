@@ -19,16 +19,16 @@ class ParagraphNode(HeadingNode):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param dict[str,str] options: Not used.
-        :param str argument: The text of this paragraph.
+        :param io: The IO object.
+        :param options: Not used.
+        :param argument: The text of this paragraph.
         """
         super().__init__(io, 'paragraph', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:
         """
-        Returns the command of this node, i.e. paragraph.
+        Returns the command of this node, i.e., paragraph.
         """
         return 'paragraph'
 
@@ -44,7 +44,7 @@ class ParagraphNode(HeadingNode):
         """
         Overrides the HeadingNode implementation with the (original) Node implementation.
 
-        :param dict[str,str] numbers: The number of last node.
+        :param numbers: The number of the last node.
         """
         Node.number(self, numbers)
 
@@ -58,14 +58,14 @@ class ParagraphNode(HeadingNode):
     # ------------------------------------------------------------------------------------------------------------------
     def set_toc_id(self) -> None:
         """
-        Don't do anything. Because we needn't this behaviour here.
+        Don't do anything. Because we needn't this behavior here.
         """
         pass
 
     # ------------------------------------------------------------------------------------------------------------------
     def prune_whitespace(self) -> None:
         """
-        Removes spaces from end of a paragraph.
+        Removes spaces from the end of a paragraph.
         """
         first = self.child_nodes[0]
         last = self.child_nodes[-1]

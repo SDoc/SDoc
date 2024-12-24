@@ -1,4 +1,4 @@
-from typing import Dict, Optional
+from typing import Dict
 
 
 class Html:
@@ -12,8 +12,8 @@ class Html:
         """
         Returns a string with special characters converted to HTML entities.
 
-        :param str text: The string with optionally special characters.
-        :param bool quote: If true the quotation mark characters, both double quote (") and single quote (')
+        :param text: The string with optionally special characters.
+        :param bool quote: Whether the quotation characters, both double quote (") and single quote (')
                            characters are also translated.
         """
         text = text.replace("&", "&amp;")  # Must be done first!
@@ -31,8 +31,8 @@ class Html:
         """
         Returns a string proper conversion of special characters to HTML entities of an attribute of a HTML tag.
 
-        :param str name: The name of the attribute.
-        :param str value: The value of the attribute.
+        :param name: The name of the attribute.
+        :param value: The value of the attribute.
         """
         html = ''
 
@@ -87,7 +87,7 @@ class Html:
     # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
     def generate_element(tag_name: str,
-                         attributes: Optional[Dict[str, str]] = None,
+                         attributes: Dict[str, str] | None = None,
                          inner_text: str = '',
                          is_html: bool = False) -> str:
         """
@@ -95,10 +95,10 @@ class Html:
 
         Note: tags for void elements such as '<br/>' are not supported.
 
-        :param str tag_name: The name of the tag, e.g. a, form.
+        :param tag_name: The name of the tag, e.g., a, form.
         :param dict[str,str]|None attributes: The attributes of the tag. Special characters in the attributes will be
                                               replaced with HTML entities.
-        :param str inner_text: The inner text of the tag.
+        :param inner_text: The inner text of the tag.
         :param bool is_html: If set the inner text is a HTML snippet, otherwise special characters in the inner text
                              will be replaced with HTML entities.
         """
@@ -112,11 +112,11 @@ class Html:
 
     # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
-    def generate_tag(tag_name: str, attributes: Optional[Dict[str, str]] = None) -> str:
+    def generate_tag(tag_name: str, attributes: Dict[str, str] | None = None) -> str:
         """
         Generates HTML code for a start tag of an element.
 
-        :param str tag_name: The name of the tag, e.g. a, form.
+        :param tag_name: The name of the tag, e.g. a, form.
         :param dict[str,str]|None attributes: The attributes of the tag. Special characters in the attributes will be
                                               replaced with HTML entities.
         """
@@ -130,13 +130,13 @@ class Html:
 
     # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
-    def generate_void_element(tag_name: str, attributes: Optional[Dict[str, str]] = None) -> str:
+    def generate_void_element(tag_name: str, attributes: Dict[str, str] | None = None) -> str:
         """
         Generates HTML code for an element.
 
         Note: tags for void elements such as '<br/>' are not supported.
 
-        :param str tag_name: The name of the tag, e.g. a, form.
+        :param tag_name: The name of the tag, e.g., a, form.
         :param dict[str,str]|None attributes: The attributes of the tag. Special characters in the attributes will be
                                               replaced with HTML entities.
         """

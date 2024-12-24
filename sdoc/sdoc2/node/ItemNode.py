@@ -18,9 +18,9 @@ class ItemNode(Node):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param dict[str,str] options: The options of this item.
-        :param str argument: Not used.
+        :param io: The IO object.
+        :param options: The options of this item.
+        :param argument: Not used.
         """
         super().__init__(io, 'item', options, argument)
 
@@ -32,7 +32,7 @@ class ItemNode(Node):
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:
         """
-        Returns the command of this node, i.e. item.
+        Returns the command of this node, i.e., item.
         """
         return 'item'
 
@@ -41,7 +41,7 @@ class ItemNode(Node):
         """
         Returns parent_hierarchy_level.
 
-        :param int parent_hierarchy_level: The level of the parent in the hierarchy.
+        :param parent_hierarchy_level: The level of the parent in the hierarchy.
         """
         self._hierarchy_level = parent_hierarchy_level + 1
 
@@ -78,7 +78,7 @@ class ItemNode(Node):
     # ------------------------------------------------------------------------------------------------------------------
     def prepare_content_tree(self) -> None:
         """
-        Method which checks if all child nodes is phrasing.
+        Method which checks if all child nodes are phrasing.
         """
         first = self.child_nodes[0]
         last = self.child_nodes[-1]
@@ -107,7 +107,7 @@ class ItemNode(Node):
         """
         Increments the last level in number of the item node.
 
-        :param str number: The number of last node.
+        :param number: The number of the last node.
         """
         heading_numbers = number.split('.')
         heading_numbers[-1] = str(int(heading_numbers[-1]) + 1)
@@ -120,7 +120,7 @@ class ItemNode(Node):
         """
         Removes start point if it in the number.
 
-        :param str number: The number of last node.
+        :param number: The number of the last node.
         """
         return number.lstrip('.')
 
@@ -129,7 +129,7 @@ class ItemNode(Node):
         """
         Sets number for item nodes.
 
-        :param dict[str,str] numbers: The number of last node.
+        :param numbers: The number of the last node.
         """
         numbers['item'] = self.strip_start_point(numbers['item'])
         numbers['item'] = self._increment_last_level(numbers['item'])

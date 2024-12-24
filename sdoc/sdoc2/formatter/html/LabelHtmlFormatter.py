@@ -15,8 +15,8 @@ class LabelHtmlFormatter(HtmlFormatter):
         """
         Generates the HTML code for a label node.
 
-        :param LabelNode node: The label node.
-        :param any file: The output file.
+        :param node: The label node.
+        :param file: The output file.
         """
         HtmlFormatter.generate(self, node, file)
 

@@ -16,8 +16,8 @@ class TitleHtmlFormatter(HtmlFormatter):
         """
         Generates HTML code for a title node.
 
-        :param TitleNode node: The title node.
-        :param any file: The output file.
+        :param node: The title node.
+        :param file: The output file.
         """
         html_code = Html.generate_element('span', {}, node.argument)
 

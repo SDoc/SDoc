@@ -15,8 +15,8 @@ class LineBreakHtmlFormatter(HtmlFormatter):
         """
         Generates the HTML code for a smile node.
 
-        :param LineBreakNode node: The linebreak node.
-        :param any file: The output file.
+        :param node: The linebreak node.
+        :param file: The output file.
         """
         file.write('<br/>')
 

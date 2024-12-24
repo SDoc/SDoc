@@ -1,5 +1,5 @@
 import os
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 import antlr4
 from antlr4 import ParserRuleContext
@@ -29,7 +29,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Object constructor.
 
-        :param str root_dir: The root directory for including sub-documents.
+        :param root_dir: The root directory for including sub-documents.
         """
         SDocVisitor.__init__(self, io)
 
@@ -77,7 +77,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Setter for output.
 
-        :param any output: This object MUST implement the write method.
+        :param output: This object MUST implement the write method.
         """
         self._output = output
 
@@ -113,7 +113,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Setter for global_scope.
 
-        :param ArrayDataType scope: The global scope.
+        :param scope: The global scope.
         """
         self._global_scope = scope
 
@@ -122,7 +122,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Puts an output snippet on the output stream.
 
-        :param str snippet: The snippet to be appended to the output stream of this parser.
+        :param snippet: The snippet to be appended to the output stream of this parser.
         """
         if snippet is not None:
             self._output.write(snippet)
@@ -132,8 +132,8 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Puts a position SDoc2 command on the output stream.
 
-        :param ParserRuleContext ctx: The context tree.
-        :param str position: Either start or stop.
+        :param ctx: The context tree.
+        :param position: Either start or stop.
         """
         if position == 'start':
             token = ctx.start
@@ -157,13 +157,13 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         self.stream('\\position{{{0!s}:{1:d}.{2:d}}}'.format(SDoc.escape(filename), line_number, column))
 
     # ------------------------------------------------------------------------------------------------------------------
-    def _data_is_true(self, data: DataType, token: Optional[CommonToken] = None) -> Optional[bool]:
+    def _data_is_true(self, data: DataType, token: CommonToken | None = None) -> bool | None:
         """
         Returns True if a data type evaluates to True, False if a data type evaluates to False, and None if an error
         occurs.
 
-        :param DataType data: The data.
-        :param CommonToken token: The token where data type is been used.
+        :param data: The data.
+        :param CommonToken token: The token where data type is being used.
         """
         try:
             return data.is_true()
@@ -177,7 +177,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Visits a parse tree produced by sdoc1
 
-        :param ParserRuleContext tree: The context tree.
+        :param tree: The context tree.
         """
         self.put_position(tree, 'start')
 
@@ -188,7 +188,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Visit a parse tree for expression like a = b.
 
-        :param sdoc1Parser.AssignmentExpressionAssignmentContext ctx: The context tree.
+        :param ctx: The context tree.
         """
         right_hand_side = ctx.assignmentExpression().accept(self)
         left_hand_side = ctx.postfixExpression().accept(self)
@@ -213,7 +213,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Visits a parse tree for expressions like 'a && b'.
 
-        :param sdoc1Parser.LogicalAndExpressionAndContext ctx: The context tree.
+        :param ctx: The context tree.
         """
         a_ctx = ctx.logicalAndExpression()
         b_ctx = ctx.equalityExpression()
@@ -232,7 +232,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Visits a parse tree for expressions like 'a || b'.
 
-        :param sdoc1Parser.LogicalOrExpressionLogicalOrContext ctx: The context tree.
+        :param ctx: The context tree.
         """
         a_ctx = ctx.logicalOrExpression()
         b_ctx = ctx.logicalAndExpression()
@@ -247,13 +247,13 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
 
     # ------------------------------------------------------------------------------------------------------------------
     def visitPostfixExpressionExpression(self, ctx: sdoc1Parser.PostfixExpressionExpressionContext) \
-            -> Optional[DataType]:
+            -> DataType | None:
         """
         Visits a parse tree for expressions like 'a[1]'.
 
-        :param sdoc1Parser.PostfixExpressionExpressionContext ctx: The context tree.
+        :param ctx: The context tree.
         """
-        # First get the value of key.
+        # First, get the value of key.
         expression = ctx.expression().accept(self)
         if not expression.is_defined():
             message = '{0!s} is not defined.'.format(ctx.expression().getSymbol())
@@ -273,8 +273,6 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
             -> IdentifierDataType:
         """
         Visits a parse tree produced by sdoc1Parser#primaryExpressionIdentifier.
-
-        :param sdoc1Parser.PrimaryExpressionIdentifierContext ctx: The context tree.
         """
         return IdentifierDataType(self._global_scope, ctx.EXPR_IDENTIFIER().getText())
 
@@ -284,7 +282,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Visits a parse tree produced by sdoc1Parser#PrimaryExpressionIntegerConstantContext.
 
-        :param sdoc1Parser.PrimaryExpressionIntegerConstantContext ctx: The context tree.
+        :param ctx: The context tree.
         """
         return IntegerDataType(ctx.EXPR_INTEGER_CONSTANT().getText())
 
@@ -294,7 +292,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Visits a parse tree produced by sdoc1Parser#PrimaryExpressionStringConstantContext.
 
-        :param sdoc1Parser.PrimaryExpressionStringConstantContext ctx: The context tree.
+        :param ctx: The context tree.
         """
         return StringDataType(ctx.EXPR_STRING_CONSTANT().getText()[1:-1].replace('\\\\', '\\').replace('\\\'', '\''))
 
@@ -303,7 +301,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Visits a parse tree for sub-expressions like (a && b).
 
-        :param sdoc1Parser.PrimaryExpressionSubExpressionContext ctx: The context tree.
+        :param ctx: The context tree.
         """
         return ctx.expression().accept(self)
 
@@ -312,7 +310,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Visits a parse tree produced by sdoc1Parser#cmd_comment.
 
-        :param sdoc1Parser.Cmd_commentContext ctx: The context tree.
+        :param ctx: The context tree.
         """
         self.put_position(ctx, 'stop')
 
@@ -321,7 +319,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Visits a parse tree produced by sdoc1Parser#cmd_debug.
 
-        :param sdoc1Parser.Cmd_debugContext ctx: The context tree.
+        :param ctx: The context tree.
         """
         expression = ctx.expression()
 
@@ -337,7 +335,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Visits a parse tree produced by sdoc1Parser#cmd_expression.
 
-        :param sdoc1Parser.Cmd_expressionContext ctx: The context tree.
+        :param ctx: The context tree.
         """
         self.visitExpression(ctx.expression())
 
@@ -348,7 +346,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Visits a parse tree produced by sdoc1Parser#cmd_error.
 
-        :param sdoc1Parser.Cmd_errorContext ctx: The parse tree.
+        :param ctx: The parse tree.
         """
         token = ctx.ERROR().getSymbol()
         message = SDoc.unescape(ctx.SIMPLE_ARG().getText())
@@ -362,7 +360,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Visits a parse tree produced by sdoc1Parser#cmd_if.
 
-        :param sdoc1Parser.Cmd_ifContext ctx: The parse tree.
+        :param ctx: The parse tree.
         """
         n = ctx.getChildCount()
         fired = False
@@ -411,9 +409,9 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
     # ------------------------------------------------------------------------------------------------------------------
     def visitCmd_include(self, ctx: sdoc1Parser.Cmd_includeContext) -> None:
         """
-        Includes another SDoc into this SDoc.
+        Includes another SDoc in this SDoc.
 
-        :param sdoc1Parser.Cmd_includeContext ctx: The parse tree.
+        :param ctx: The parse tree.
         """
         # Test the maximum include level.
         if self._include_level >= self._options['max_include_level']:
@@ -462,7 +460,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Visits a parse tree produced by sdoc1Parser#cmd_notice.
 
-        :param sdoc1Parser.Cmd_noticeContext ctx: The parse tree.
+        :param ctx: The parse tree.
         """
         token = ctx.NOTICE().getSymbol()
         filename = token.getInputStream().fileName  # Replace fileName with get_source_name() when implemented in ANTLR.
@@ -479,7 +477,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Visit a parse tree produced by sdoc1Parser#cmd_substitute.
 
-        :param sdoc1Parser.Cmd_substituteContext ctx:  The parse tree.
+        :param ctx:  The parse tree.
         """
         expression = ctx.expression()
         self.stream(expression.accept(self).get_value())
@@ -491,7 +489,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Visits a parse tree produced by sdoc1Parser#sdoc2_cmd.
 
-        :param sdoc1Parser.Cmd_sdoc2Context ctx: The parse tree.
+        :param ctx: The parse tree.
         """
         self.stream(ctx.SDOC2_COMMAND().getText())
 
@@ -500,7 +498,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         Visits a parse tree produced by sdoc1Parser#text.
 
-        :param sdoc1Parser.TextContext ctx: The parse tree.
+        :param ctx: The parse tree.
         """
         self.stream(ctx.TEXT().getText())
 

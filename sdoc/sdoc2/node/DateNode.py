@@ -16,16 +16,16 @@ class DateNode(Node):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param dict[str,str] options: The options of the date.
-        :param str argument: The date.
+        :param io: The IO object.
+        :param options: The options of the date.
+        :param argument: The date.
         """
         super().__init__(io, 'date', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:
         """
-        Returns the command of this node, i.e. date.
+        Returns the command of this node, i.e., date.
         """
         return 'date'
 

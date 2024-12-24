@@ -1,5 +1,3 @@
-from typing import Union
-
 from sdoc.sdoc1.data_type.ArrayDataType import ArrayDataType
 from sdoc.sdoc1.data_type.DataType import DataType
 from sdoc.sdoc1.data_type.StringDataType import StringDataType
@@ -11,7 +9,7 @@ class IdentifierDataType(DataType):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, scope: ArrayDataType, name: Union[int, str]):
+    def __init__(self, scope: ArrayDataType, name: int | str):
         """
         Object constructor.
 
@@ -23,7 +21,7 @@ class IdentifierDataType(DataType):
         The scope of this identifier.
         """
 
-        self._name: Union[int, str] = name
+        self._name: int | str = name
         """
         The name of this identifier.
         """
@@ -33,7 +31,7 @@ class IdentifierDataType(DataType):
         """
         Returns a string for debugging.
 
-        :param int indent: Unused.
+        :param indent: Unused.
         """
         if not self._scope.has_element(self._name):
             return "'{0!s}' = {1!s}".format(self._name, 'UNDEFINED')
@@ -51,14 +49,14 @@ class IdentifierDataType(DataType):
         return self._scope.get_reference(self._name).dereference()
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_value(self) -> Union[int, str]:
+    def get_value(self) -> int | str:
         """
         Returns the underling value of this data type.
         """
         return self._scope.get_reference(self._name).get_value()
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_name(self) -> Union[int, str]:
+    def get_name(self) -> int | str:
         """
         Returns the name of this identifier.
         """
@@ -68,8 +66,6 @@ class IdentifierDataType(DataType):
     def get_type_id(self) -> int:
         """
         Returns the ID of this data type.
-
-        :rtype: int
         """
         return self._scope.get_reference(self._name).get_type_id()
 

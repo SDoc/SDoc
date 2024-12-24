@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Tuple
 
 from cleo.io.io import IO
 
@@ -39,7 +39,7 @@ class NodeStore:
     The error count.
     """
 
-    _io: Optional[IO] = None
+    _io: IO | None = None
     """
     Styled output formatter.
     """
@@ -75,7 +75,7 @@ class NodeStore:
         The current numbers of enumerable nodes (e.g. headings, figures).
         """
 
-        self.labels: Dict[str, Union[str, Dict[str, str]]] = {}
+        self.labels: Dict[str, str | Dict[str, str]] = {}
         """
         The identifiers of labels which refers on each heading node.
         """
@@ -86,7 +86,7 @@ class NodeStore:
         """
         Logs an error.
 
-        :param str message: The error message.this message will be appended with 'at filename:line.column' ot the token.
+        :param message: The error message.this message will be appended with 'at filename:line.column' ot the token.
         :param sdoc.sdoc2.node.Node.Node|None node: The node where the error occurred.
         """
         NodeStore._errors += 1
@@ -105,10 +105,8 @@ class NodeStore:
         """
         Returns the formatter for special type.
 
-        :param str output_type: The type of output formatter (e.g. 'html')
-        :param str name_formatter: The name of formatter (e.g. 'smile')
-
-        :rtype: sdoc.sdoc2.formatter.Formatter.Formatter
+        :param output_type: The type of output formatter (e.g. 'html')
+        :param name_formatter: The name of formatter (e.g. 'smile')
         """
         return formatters[output_type][name_formatter]
 
@@ -117,7 +115,7 @@ class NodeStore:
         """
         Signals the end of a block command.
 
-        :param string command: The name of the inline command.
+        :param command: The name of the inline command.
         """
         # Pop none block command nodes from the stack.
         while self.nested_nodes and not self.nested_nodes[-1].is_block_command():
@@ -144,8 +142,6 @@ class NodeStore:
         Retrieves a node based on its ID.
 
         :param int node_id: The node ID.
-
-        :rtype: sdoc.sdoc2.node.Node.Node
         """
         return self.nodes[node_id]
 
@@ -154,7 +150,7 @@ class NodeStore:
         """
         Marks a node as no longer in scope.
 
-        :param sdoc.sdoc2.node.Node.Node node: The node.
+        :param node: The node.
         """
         pass
 
@@ -164,7 +160,7 @@ class NodeStore:
         """
         Registers a node constructor for an inline command.
 
-        :param str command: The name of the inline command.
+        :param command: The name of the inline command.
         :param callable constructor: The node constructor.
         """
         inline_creators[command] = constructor
@@ -173,10 +169,10 @@ class NodeStore:
     @staticmethod
     def register_formatter(command: str, output_format: str, formatter) -> None:
         """
-        Registers a output formatter constructor for a command.
+        Registers an output formatter constructor for a command.
 
-        :param str command: The name of the command.
-        :param str output_format: The output format the formatter generates.
+        :param command: The name of the command.
+        :param output_format: The output format the formatter generates.
         :param callable formatter: The formatter for generating the content of the node in the output format.
         """
         if output_format not in formatters:
@@ -190,7 +186,7 @@ class NodeStore:
         """
         Registers a node constructor for a block command.
 
-        :param str command: The name of the inline command.
+        :param command: The name of the inline command.
         :param callable constructor: The node constructor.
         """
         block_creators[command] = constructor
@@ -198,7 +194,7 @@ class NodeStore:
     # ------------------------------------------------------------------------------------------------------------------
     def create_inline_node(self,
                            command: str,
-                           options: Optional[Dict[str, str]] = None,
+                           options: Dict[str, str] | None = None,
                            argument: str = '',
                            position: Position = None):
         """
@@ -206,12 +202,10 @@ class NodeStore:
 
         Note: The node is not stored nor appended to the content tree.
 
-        :param str command: The inline command.
-        :param dict[str,str] options: The options.
-        :param str argument: The argument of the inline command.
+        :param command: The inline command.
+        :param options: The options.
+        :param argument: The argument of the inline command.
         :param Position|None position: The position of the node definition.
-
-        :rtype: sdoc.sdoc2.node.Node.Node
         """
         if command not in inline_creators:
             # @todo set error status
@@ -238,11 +232,9 @@ class NodeStore:
 
         Note: The node is not appended to the content tree.
 
-        :param str command: The inline command.
-        :param dict[str,str] options: The options.
+        :param command: The inline command.
+        :param options: The options.
         :param Position position: The position of the node definition.
-
-        :rtype: sdoc.sdoc2.node.Node.Node
         """
         if command not in block_creators:
             constructor = block_creators['unknown']
@@ -265,12 +257,10 @@ class NodeStore:
         """
         Creates a node based an inline command and appends it to the end of the content tree.
 
-        :param str command: The inline command.
-        :param dict[str,str] options: The options.
-        :param str argument: The argument of the inline command.
+        :param command: The inline command.
+        :param options: The options.
+        :param argument: The argument of the inline command.
         :param Position position: The position of the node definition.
-
-        :rtype: sdoc.sdoc2.node.Node.Node
         """
         # Create the inline node.
         node = self.create_inline_node(command, options, argument, position)
@@ -285,11 +275,9 @@ class NodeStore:
         """
         Creates a node based on a block command and appends it to the end of the content tree.
 
-        :param str command: The inline command.
-        :param dict[str,str] options: The options.
+        :param command: The inline command.
+        :param options: The options.
         :param Position position: The position of the node definition.
-
-        :rtype: sdoc.sdoc2.node.Node.Node
         """
         # Create the block node.
         node = self.create_block_node(command, options, position)
@@ -304,11 +292,9 @@ class NodeStore:
         """
         Creates a formatter for generating the output of nodes in the requested output format.
 
-        :param OutputStyle io: The IO object.
-        :param str command: The inline of block command.
-        :param sdoc.sdoc2.formatter.Formatter.Formatter|None parent: The parent formatter.
-
-        :rtype: sdoc.sdoc2.formatter.Formatter.Formatter
+        :param io: The IO object.
+        :param command: The inline of block command.
+        :param parent: The parent formatter.
         """
         if self.format not in formatters:
             raise RuntimeError("Unknown output format '{0!s}'.".format(self.format))
@@ -327,7 +313,7 @@ class NodeStore:
         """
         Adjust the hierarchy based on the hierarchy of a new node.
 
-        :param sdoc.sdoc2.node.Node.Node node: The new node.
+        :param node: The new node.
         """
         node_hierarchy_name = node.get_hierarchy_name()
         parent_found = False
@@ -460,8 +446,6 @@ class NodeStore:
         Returns a list with tuples with command and number of enumerated nodes.
 
         This method is intended for unit test only.
-
-        :rtype: list[(str,str)]
         """
         return self.nodes[1].get_enumerated_items()
 

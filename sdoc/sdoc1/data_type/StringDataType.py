@@ -11,7 +11,7 @@ class StringDataType(DataType):
         """
         Object constructor.
 
-        :param str value: The value of this string constant.
+        :param value: The value of this string constant.
         """
         self._value: str = value
         """
@@ -23,7 +23,7 @@ class StringDataType(DataType):
         """
         Returns a string for debugging.
 
-        :param int indent: Unused.
+        :param indent: Unused.
         """
         return "'" + self._value + "'"
 
@@ -31,8 +31,6 @@ class StringDataType(DataType):
     def dereference(self):
         """
         Returns a clone of this string.
-
-        :rtype: sdoc.sdoc1.data_type.StringDataType.StringDataType
         """
         return StringDataType(self._value)
 

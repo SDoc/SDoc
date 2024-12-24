@@ -12,7 +12,7 @@ class SDoc:
         """
         Returns an escaped string that is safe to use in SDoc.
 
-        :param str text: The escaped string.
+        :param text: The escaped string.
         """
 
         def replace(match_obj):
@@ -20,8 +20,6 @@ class SDoc:
             Returns the match text prefixed with backslash
 
             :param re.match match_obj: The match.
-
-            :rtype: str
             """
             return '\\' + match_obj.group(0)
 
@@ -31,18 +29,16 @@ class SDoc:
     @staticmethod
     def unescape(text: str) -> str:
         """
-        Returns an unescaped SDoc escaped string. I.e. removes back slashes.
+        Returns an unescaped SDoc escaped string. I.e., removes back slashes.
 
-        :param str text: The SDoc escaped string.
+        :param text: The SDoc escaped string.
         """
 
-        def replace(match_obj):
+        def replace(match_obj: re.match):
             """
-            Returns the match text without prefixed backslash.
+            Returns the match text without prefixed backslashes.
 
-            :param re.match match_obj: The match.
-
-            :rtype: str
+            :param match_obj: The match.
             """
             return match_obj.group(0)[1:]
 

@@ -16,8 +16,8 @@ class TocHtmlFormatter(HtmlFormatter):
         """
         Generates the HTML code for a table of contents node.
 
-        :param TocNode node: The table of contents node.
-        :param any file: The output file.
+        :param node: The table of contents node.
+        :param file: The output file.
         """
         self.write_into_file(node, file)
 
@@ -27,10 +27,10 @@ class TocHtmlFormatter(HtmlFormatter):
     @staticmethod
     def write_into_file(node: TocNode, file: Any) -> None:
         """
-        Writes data into opened file.
+        Writes data into the opened HTML file.
 
-        :param TocNode node: The table of contents node.
-        :param any file: The output file.
+        :param node: The table of contents node.
+        :param file: The output file.
         """
         attributes = {'role': 'navigation', 'class': 'table-of-contents'}
 
@@ -50,7 +50,7 @@ class TocHtmlFormatter(HtmlFormatter):
         Writes the contents into file.
 
         :param TocNode node: The table of contents node.
-        :param any file: The output file.
+        :param file: The output file.
         """
         depth = node.get_option_value('depth')
 
@@ -67,8 +67,8 @@ class TocHtmlFormatter(HtmlFormatter):
         """
         Write the containing elements.
 
-        :param dict[str,str] item: The item which we outputs.
-        :param any file: The output file.
+        :param item: The item which we outputs.
+        :param file: The output file.
         """
         class_attr = 'level{}'.format(item['level'])
         file.write(Html.generate_tag('li', {'class': class_attr}))

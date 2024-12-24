@@ -15,8 +15,8 @@ class ItemizeHtmlFormatter(HtmlFormatter):
         """
         Generates the HTML code for an itemize node.
 
-        :param ItemizeNode node: The itemize node.
-        :param any file: The output file.
+        :param node: The itemize node.
+        :param file: The output file.
         """
         file.write('<ul>')
         HtmlFormatter.generate(self, node, file)

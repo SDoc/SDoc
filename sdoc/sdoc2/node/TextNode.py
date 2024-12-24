@@ -18,9 +18,9 @@ class TextNode(Node):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param dict[str,str] options: Not used.
-        :param str argument: The actual text.
+        :param io: The IO object.
+        :param options: Not used.
+        :param argument: The actual text.
         """
         super().__init__(io, 'TEXT', options, argument)
 
@@ -29,14 +29,14 @@ class TextNode(Node):
         """
         Temp function for development.
 
-        :param int level: the level of block commands.
+        :param level: The level of block commands.
         """
         self.io.write_line("{0!s}{1:4d} {2!s} {3!s}".format(' ' * 4 * level, self.id, self.name, ''))
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:
         """
-        Returns the command of this node, i.e. TEXT.
+        Returns the command of this node, i.e., TEXT.
         """
         return 'TEXT'
 
@@ -64,13 +64,10 @@ class TextNode(Node):
     # ------------------------------------------------------------------------------------------------------------------
     def split_by_paragraph(self) -> List[int]:
         """
-        Splits this text node into text nodes without a paragraph separator (i.e. a double new line) in to a list of
-        text nodes without paragraph separator each paragraph separator is replace with a end paragraph node. Each
-        paragraph separator is replaced wth a end paragraph node.
+        Splits this text node into text nodes without a paragraph separator (i.e., a double new line) in to a list of
+        text nodes without paragraph separators. Each paragraph separator is replaced with an end paragraph node.
 
         Returns a list of node IDs.
-
-        :rtype: list[int]
         """
         text_ids = []
         list_of_texts = re.split("\n\n", self._argument)
@@ -109,8 +106,8 @@ class TextNode(Node):
         """
         Method for removing whitespace in text.
 
-        :param bool leading: if True, remove whitespaces from start.
-        :param bool trailing: if True, remove whitespaces from end.
+        :param leading: Whether to remove leading whitespaces.
+        :param trailing: Whether to remove trailing whitespaces.
         """
         if leading:
             self._argument = self._argument.lstrip()

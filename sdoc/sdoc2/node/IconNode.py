@@ -1,4 +1,4 @@
-from typing import Dict, Optional
+from typing import Dict
 
 from cleo.io.io import IO
 
@@ -24,16 +24,16 @@ class IconNode(Node):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param dict[str,str] options: The options of this figure.
-        :param str argument: Not used.
+        :param io: The IO object.
+        :param options: The options of this figure.
+        :param argument: Not used.
         """
         super().__init__(io, 'icon', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:
         """
-        Returns the command of this node, i.e. icon.
+        Returns the command of this node, i.e., icon.
         """
         return 'icon'
 
@@ -64,20 +64,18 @@ class IconNode(Node):
         """
         Adds the definition of an icon to the icon definitions.
 
-        :param str name: The name of a reference to icon definition.
-        :param dict[str,str] attributes: The attributes.
+        :param name: The name of a reference to icon definition.
+        :param attributes: The attributes.
         """
         IconNode._definitions[name] = attributes
 
     # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
-    def get_definition(name: str) -> Optional[Dict[str, str]]:
+    def get_definition(name: str) -> Dict[str, str] | None:
         """
-        Returns the attributes of a definition, if name of definition is exists.
+        Returns the attributes of the definition of an icon if the definition exists.
 
-        :param str name: The name of a definition
-
-        :rtype: dict[str,str]|None
+        :param name: The name of the icon definition.
         """
         if name in IconNode._definitions:
             return IconNode._definitions[name]

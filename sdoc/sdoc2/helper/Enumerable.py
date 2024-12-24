@@ -1,4 +1,4 @@
-from typing import Dict, Optional
+from typing import Dict
 
 
 class Enumerable:
@@ -18,11 +18,11 @@ class Enumerable:
         """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_level(self, level: int) -> Optional[int]:
+    def get_level(self, level: int) -> int | None:
         """
         Gets the level from numerate data.
 
-        :param: int level: The level.
+        :param level: The level.
         """
         if level in self._numerate_data:
             return self._numerate_data[level]
@@ -34,7 +34,7 @@ class Enumerable:
         """
         Sets current enumeration of headings at a heading level.
 
-        :param int level: The level of nested heading.
+        :param level: The level of nested heading.
         """
         for num in range(level + 1):
             if num not in self._numerate_data:

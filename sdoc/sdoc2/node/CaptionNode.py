@@ -16,16 +16,16 @@ class CaptionNode(Node):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param dict[str,str] options: The options of this caption.
-        :param str argument: The title of this caption.
+        :param io: The IO object.
+        :param options: The options of this caption.
+        :param argument: The title of this caption.
         """
         super().__init__(io, 'caption', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:
         """
-        Returns the command of this node, i.e. caption.
+        Returns the command of this node, i.e., caption.
         """
         return 'caption'
 

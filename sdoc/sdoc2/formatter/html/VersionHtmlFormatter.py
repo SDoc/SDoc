@@ -16,8 +16,8 @@ class VersionHtmlFormatter(HtmlFormatter):
         """
         Generates HTML code for a version node.
 
-        :param VersionNode node: The version node.
-        :param any file: The output file.
+        :param node: The version node.
+        :param file: The output file.
         """
         html_code = Html.generate_element('span', {}, node.argument)
 

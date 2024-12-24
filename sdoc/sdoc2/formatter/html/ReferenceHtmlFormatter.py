@@ -16,8 +16,8 @@ class ReferenceHtmlFormatter(HtmlFormatter):
         """
         Generates the HTML code for a reference node.
 
-        :param ReferenceNode node: The reference node.
-        :param any file: The output file.
+        :param node: The reference node.
+        :param file: The output file.
         """
         self.write_into_file(node, file)
 
@@ -27,10 +27,10 @@ class ReferenceHtmlFormatter(HtmlFormatter):
     @staticmethod
     def write_into_file(node: ReferenceNode, file: Any) -> None:
         """
-        Writes data into opened file.
+        Writes data into the opened HTML file.
 
-        :param ReferenceNode node: The reference node.
-        :param any file: The output file.
+        :param node: The reference node.
+        :param file: The output file.
         """
         file.write(ReferenceHtmlFormatter.get_html(node))
 
@@ -40,7 +40,7 @@ class ReferenceHtmlFormatter(HtmlFormatter):
         """
         Returns string with generated HTML tag.
 
-        :param ReferenceNode node: The reference node.
+        :param node: The reference node.
         """
         attributes = {'class': node.get_option_value('class'),
                       'href':  node.get_option_value('href'),

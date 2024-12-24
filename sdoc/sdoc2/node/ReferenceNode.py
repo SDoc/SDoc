@@ -16,9 +16,9 @@ class ReferenceNode(Node):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param dict[str,str] options: The options of this reference.
-        :param str argument: The title of this reference.
+        :param io: The IO object.
+        :param options: The options of this reference.
+        :param argument: The title of this reference.
         """
         super().__init__(io, 'ref', options, argument)
 
@@ -32,7 +32,7 @@ class ReferenceNode(Node):
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:
         """
-        Returns the command of this node, i.e. reference.
+        Returns the command of this node, i.e., reference.
         """
         return 'ref'
 

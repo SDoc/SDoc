@@ -13,8 +13,8 @@ class HtmlFormatter(Formatter):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param Formatter parent: The formatter for the parent node.
+        :param io: The IO object.
+        :param parent: The formatter for the parent node.
         """
         Formatter.__init__(self, io, parent)
 

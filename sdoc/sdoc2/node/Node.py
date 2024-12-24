@@ -1,5 +1,5 @@
 import abc
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Tuple
 
 from cleo.io.io import IO
 
@@ -13,14 +13,14 @@ class Node(metaclass=abc.ABCMeta):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, name: str, options: Optional[Dict[str, str]] = None, argument: str = ''):
+    def __init__(self, io: IO, name: str, options: Dict[str, str] | None = None, argument: str = ''):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param str name: The (command) name of this node.
-        :param dict[str,str] options: The options of this node.
-        :param str argument: The argument of this node (inline commands only).
+        :param io: The IO object.
+        :param name: The (command) name of this node.
+        :param options: The options of this node.
+        :param argument: The argument of this node (inline commands only).
         """
         self._io: IO = io
         """
@@ -52,7 +52,7 @@ class Node(metaclass=abc.ABCMeta):
         The ID's of the SDoc2 child nodes of this SDoc2 node.
         """
 
-        self.position: Optional[Position] = None
+        self.position: Position | None = None
         """
         The position where this node is defined.
         """
@@ -84,7 +84,7 @@ class Node(metaclass=abc.ABCMeta):
         """
         Setter for argument.
 
-        :param str new_argument: The new argument.
+        :param new_argument: The new argument.
         """
         self._argument = new_argument
 
@@ -93,7 +93,7 @@ class Node(metaclass=abc.ABCMeta):
         """
         Temp function for development.
 
-        :param int level: the level of block commands.
+        :param level: The level of block commands.
         """
         self.io.write_line("{0!s}{1:4d} {2!s}".format(' ' * 4 * level, self.id, self.name))
 
@@ -107,15 +107,15 @@ class Node(metaclass=abc.ABCMeta):
     # ------------------------------------------------------------------------------------------------------------------
     def _remove_child_nodes(self, node_list: List[int]) -> None:
         """
-        Removes child nodes from list of child nodes of this node.
+        Removes child nodes from the list of child nodes of this node.
 
-        :param list[int] node_list: The child nodes to be removed.
+        :param node_list: The child nodes to be removed.
         """
         for node in node_list:
             self.child_nodes.remove(node)
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_hierarchy_name(self) -> Optional[str]:
+    def get_hierarchy_name(self) -> str | None:
         """
         Returns the hierarchy name if this node is a part of a hierarchy. Otherwise, returns None.
         """
@@ -134,7 +134,7 @@ class Node(metaclass=abc.ABCMeta):
         """
         Returns the hierarchy level if this node is a part of a hierarchy.
 
-        :param int parent_hierarchy_level: The hierarchy level of the parent node in the same hierarchy.
+        :param parent_hierarchy_level: The hierarchy level of the parent node in the same hierarchy.
         """
         raise RuntimeError("This method MUST only be called when a node is a part of an hierarchy.")
 
@@ -143,17 +143,17 @@ class Node(metaclass=abc.ABCMeta):
         """
         Returns the value of an option. Returns None if the option is not set.
 
-        :param str option_name: The name of the option.
+        :param option_name: The name of the option.
         """
         return self._options[option_name] if option_name in self._options else None
 
     # ------------------------------------------------------------------------------------------------------------------
     def set_option_value(self, option: str, value: str) -> None:
         """
-        Sets value for option.
+        Sets the value for an option.
 
-        :param str option: The name of an option
-        :param str value: The value of an option
+        :param option: The name of the option.
+        :param value: The value of the option
         """
         self._options[option] = value
 
@@ -161,21 +161,21 @@ class Node(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def is_block_command(self) -> bool:
         """
-        Returns True if this node is created by a block command. Otherwise, returns False.
+        Returns whether this node is created by a block command.
         """
         raise NotImplementedError()
 
     # ------------------------------------------------------------------------------------------------------------------
     def is_document_root(self) -> bool:
         """
-        Returns True if this node is a document root node. Otherwise, returns False.
+        Returns whether this node is a document root node.
         """
         return False
 
     # ------------------------------------------------------------------------------------------------------------------
     def is_hierarchy_root(self) -> bool:
         """
-        Returns True if this node can be the root of a hierarchy. Otherwise, returns False.
+        Returns whether this node can be the root of a hierarchy.
         """
         return False
 
@@ -183,21 +183,21 @@ class Node(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def is_inline_command(self) -> bool:
         """
-        Returns True if this node is created by a inline command. Otherwise returns False.
+        Returns whether this node is created by an inline command.
         """
         raise NotImplementedError()
 
     # ------------------------------------------------------------------------------------------------------------------
     def is_phrasing(self) -> bool:
         """
-        Returns True if this node is a phrasing node, i.e. is a part of a paragraph. Otherwise, returns False.
+        Returns whether this node is a phrasing node, i.e., is a part of a paragraph.
         """
         return False
 
     # ------------------------------------------------------------------------------------------------------------------
     def is_list_element(self) -> bool:
         """
-        Returns True if this node is a list element, e.g. an item in itemize. Otherwise, returns False.
+        Returns whether this node is a list element, e.g., an item in itemize.
         """
         return False
 
@@ -206,7 +206,7 @@ class Node(metaclass=abc.ABCMeta):
         """
         Appends a child node to the list of child nodes of the node.
 
-        :param sdoc.sdoc2.node.Node.Node child_node: The new child node
+        :param child_node: The new child node
         """
         self.child_nodes.append(child_node.id)
 
@@ -217,9 +217,7 @@ class Node(metaclass=abc.ABCMeta):
         """
         for node_id in self.child_nodes:
             node = in_scope(node_id)
-
             node.prepare_content_tree()
-
             out_scope(node)
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -227,17 +225,15 @@ class Node(metaclass=abc.ABCMeta):
         """
         Numbers all numerable nodes such as chapters, sections, figures, and, items.
 
-        :param dict[str,str] numbers: The current numbers.
+        :param numbers: The current numbers.
         """
         for node_id in self.child_nodes:
             node = in_scope(node_id)
-
             node.number(numbers)
-
             out_scope(node)
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_enumerated_items(self) -> List[Union[Tuple[str, str, str], List[Tuple[str, str]]]]:
+    def get_enumerated_items(self) -> List[Tuple[str, str, str] | List[Tuple[str, str]]]:
         """
         Returns a list with a tuple with command and number of enumerated child nodes.
 
@@ -274,7 +270,7 @@ class Node(metaclass=abc.ABCMeta):
     # ------------------------------------------------------------------------------------------------------------------
     def modify_label_list(self) -> None:
         """
-        Creates label list for each heading node, and for node_store. Removes label nodes from child list.
+        Creates a label list for each heading node, and for node_store. Removes label nodes from child list.
         """
         obsolete_node_ids = []
         for node_id in self.child_nodes:
@@ -308,7 +304,7 @@ class Node(metaclass=abc.ABCMeta):
         """
         Appending in NodeStore labels list.
 
-        :param sdoc.sdoc2.node.Node.Node node: The current node.
+        :param node: The current node.
         """
         if node.argument not in node_store.labels:
             if self.argument:

@@ -21,8 +21,8 @@ class SDoc2Visitor(sdoc2ParserVisitor, SDocVisitor):
         """
         Object constructor.
 
-        :param str sdoc1_path: The path to the original SDoc1 document.
-        :param cleo.styles.output_style.OutputStyle io: The IO object.
+        :param sdoc1_path: The path to the original SDoc1 document.
+        :param io: The IO object.
         """
         SDocVisitor.__init__(self, io)
 
@@ -67,7 +67,7 @@ class SDoc2Visitor(sdoc2ParserVisitor, SDocVisitor):
         """
         Returns the option of a command.
 
-        :param ParserRuleContext ctx: The parse tree with the options.
+        :param ctx: The parse tree with the options.
         """
         options = {}
         i = 0
@@ -94,7 +94,7 @@ class SDoc2Visitor(sdoc2ParserVisitor, SDocVisitor):
         """
         Returns the position of the token in the original SDoc1 source file.
 
-        :param CommonToken token:
+        :param token:
         """
         line_number = token.line
         column = token.column
@@ -111,7 +111,7 @@ class SDoc2Visitor(sdoc2ParserVisitor, SDocVisitor):
         """
         Sets the object for streaming the generated output.
 
-        :param any output: This object MUST implement the write method.
+        :param output: This object MUST implement the write method.
         """
         self._output = output
 
@@ -120,7 +120,7 @@ class SDoc2Visitor(sdoc2ParserVisitor, SDocVisitor):
         """
         Puts an output snippet on the output stream.
 
-        :param str snippet: The snippet to be appended to the output stream of this parser.
+        :param snippet: The snippet to be appended to the output stream of this parser.
         """
         if snippet is not None:
             self._output.write(snippet)
@@ -171,9 +171,9 @@ class SDoc2Visitor(sdoc2ParserVisitor, SDocVisitor):
     # ------------------------------------------------------------------------------------------------------------------
     def visitCmd_sdoc2(self, ctx: sdoc2Parser.Cmd_sdoc2Context) -> None:
         """
-        Visit a parse tree produced by a inline command.
+        Visit a parse tree produced by an inline command.
 
-        :param sdoc2Parser.Cmd_sdoc2Context ctx: The parse tree.
+        :param ctx: The parse tree.
         """
         command = ctx.SDOC2_COMMAND().getText()
         argument = ctx.INLINE_ARG_ARG()
@@ -188,7 +188,7 @@ class SDoc2Visitor(sdoc2ParserVisitor, SDocVisitor):
         """
         Visit a parse tree produced by TEXT.
 
-        :param sdoc2Parser.TextContext ctx: The parse tree.
+        :param ctx: The parse tree.
         """
         sdoc2.node_store.append_inline_node('TEXT', {}, ctx.TEXT().getText(), self.get_position(ctx.start))
 

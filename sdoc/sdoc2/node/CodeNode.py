@@ -50,5 +50,6 @@ class CodeNode(Node):
         """
         return True
 
+
 # ----------------------------------------------------------------------------------------------------------------------
 NodeStore.register_inline_command('code', CodeNode)

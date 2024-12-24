@@ -16,8 +16,8 @@ class FigureHtmlFormatter(HtmlFormatter):
         """
         Generates the HTML code for a figure node.
 
-        :param FigureNode node: The figure node.
-        :param any file: The output file.
+        :param node: The figure node.
+        :param file: The output file.
         """
         self.write_into_file(node, file)
 
@@ -29,8 +29,8 @@ class FigureHtmlFormatter(HtmlFormatter):
         """
         Generates the caption for the table in HTML representation.
 
-        :param FigureNode node: The figure node.
-        :param any file: The output file.
+        :param node: The figure node.
+        :param file: The output file.
         """
         if node.caption:
             figure_number = node.get_option_value('number')
@@ -46,10 +46,10 @@ class FigureHtmlFormatter(HtmlFormatter):
     @staticmethod
     def write_into_file(node: FigureNode, file: Any) -> None:
         """
-        Writes data into opened HTML file.
+        Writes data into the opened HTML file.
 
-        :param FigureNode node: The figure node.
-        :param any file: The output file.
+        :param node: The figure node.
+        :param file: The output file.
         """
         # Creating dicts with attributes for each type of element.
         figure_attributes = {'id': node.get_option_value('id')}

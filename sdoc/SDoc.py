@@ -1,6 +1,6 @@
 import configparser
 import os
-from typing import List, Optional
+from typing import List
 
 from sdoc import sdoc2
 from sdoc.error import SDocError
@@ -21,12 +21,12 @@ class SDoc:
         """
         Object contructor.
         """
-        self._io: Optional[SDocIO] = None
+        self._io: SDocIO | None = None
         """
         The IO object.
         """
 
-        self._format: Optional[Format] = None
+        self._format: Format | None = None
         """
         The class for generation the document in the target format.
         """
@@ -75,7 +75,7 @@ class SDoc:
         """
         Setter for io.
 
-        :param OutputStyle io: The IO object.
+        :param io: The IO object.
         """
         self._io = io
 
@@ -93,7 +93,7 @@ class SDoc:
         """
         Setter for config_path.
 
-        :param str config_path: The path of the config file.
+        :param config_path: The path of the config file.
         """
         self._config_path = config_path
 
@@ -118,7 +118,7 @@ class SDoc:
         """
         Creates the formatter for generating the document in the target format.
 
-        :param configparser.ConfigParser config: The config parser.
+        :param config: The config parser.
         """
         available_formats = ['html']
 
@@ -159,7 +159,7 @@ class SDoc:
         """
         Reads the directory for storing temporary files.
 
-        :param configparser.ConfigParser config: The config parser.
+        :param config: The config parser.
         """
         self._temp_dir = config.get('sdoc', 'temp_dir', fallback=self._temp_dir)
 
@@ -175,7 +175,7 @@ class SDoc:
         """
         Reads the directory where the document in the target format must be created.
 
-        :param configparser.ConfigParser config: The config parser.
+        :param config: The config parser.
         """
         self._target_dir = config.get('sdoc', 'target_dir', fallback=self._target_dir)
 
@@ -215,9 +215,9 @@ class SDoc:
     @staticmethod
     def importing(path: str) -> None:
         """
-        Imports modules from specific path.
+        Imports modules from a specific path.
 
-        :param str path: The specific path.
+        :param path: The specific path.
         """
         modules = os.listdir(os.path.dirname(__file__) + path)
 
@@ -230,7 +230,7 @@ class SDoc:
     # ------------------------------------------------------------------------------------------------------------------
     def _import_nodes(self) -> None:
         """
-        Imports nodes from path which is declared below.
+        Imports nodes from a path which is declared below.
         """
         # @todo improve
         self.importing('/sdoc2/node/')
@@ -238,7 +238,7 @@ class SDoc:
     # ------------------------------------------------------------------------------------------------------------------
     def _import_formatters(self) -> None:
         """
-        Imports formatters from path which is declared below.
+        Imports formatters from a path which is declared below.
         """
         # @todo improve
         self.importing('/sdoc2/formatter/html/')
@@ -258,9 +258,9 @@ class SDoc:
         """
         Run the SDoc1 parser and returns the error count.
 
-        :param str sdoc1_path: The path of the SDoc1 document.
-        :param str sdoc2_path: The path were the SDoc2 document mut be stored.
-        :param bool log_errors: If true the number of errors will be logged.
+        :param sdoc1_path: The path of the SDoc1 document.
+        :param sdoc2_path: The path where the SDoc2 document must be stored.
+        :param log_errors: Whether the number of errors will be logged.
         """
         self._io.title('SDoc1')
 
@@ -279,8 +279,8 @@ class SDoc:
         """
         Run the SDoc2 parser and returns the error count.
 
-        :param str sdoc2_path: The path of the SDoc2 document.
-        :param bool log_errors: If true the number of errors will be logged.
+        :param sdoc2_path: The path of the SDoc2 document.
+        :param log_errors: Whether the number of errors will be logged.
         """
         self._io.write_line('')
         self._io.title('SDoc2')
@@ -300,7 +300,7 @@ class SDoc:
         """
         Generates the target document in the specific format and returns the error count.
 
-        :param bool log_errors: If true the number of errors will be logged.
+        :param log_errors: Whether the number of errors will be logged.
         """
         self._io.write_line('')
         self._io.title('Format')
@@ -319,8 +319,8 @@ class SDoc:
         """
         Runs the SDoc1 and SDoc2 parser and returns the error count.
 
-        :param str main_filename: The path of the SDoc1 document.
-        :param bool log_errors: If true the number of errors will be logged.
+        :param main_filename: The path of the SDoc1 document.
+        :param log_errors: Whether the number of errors will be logged.
         """
         self.init()
 

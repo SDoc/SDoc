@@ -17,16 +17,16 @@ class IconDefNode(Node):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param dict[str,str] options: The options of this figure.
-        :param str argument: Not used.
+        :param io: The IO object.
+        :param options: The options of this figure.
+        :param argument: Not used.
         """
         super().__init__(io, 'icon_def', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:
         """
-        Returns the command of this node, i.e. icondef.
+        Returns the command of this node, i.e., icondef.
         """
         return 'icondef'
 

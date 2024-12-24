@@ -1,5 +1,4 @@
 import abc
-from typing import Union
 
 
 class DataType(metaclass=abc.ABCMeta):
@@ -18,7 +17,7 @@ class DataType(metaclass=abc.ABCMeta):
         """
         Returns a string for debugging.
 
-        :param int indent: The indentation level.
+        :param indent: The indentation level.
         """
         raise NotImplementedError
 
@@ -27,14 +26,12 @@ class DataType(metaclass=abc.ABCMeta):
     def dereference(self):
         """
         Returns a clone of this data type.
-
-        :rtype: sdoc.sdoc1.data_type.DataType.DataType
         """
         raise NotImplementedError
 
     # ------------------------------------------------------------------------------------------------------------------
     @abc.abstractmethod
-    def get_value(self) -> Union[int, str]:
+    def get_value(self) -> int | str:
         """
         Returns the underling value of this data type.
         """

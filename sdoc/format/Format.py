@@ -13,7 +13,7 @@ class Format(metaclass=abc.ABCMeta):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
+        :param io: The IO object.
         """
         self._io: IO = io
         """

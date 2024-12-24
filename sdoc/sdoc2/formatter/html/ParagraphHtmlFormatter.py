@@ -15,8 +15,8 @@ class ParagraphHtmlFormatter(HtmlFormatter):
         """
         Generates the HTML code for a paragraph node.
 
-        :param ParagraphNode node: The paragraph node.
-        :param any file: The output file.
+        :param node: The paragraph node.
+        :param file: The output file.
         """
         file.write('<p>')
         HtmlFormatter.generate(self, node, file)

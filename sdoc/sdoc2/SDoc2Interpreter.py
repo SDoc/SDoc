@@ -28,7 +28,7 @@ class SDoc2Interpreter:
         """
         Processes a SDoc1 document and returns the error count.
 
-        :param str infile: The input filename with the SDoc2 document.
+        :param infile: The input filename with the SDoc2 document.
         """
         in_stream = antlr4.FileStream(infile, 'utf-8')
 

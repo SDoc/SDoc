@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 from cleo.io.io import IO
 
@@ -19,12 +19,12 @@ class FigureNode(Node):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param dict[str,str] options: The options of this figure.
+        :param io: The IO object.
+        :param options: The options of this figure.
         """
         super().__init__(io, 'figure', options)
 
-        self.caption: Optional[str] = None
+        self.caption: str | None = None
         """
         The caption for the figure.
         """
@@ -32,7 +32,7 @@ class FigureNode(Node):
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:
         """
-        Returns the command of this node, i.e. smile.
+        Returns the command of this node, i.e., figure.
         """
         return 'figure'
 
@@ -69,7 +69,7 @@ class FigureNode(Node):
     # ------------------------------------------------------------------------------------------------------------------
     def setup_label(self, node: LabelNode) -> None:
         """
-        Sets the data of a label to current table.
+        Sets the data of a label to the current figure.
 
         :param LabelNode node: The label node.
         """
@@ -81,7 +81,7 @@ class FigureNode(Node):
         """
         Returns the current enumeration of figures.
 
-        :param dict[str,any] enumerable_numbers:
+        :param enumerable_numbers: The current numbers of enumerable nodes.
         """
         if 'heading' in enumerable_numbers and enumerable_numbers['heading'].get_level(1):
             chapter = enumerable_numbers['heading'].get_level(1)
@@ -105,7 +105,7 @@ class FigureNode(Node):
         """
         Increments the last level of figures enumeration.
 
-        :param dict[str,any] enumerable_numbers: The current numbers of enumerable nodes.
+        :param enumerable_numbers: The current numbers of enumerable nodes.
         """
         heading_numbers = enumerable_numbers['figures'].split('.')
         heading_numbers[-1] = str(int(heading_numbers[-1]) + 1)
@@ -117,7 +117,7 @@ class FigureNode(Node):
         """
         Sets the number of this figure node.
 
-        :param dict[str,any] enumerable_numbers: The current numbers of enumerable nodes.
+        :param enumerable_numbers: The current numbers of enumerable nodes.
         """
         self._get_numeration(enumerable_numbers)
         self._increment_last_level(enumerable_numbers)

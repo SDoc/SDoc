@@ -18,9 +18,9 @@ class HtmlFormat(Format):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param str target_format: The name of the format (in the config file).
-        :param ConfigParser config: The section in the config file for the target_format.
+        :param io: The IO object.
+        :param target_format: The name of the format (in the config file).
+        :param config: The section in the config file for the target_format.
         """
         Format.__init__(self, io)
 
@@ -51,8 +51,8 @@ class HtmlFormat(Format):
         """
         Reads the configuration for this formatter.
 
-        :param str target_format: The name of the format (in the config file).
-        :param ConfigParser config: The section in the config file for the target_format.
+        :param target_format: The name of the format (in the config file).
+        :param config: The section in the config file for the target_format.
         """
         section = 'format_' + target_format
 

@@ -24,9 +24,7 @@ class SDoc2EnumerationTest(unittest.TestCase):
         """
         Takes a list of lists/tuples, converts to string, removes extra nesting and creates a tuple.
 
-        :param list[mixed] nodes: The list of nested lists/tuples of items.
-
-        :rtype: tuple[tuple]
+        :param nodes: The list of nested lists/tuples of items.
         """
         items_string = str(nodes)
         items_string = items_string.replace('[', '')
@@ -40,9 +38,7 @@ class SDoc2EnumerationTest(unittest.TestCase):
         """
         Reads a csv file, creates a tuple of csv objects.
 
-        :param str file_name: The path to file.
-
-        :rtype: tuple[tuple]
+        :param file_name: The path to file.
         """
         list_for_items = []
 

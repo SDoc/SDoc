@@ -1,7 +1,7 @@
 import csv
 import io
 import re
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 from cleo.io.io import IO
 
@@ -24,7 +24,7 @@ class TableNode(Node):
         Object constructor.
 
         :param OutputStyle io_object: The IO object.
-        :param dict[str,str] options: The options of this table.
+        :param options: The options of this table.
         """
         super().__init__(io_object, 'table', options)
 
@@ -38,12 +38,12 @@ class TableNode(Node):
         The column headers of the table (if any).
         """
 
-        self.alignments: List[Optional[str]] = []
+        self.alignments: List[str | None] = []
         """
         The text alignments in the table columns.
         """
 
-        self.caption: Optional[str] = None
+        self.caption: str | None = None
         """
         The caption for the table.
         """
@@ -51,7 +51,7 @@ class TableNode(Node):
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:
         """
-        Returns the command of this node, i.e. table.
+        Returns the command of this node, i.e., table.
         """
         return 'table'
 
@@ -74,7 +74,7 @@ class TableNode(Node):
         """
         Numbers all numerable nodes such as chapters, sections, figures, and, items.
 
-        :param dict[str,any] numbers: The current numbers.
+        :param numbers: The current numbers.
         """
         if 'table' not in numbers:
             numbers['table'] = Enumerable()
@@ -115,7 +115,7 @@ class TableNode(Node):
     # ------------------------------------------------------------------------------------------------------------------
     def setup_label(self, node):
         """
-        Sets the data of a label to current table.
+        Sets the data of a label to the current table.
 
         :param sdoc.sdoc2.node.LabelNode.LabelNode node: The label node.
         """
@@ -143,11 +143,9 @@ class TableNode(Node):
     @staticmethod
     def divide_text_nodes(nodes: List[Any]) -> List[Any]:
         """
-        Divides text nodes from other type of nodes.
+        Divides text nodes from other types of nodes.
 
-        :param: list[any] nodes: The list with nodes.
-
-        :rtype: list[any]
+        :param:nodes: The list with nodes.
         """
         table_data = []
         table_text_repr = ''
@@ -171,9 +169,7 @@ class TableNode(Node):
         """
         Splits data by newline symbols.
 
-        :param list[any] table_data:
-
-        :rtype: list[any]
+        :param table_data:
         """
         split_data = []
 
@@ -196,9 +192,7 @@ class TableNode(Node):
         """
         Generates the rows for final representation.
 
-        :param list[any] split_data: The split data.
-
-        :rtype: list[list[any]]
+        :param split_data: The split data.
         """
         separated_data = TableNode.split_by_vertical_separators(split_data)
 
@@ -227,9 +221,7 @@ class TableNode(Node):
         """
         Splits data by vertical separators and creates rows with data.
 
-        :param list[any] split_data: The split data.
-
-        :rtype: list[list[any]]
+        :param split_data: The split data.
         """
         rows = []
         row = []
@@ -275,10 +267,10 @@ class TableNode(Node):
         """
         Appends row with data to list of rows, and clear row from any elements.
 
-        Warning! This method changes original list 'rows'.
+        Warning! This method changes the original list 'rows'.
 
-        :param list[any] row: The row with elements
-        :param list[list[any]] rows: The list with many rows.
+        :param row: The row with elements
+        :param rows: The list with many rows.
         """
         rows.append(row)
         return []
@@ -288,8 +280,8 @@ class TableNode(Node):
         """
         Splits row by vertical separator for future output.
 
-        :param StringIO string: The string which we will separate.
-        :param list[mixed] row: The list with the row in which we append data.
+        :param string: The string which we will separate.
+        :param row: The list with the row in which we append data.
         """
         reader = csv.reader(string, delimiter='|')
         for line in reader:
@@ -303,9 +295,9 @@ class TableNode(Node):
     @staticmethod
     def has_header(rows: List[str]) -> bool:
         """
-        Returns True if the table has a table header.
+        Returns whether this table has a table header.
 
-        :param list[str] rows: The second row of the table.
+        :param rows: The second row of the table.
         """
         is_header = True
 
@@ -326,7 +318,7 @@ class TableNode(Node):
         """
         Sets alignments on table columns.
 
-        :param list[str] row: The row with hyphens for creating column headers.
+        :param row: The row with hyphens for creating column headers.
         """
         alignments = []
         for hyphens in row:
@@ -346,9 +338,9 @@ class TableNode(Node):
     @staticmethod
     def prune_whitespace(row: List[str]) -> List[str]:
         """
-        Strips whitespaces from the text of an each cell.
+        Strips whitespaces from the text of each cell.
 
-        :param list[str] row: The row with text of an each cell.
+        :param row: The row with text of each cell.
         """
         clear_row = []
         for item in row:

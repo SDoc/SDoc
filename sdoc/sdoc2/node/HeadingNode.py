@@ -22,10 +22,10 @@ class HeadingNode(Node, ABC):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param str name: The (command) name of this heading.
-        :param dict[str,str] options: The options of this heading.
-        :param str argument: The title of this heading.
+        :param io: The IO object.
+        :param name: The (command) name of this heading.
+        :param options: The options of this heading.
+        :param argument: The title of this heading.
         """
         super().__init__(io, name, options, argument)
 
@@ -60,7 +60,7 @@ class HeadingNode(Node, ABC):
         """
         Sets number of heading nodes.
 
-        :param dict[str,any] enumerable_numbers:
+        :param enumerable_numbers:
         """
         if 'heading' not in enumerable_numbers:
             enumerable_numbers['heading'] = Enumerable()
@@ -121,8 +121,8 @@ class HeadingNode(Node, ABC):
     # ------------------------------------------------------------------------------------------------------------------
     def split_text_nodes(self) -> None:
         """
-        Replaces single text nodes that contains a paragraph separator (i.e. a double new line) with multiple text nodes
-        without paragraph separator.
+        Replaces single text nodes that contains a paragraph separator (i.e., a double new line) with multiple text
+        nodes without a paragraph separator.
         """
         new_child_nodes = []
 
@@ -145,7 +145,7 @@ class HeadingNode(Node, ABC):
         """
         Create paragraph nodes.
 
-        A paragraph consists of phrasing nodes only. Each continuous slice of phrasing child nodes is move to a
+        A paragraph consists of phrasing nodes only. Each continuous slice of phrasing child nodes is moved to a
         paragraph node.
         """
         new_child_nodes = []

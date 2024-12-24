@@ -17,7 +17,7 @@ class IconHtmlFormatter(HtmlFormatter):
         Generates the HTML code for an icon node.
 
         :param IconNode node: The icon node.
-        :param any file: The output file.
+        :param file: The output file.
         """
         attributes = IconNode.get_definition(node.argument)
 

@@ -17,11 +17,12 @@ class CodeHtmlFormatter(HtmlFormatter):
         Generates the HTML code for an icon node.
 
         :param node: The code node.
-        :param any file: The output file.
+        :param file: The output file.
         """
         html_code = Html.generate_element('code', {}, node.argument)
 
         file.write(html_code)
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 NodeStore.register_formatter('code', 'html', CodeHtmlFormatter)

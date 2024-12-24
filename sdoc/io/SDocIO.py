@@ -11,7 +11,7 @@ class SDocIO(IO):
         """
         Writes a title to the output.
 
-        :param str message: The title of a section.
+        :param message: The title of a section.
         """
         self.write_line(['<title>%s</>' % message,
                          '<title>%s</>' % ('=' * len(message)),

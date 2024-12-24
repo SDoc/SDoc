@@ -1,4 +1,4 @@
-from typing import Dict, Optional
+from typing import Dict
 
 from cleo.io.io import IO
 
@@ -20,22 +20,22 @@ class DocumentNode(Node):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param dict[str,str] options: The options of this document.
+        :param io: The IO object.
+        :param options: The options of this document.
         """
         super().__init__(io, 'document', options)
 
-        self.title_node_id: Optional[int] = None
+        self.title_node_id: int | None = None
         """
         The ID of the node the title of the sdoc document.
         """
 
-        self.date_node_id: Optional[int] = None
+        self.date_node_id: int | None = None
         """
         The ID of the node the date of the sdoc document.
         """
 
-        self.version_node_id: Optional[int] = None
+        self.version_node_id: int | None = None
         """
         The ID of the node with the version of the sdoc document.
         """
@@ -43,7 +43,7 @@ class DocumentNode(Node):
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:
         """
-        Returns the command of this node, i.e. document.
+        Returns the command of this node, i.e., document.
         """
         return 'document'
 
@@ -107,9 +107,9 @@ class DocumentNode(Node):
     # ------------------------------------------------------------------------------------------------------------------
     def __set_document_info(self, node: Node) -> None:
         """
-        Sets the info of a document (i.e. date, version or title) to DocumentNode attributes.
+        Sets the info of a document (i.e., date, version or title) to DocumentNode attributes.
 
-        :param Node node: The current node.
+        :param node: The current node.
         """
         if isinstance(node, DateNode):
             self.__check_document_info(self.date_node_id, node)
@@ -125,12 +125,12 @@ class DocumentNode(Node):
 
     # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
-    def __check_document_info(info_node_current: Optional[int], info_node_new: Node) -> None:
+    def __check_document_info(info_node_current: int | None, info_node_new: Node) -> None:
         """
         Checks if a document info node has been set already. If so, an error will be logged.
 
-        :param int|None info_node_current: The current document info node (i.e. a property of the document).
-        :param Node info_node_new: The (new) document info node.
+        :param int|None info_node_current: The current document info node (i.e., a property of the document).
+        :param info_node_new: The (new) document info node.
         """
         if info_node_current:
             node = in_scope(info_node_current)

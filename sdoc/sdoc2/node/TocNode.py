@@ -19,9 +19,9 @@ class TocNode(Node):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param dict[str,str] options: The options of this table of contents.
-        :param str argument: The argument of this TOC.
+        :param io: The IO object.
+        :param options: The options of this table of contents.
+        :param argument: The argument of this TOC.
         """
         Node.__init__(self, io, 'toc', options, argument)
 

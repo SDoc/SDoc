@@ -1,4 +1,4 @@
-from typing import Any, List, Optional
+from typing import Any, List
 
 from sdoc.helper.Html import Html
 from sdoc.sdoc2.formatter.html.HtmlFormatter import HtmlFormatter
@@ -17,7 +17,7 @@ class TableHtmlFormatter(HtmlFormatter):
         Generates the HTML code for a table node.
 
         :param TableNode node: The table node.
-        :param any file: The output file.
+        :param file: The output file.
         """
         attributes = {'class': node.get_option_value('class'),
                       'id':    node.get_option_value('id')}
@@ -38,9 +38,7 @@ class TableHtmlFormatter(HtmlFormatter):
         """
         Generates the caption for the table in HTML representation.
 
-        :param TableNode node: The table node.
-
-        :rtype: str
+        :param node: The table node.
         """
         if node.caption:
             table_number = node.get_option_value('number')
@@ -60,7 +58,7 @@ class TableHtmlFormatter(HtmlFormatter):
         """
         Generates table with header.
 
-        :param TableNode node: The table node.
+        :param node: The table node.
         """
         html = '<tbody>'
 
@@ -85,12 +83,12 @@ class TableHtmlFormatter(HtmlFormatter):
 
     # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
-    def _generate_table_cell(align: Optional[str], cell: Any) -> str:
+    def _generate_table_cell(align: str | None, cell: Any) -> str:
         """
         Returns the 'column' with HTML data.
 
-        :param str|None align:
-        :param any cell: The column in a table.
+        :param align:
+        :param cell: The column in a table.
         """
         attributes = {}
 
@@ -101,7 +99,7 @@ class TableHtmlFormatter(HtmlFormatter):
             data = cell
             is_html = False
         else:
-            # Generates html in nested node ('cell') with specified formatter.
+            # Generates HTML in nested node ('cell') with specified formatter.
             formatter = NodeStore.get_formatter('html', cell.get_command())
             data = formatter.get_html(cell)
             is_html = True
@@ -110,12 +108,12 @@ class TableHtmlFormatter(HtmlFormatter):
 
     # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
-    def _get_align(align_list: List[Optional[str]], column: int) -> Optional[List[Optional[str]]]:
+    def _get_align(align_list: List[str | None], column: int) -> List[str | None] | None:
         """
         Returns the align or None.
 
-        :param list[str|None] align_list: The list with alignments.
-        :param int column: The number of column.
+        :param align_list: The list with alignments.
+        :param column: The column number.
         """
         if column in range(len(align_list)):
             return align_list[column]

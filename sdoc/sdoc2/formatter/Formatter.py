@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 from cleo.io.io import IO
 
@@ -16,8 +16,8 @@ class Formatter:
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param sdoc.sdoc2.formatter.Formatter.Formatter|None parent: The formatter for the parent node.
+        :param io: The IO object.
+        :param parent: The formatter for the parent node.
         """
         self._io: IO = io
         """
@@ -41,8 +41,6 @@ class Formatter:
     def errors(self) -> int:
         """
         Getter for the error count.
-
-        :rtype: int
         """
         if self._parent:
             return self._parent.errors
@@ -50,12 +48,12 @@ class Formatter:
         return self._errors
 
     # ------------------------------------------------------------------------------------------------------------------
-    def error(self, message: str, node: Optional[Node] = None) -> None:
+    def error(self, message: str, node: Node | None = None) -> None:
         """
         Logs an error.
 
-        :param str message: The error message. This message will be appended with 'at filename:line.column' ot the token.
-        :param Node node: The node where the error occurred.
+        :param message: The error message. This message will be appended with 'at filename:line.column' ot the token.
+        :param node: The node where the error occurred.
         """
         if self._parent:
             self._parent.error(message, node)
@@ -75,8 +73,8 @@ class Formatter:
         """
         Generates the representation of a node in the requested output format.
 
-        :param Node node: The node for which the output must be generated.
-        :param any file: The output file.
+        :param node: The node for which the output must be generated.
+        :param file: The output file.
         """
         for node_id in node.child_nodes:
             child_node = in_scope(node_id)

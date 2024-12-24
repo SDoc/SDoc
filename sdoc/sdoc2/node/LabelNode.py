@@ -16,16 +16,16 @@ class LabelNode(Node):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param dict[str,str] options: The options of this label.
-        :param str argument: The title of this label.
+        :param io: The IO object.
+        :param options: The options of this label.
+        :param argument: The title of this label.
         """
         super().__init__(io, 'label', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:
         """
-        Returns the command of this node, i.e. label.
+        Returns the command of this node, i.e., label.
         """
         return 'label'
 

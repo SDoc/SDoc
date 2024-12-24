@@ -16,16 +16,16 @@ class ChapterNode(HeadingNode):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param dict[str,str] options: The options of this chapter.
-        :param str argument: The title of this chapter.
+        :param io: The IO object.
+        :param options: The options of this chapter.
+        :param argument: The title of this chapter.
         """
         super().__init__(io, 'chapter', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:
         """
-        Returns the command of this node, i.e. chapter.
+        Returns the command of this node, i.e., chapter.
         """
         return 'chapter'
 

@@ -8,10 +8,10 @@ from sdoc.sdoc2.NodeStore import NodeStore
 
 class EndParagraphNode(Node):
     """
-    SDoc2 node for end of paragraphs.
+    SDoc2 node for the end of paragraphs.
 
-    Note: End of paragraphs will are temporary used during the content tree preparation. Before and after the content
-          preparation end of paragraph nodes do not exist.
+    Note: End of paragraphs are temporary and only used during the content tree preparation. Before and after the
+          content preparation end of paragraph nodes do not exist.
     """
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -19,18 +19,16 @@ class EndParagraphNode(Node):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param dict[str,str] options: Not used.
-        :param str argument: Not used.
+        :param io: The IO object.
+        :param options: Not used.
+        :param argument: Not used.
         """
         super().__init__(io, 'end_paragraph', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:
         """
-        Returns the command of this node, i.e. end_paragraph.
-
-        :rtype: str
+        Returns the command of this node, i.e., end_paragraph.
         """
         return 'end_paragraph'
 

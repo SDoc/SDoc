@@ -16,8 +16,8 @@ class TextHtmlFormatter(HtmlFormatter):
         """
         Generates the HTML code for a text node.
 
-        :param TextNode node: The text node.
-        :param any file: The output file.
+        :param node: The text node.
+        :param file: The output file.
         """
         file.write(Html.escape(node.argument))
 

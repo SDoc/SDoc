@@ -17,8 +17,8 @@ class DocumentHtmlFormatter(HtmlFormatter):
         """
         Generates the HTML code for a document node.
 
-        :param DocumentNode node: The document node.
-        :param any file: The output file.
+        :param node: The document node.
+        :param file: The output file.
         """
         self.generate_document_node(node, file)
 
@@ -30,8 +30,8 @@ class DocumentHtmlFormatter(HtmlFormatter):
         """
         Generates the HTML code for heading node.
 
-        :param DocumentNode node: The document node.
-        :param any file: The output file.
+        :param node: The document node.
+        :param file: The output file.
         """
         file.write('<div class="sdoc-document-title-outer">')
         if node.title_node_id:

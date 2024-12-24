@@ -1,5 +1,3 @@
-from typing import Union
-
 from sdoc.sdoc1.data_type.DataType import DataType
 
 
@@ -9,7 +7,7 @@ class IntegerDataType(DataType):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, value: Union[int, str]):
+    def __init__(self, value: int | str):
         """
         Object constructor.
 
@@ -25,7 +23,7 @@ class IntegerDataType(DataType):
         """
         Returns a string for debugging.
 
-        :param int indent: Unused.
+        :param indent: Unused.
         """
         return str(self._value)
 
@@ -33,8 +31,6 @@ class IntegerDataType(DataType):
     def dereference(self):
         """
         Returns a clone of this integer.
-
-        :rtype: sdoc.sdoc1.data_type.IntegerDataType.IntegerDataType
         """
         return IntegerDataType(self._value)
 

@@ -16,8 +16,8 @@ class ItemHtmlFormatter(HtmlFormatter):
         """
         Generates the HTML code for an item node.
 
-        :param ItemNode node: The item node.
-        :param any file: The output file.
+        :param node: The item node.
+        :param file: The output file.
         """
         attributes = {'id': node.get_option_value('id')}
 

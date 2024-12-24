@@ -16,16 +16,16 @@ class Sub3SectionNode(HeadingNode):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param dict[str,str] options: The options of this section.
-        :param str argument: The title of this section.
+        :param io: The IO object.
+        :param options: The options of this section.
+        :param argument: The title of this section.
         """
         super().__init__(io, 'sub3section', options, argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:
         """
-        Returns the command of this node, i.e. sub3section.
+        Returns the command of this node, i.e., sub3section.
         """
         return 'sub3section'
 

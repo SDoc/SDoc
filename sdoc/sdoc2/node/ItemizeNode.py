@@ -20,8 +20,8 @@ class ItemizeNode(Node):
         """
         Object constructor.
 
-        :param OutputStyle io: The IO object.
-        :param dict[str,str] options: The options of this itemize.
+        :param io: The IO object.
+        :param options: The options of this itemize.
         """
         super().__init__(io, 'itemize', options)
 
@@ -35,7 +35,7 @@ class ItemizeNode(Node):
     # ------------------------------------------------------------------------------------------------------------------
     def get_command(self) -> str:
         """
-        Returns the command of this node, i.e. itemize.
+        Returns the command of this node, i.e., itemize.
         """
         return 'itemize'
 
@@ -44,7 +44,7 @@ class ItemizeNode(Node):
         """
         Returns parent_hierarchy_level + 1.
 
-        :param int parent_hierarchy_level: The level of the parent in the hierarchy.
+        :param parent_hierarchy_level: The level of the parent in the hierarchy.
         """
         self._hierarchy_level = parent_hierarchy_level + 1
 
@@ -88,8 +88,7 @@ class ItemizeNode(Node):
     # ------------------------------------------------------------------------------------------------------------------
     def prepare_content_tree(self) -> None:
         """
-        Method which checks if all child nodes is instance of sdoc.sdoc2.node.ItemNode.ItemNode. If not, removes
-        from child node list and from node store.
+        Method which checks if all child nodes are instances of sdoc.sdoc2.node.ItemNode.ItemNode.
         """
         obsolete_node_ids = []
 
@@ -119,7 +118,7 @@ class ItemizeNode(Node):
         """
         Decrements the level of hierarchy.
 
-        :param str number: The number of last node.
+        :param number: The number of the last node.
         """
         number_list = number.split('.')
         number = '.'.join(number_list[:-1])
@@ -132,7 +131,7 @@ class ItemizeNode(Node):
         """
         Increments the level of hierarchy.
 
-        :param dict[str,str] numbers: The number of last node.
+        :param numbers: The number of the last node.
         """
         if 'item' in numbers:
             numbers['item'] += '.0'
@@ -144,7 +143,7 @@ class ItemizeNode(Node):
         """
         Passing over all child nodes, for numeration.
 
-        :param dict[str,str] numbers: The number of last node.
+        :param numbers: The number of the last node.
         """
         self.level_up(numbers)
 

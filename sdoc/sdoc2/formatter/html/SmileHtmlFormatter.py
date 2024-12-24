@@ -16,8 +16,8 @@ class SmileHtmlFormatter(HtmlFormatter):
         """
         Generates the HTML code for a smile node.
 
-        :param SmileNode node: The smile node.
-        :param any file: The output file.
+        :param node: The smile node.
+        :param file: The output file.
         """
         file.write(SmileHtmlFormatter.get_html())
 
@@ -28,8 +28,6 @@ class SmileHtmlFormatter(HtmlFormatter):
     def get_html() -> str:
         """
         Returns string with generated HTML tag for smile.
-
-        :rtype: str
         """
         return Html.generate_element('b', {}, 'SMILE')
 

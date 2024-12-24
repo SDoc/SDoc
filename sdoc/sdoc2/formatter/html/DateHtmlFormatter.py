@@ -17,7 +17,7 @@ class DateHtmlFormatter(HtmlFormatter):
         Generates HTML code for a date node.
 
         :param DateNode node: The date node.
-        :param any file: The output file.
+        :param file: The output file.
         """
         html = Html.generate_element('span', {}, node.argument)
 

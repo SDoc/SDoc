@@ -1,5 +1,4 @@
 # ----------------------------------------------------------------------------------------------------------------------
-from typing import Optional
 
 from antlr4.Token import CommonToken
 from cleo.io.io import IO
@@ -35,12 +34,12 @@ class SDocVisitor:
         return self._errors
 
     # ------------------------------------------------------------------------------------------------------------------
-    def _error(self, message: str, token: Optional[CommonToken] = None) -> None:
+    def _error(self, message: str, token: CommonToken | None = None) -> None:
         """
         Logs an error.
 
-        :param str message: The error message.This message will be appended with 'at filename:line.column' ot the token.
-        :param antlr4.Token.CommonToken token: The token where the error occurred.
+        :param message: The error message.This message will be appended with 'at filename:line.column' ot the token.
+        :param token: The token where the error occurred.
         """
         self._errors += 1
 

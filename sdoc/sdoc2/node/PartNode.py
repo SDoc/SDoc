@@ -17,9 +17,9 @@ class PartNode(HeadingNode):
         """
         PartNode constructor
 
-        :param OutputStyle io: The IO object.
+        :param io: The IO object.
         :param dict[str, str] options: The options of this part.
-        :param str argument: The title of this part.
+        :param argument: The title of this part.
         """
         super().__init__(io, 'part', options, argument)
 
@@ -42,7 +42,7 @@ class PartNode(HeadingNode):
         """
         Sets number of heading nodes.
 
-        :param dict[str,any] enumerable_numbers:
+        :param enumerable_numbers:
         """
         if 'part' not in enumerable_numbers:
             enumerable_numbers['part'] = Enumerable()

@@ -16,8 +16,8 @@ class HeadingHtmlFormatter(HtmlFormatter):
         """
         Generates the HTML code for a heading node.
 
-        :param HeadingNode node: The heading node.
-        :param any file: The output file.
+        :param node: The heading node.
+        :param file: The output file.
         """
         self.generate_heading_node(node, file)
         HtmlFormatter.generate(self, node, file)
@@ -28,8 +28,8 @@ class HeadingHtmlFormatter(HtmlFormatter):
         """
         Generates the HTML code for heading node.
 
-        :param HeadingNode node: The heading node.
-        :param any file: The output file.
+        :param node: The heading node.
+        :param file: The output file.
         """
         # Set id attribute to heading node.
         attributes = {'id': node.get_option_value('id')}

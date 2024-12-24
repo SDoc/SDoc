@@ -11,7 +11,7 @@ class Position:
         """
         Object constructor.
 
-        :param str file_name: The name of the file where the node is defined.
+        :param file_name: The name of the file where the node is defined.
         :param int start_line: The line where the node definition starts.
         :param int start_column: The column where the node definition starts.
         :param int end_line: The line where the node definition ends.
