@@ -12,7 +12,7 @@ class LineBreakNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, options: Dict[str, str], argument: str):
+    def __init__(self, *, io: IO, options: Dict[str, str], argument: str):
         """
         Object constructor.
 
@@ -20,7 +20,7 @@ class LineBreakNode(Node):
         :param options: The options of this smile.
         :param argument: Not used.
         """
-        Node.__init__(self, io, 'br', options, argument)
+        Node.__init__(self, io=io, name='br', options=options, argument=argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:

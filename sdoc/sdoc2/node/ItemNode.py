@@ -14,7 +14,7 @@ class ItemNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, options: Dict[str, str], argument: str):
+    def __init__(self, *, io: IO, options: Dict[str, str], argument: str):
         """
         Object constructor.
 
@@ -22,7 +22,7 @@ class ItemNode(Node):
         :param options: The options of this item.
         :param argument: Not used.
         """
-        Node.__init__(self, io, 'item', options, argument)
+        Node.__init__(self, io=io, name='item', options=options, argument=argument)
 
         self._hierarchy_level: int = 0
         """

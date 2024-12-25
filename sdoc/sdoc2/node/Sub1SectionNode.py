@@ -12,7 +12,7 @@ class Sub1SectionNode(HeadingNode):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, options: Dict[str, str], argument: str):
+    def __init__(self, *, io: IO, options: Dict[str, str], argument: str):
         """
         Object constructor.
 
@@ -20,7 +20,7 @@ class Sub1SectionNode(HeadingNode):
         :param options: The options of this section.
         :param argument: The title of this section.
         """
-        HeadingNode.__init__(self, io, 'subsection', options, argument)
+        HeadingNode.__init__(self, io=io, name='subsection', options=options, argument=argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_hierarchy_level(self, parent_hierarchy_level: int = -1) -> int:

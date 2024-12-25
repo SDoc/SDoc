@@ -26,7 +26,7 @@ class TableNode(Node):
         :param OutputStyle io_object: The IO object.
         :param options: The options of this table.
         """
-        Node.__init__(self, io_object, 'table', options)
+        Node.__init__(self, io=io_object, name='table', options=options)
 
         self.rows: List[List[str]] = []
         """

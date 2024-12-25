@@ -16,14 +16,14 @@ class DocumentNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, options: Dict[str, str]):
+    def __init__(self, *, io: IO, options: Dict[str, str]):
         """
         Object constructor.
 
         :param io: The IO object.
         :param options: The options of this document.
         """
-        Node.__init__(self, io, 'document', options)
+        Node.__init__(self, io=io, name='document', options=options)
 
         self.title_node_id: int | None = None
         """

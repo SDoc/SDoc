@@ -15,7 +15,7 @@ class ParagraphNode(HeadingNode):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, options: Dict[str, str], argument: str):
+    def __init__(self, *, io: IO, options: Dict[str, str], argument: str):
         """
         Object constructor.
 
@@ -23,7 +23,7 @@ class ParagraphNode(HeadingNode):
         :param options: Not used.
         :param argument: The text of this paragraph.
         """
-        HeadingNode.__init__(self, io, 'paragraph', options, argument)
+        HeadingNode.__init__(self, io=io, name='paragraph', options=options, argument=argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:

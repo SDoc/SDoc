@@ -65,7 +65,7 @@ class Formatter:
                 filename = node.position.file_name
                 line_number = node.position.start_line
                 column_number = node.position.start_column + 1
-                messages.append('Position: {0!s}:{1:d}.{2:d}'.format(filename, line_number, column_number))
+                messages.append(' at {0!s}:{1:d}.{2:d}.'.format(filename, line_number, column_number))
             self._io.write_error(messages)
 
     # ------------------------------------------------------------------------------------------------------------------

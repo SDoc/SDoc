@@ -14,7 +14,7 @@ class HyperlinkNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, options: Dict[str, str], argument: str):
+    def __init__(self, *, io: IO, options: Dict[str, str], argument: str):
         """
         Object constructor.
 
@@ -22,7 +22,7 @@ class HyperlinkNode(Node):
         :param options: The options of the hyperlink.
         :param argument: Not used.
         """
-        Node.__init__(self, io, 'hyperlink', options, argument)
+        Node.__init__(self, io=io, name='hyperlink', options=options, argument=argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_html_attributes(self) -> Dict[str, str]:

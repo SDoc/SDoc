@@ -13,7 +13,7 @@ class PartNode(HeadingNode):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, options: Dict[str, str], argument: str):
+    def __init__(self, *, io: IO, options: Dict[str, str], argument: str):
         """
         PartNode constructor
 
@@ -21,7 +21,7 @@ class PartNode(HeadingNode):
         :param dict[str, str] options: The options of this part.
         :param argument: The title of this part.
         """
-        HeadingNode.__init__(self, io, 'part', options, argument)
+        HeadingNode.__init__(self, io=io, name='part', options=options, argument=argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_hierarchy_level(self, parent_hierarchy_level: int = -1) -> int:

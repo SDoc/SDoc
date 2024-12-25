@@ -20,7 +20,7 @@ class IconNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, options: Dict[str, str], argument: str):
+    def __init__(self, *, io: IO, options: Dict[str, str], argument: str):
         """
         Object constructor.
 
@@ -28,7 +28,7 @@ class IconNode(Node):
         :param options: The options of this figure.
         :param argument: Not used.
         """
-        Node.__init__(self, io, 'icon', options, argument)
+        Node.__init__(self, io=io, name='icon', options=options, argument=argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:

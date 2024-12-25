@@ -16,14 +16,14 @@ class ItemizeNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, options: Dict[str, str]):
+    def __init__(self, *, io: IO, options: Dict[str, str]):
         """
         Object constructor.
 
         :param io: The IO object.
         :param options: The options of this itemize.
         """
-        Node.__init__(self, io, 'itemize', options)
+        Node.__init__(self, io=io, name='itemize', options=options)
 
         self._hierarchy_level: int = 0
         """

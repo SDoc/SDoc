@@ -15,14 +15,14 @@ class FigureNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, options: Dict[str, str]):
+    def __init__(self, *, io: IO, options: Dict[str, str]):
         """
         Object constructor.
 
         :param io: The IO object.
         :param options: The options of this figure.
         """
-        Node.__init__(self, io, 'figure', options)
+        Node.__init__(self, io=io, name='figure', options=options)
 
         self.caption: str | None = None
         """

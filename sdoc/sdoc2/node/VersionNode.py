@@ -12,7 +12,7 @@ class VersionNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, options: Dict[str, str], argument: str):
+    def __init__(self, *, io: IO, options: Dict[str, str], argument: str):
         """
         Object constructor.
 
@@ -20,7 +20,7 @@ class VersionNode(Node):
         :param options: The options of the version.
         :param argument:
         """
-        Node.__init__(self, io, 'version', options, argument)
+        Node.__init__(self, io=io, name='version', options=options, argument=argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_hierarchy_level(self, parent_hierarchy_level: int = -1) -> int:

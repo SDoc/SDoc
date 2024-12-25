@@ -12,15 +12,14 @@ class UnknownNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, options: Dict[str, str], argument: str = ''):
+    def __init__(self, *, io: IO, command: str):
         """
         Object constructor.
 
         :param io: The IO object.
-        :param options: The options of this smile.
-        :param argument: Not used.
+        :param command: The unknown command.
         """
-        Node.__init__(self, io, 'unknown', options, argument)
+        Node.__init__(self, io=io, name='unknown', argument=command)
 
     # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:

@@ -12,7 +12,7 @@ class LabelNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, options: Dict[str, str], argument: str):
+    def __init__(self, *, io: IO, options: Dict[str, str], argument: str):
         """
         Object constructor.
 
@@ -20,7 +20,7 @@ class LabelNode(Node):
         :param options: The options of this label.
         :param argument: The title of this label.
         """
-        Node.__init__(self, io, 'label', options, argument)
+        Node.__init__(self, io=io, name='label', options=options, argument=argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:

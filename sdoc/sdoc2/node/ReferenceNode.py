@@ -12,7 +12,7 @@ class ReferenceNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, options: Dict[str, str], argument: str):
+    def __init__(self, *, io: IO, options: Dict[str, str], argument: str):
         """
         Object constructor.
 
@@ -20,7 +20,7 @@ class ReferenceNode(Node):
         :param options: The options of this reference.
         :param argument: The title of this reference.
         """
-        Node.__init__(self, io, 'ref', options, argument)
+        Node.__init__(self, io=io, name='ref', options=options, argument=argument)
 
         self.text = ''
         """

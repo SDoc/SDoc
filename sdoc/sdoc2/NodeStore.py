@@ -86,7 +86,7 @@ class NodeStore:
         """
         Logs an error.
 
-        :param message: The error message.this message will be appended with 'at filename:line.column' ot the token.
+        :param message: The error message will be appended with ' at filename:line.column.' ot the token.
         :param sdoc.sdoc2.node.Node.Node|None node: The node where the error occurred.
         """
         NodeStore._errors += 1
@@ -210,12 +210,12 @@ class NodeStore:
         if command not in inline_creators:
             # @todo set error status
             constructor = inline_creators['unknown']
-            node = constructor(self._io, options, argument)
+            node = constructor(io=self._io, command=command)
 
         else:
             # Create the new node.
             constructor = inline_creators[command]
-            node = constructor(self._io, options, argument)
+            node = constructor(io=self._io, options=options, argument=argument)
 
         node.position = position
 
@@ -243,7 +243,7 @@ class NodeStore:
             # Create the new node.
             constructor = block_creators[command]
 
-        node = constructor(self._io, options)
+        node = constructor(io=self._io, options=options)
         node.position = position
 
         # Store the node and assign ID.
@@ -381,7 +381,7 @@ class NodeStore:
                 # @todo position of block node.
                 raise RuntimeError("Unexpected {0!s}. Node is document root".format(node.name))
 
-            # If the node is a part of a hierarchy adjust the nested nodes stack.
+            # If the node is a part of a hierarchy, adjust the nested nodes stack.
             if node.get_hierarchy_name():
                 self._adjust_hierarchy(node)
 

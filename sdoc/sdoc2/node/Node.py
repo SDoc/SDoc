@@ -13,7 +13,11 @@ class Node(metaclass=abc.ABCMeta):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, name: str, options: Dict[str, str] | None = None, argument: str = ''):
+    def __init__(self, *,
+                 io: IO,
+                 name: str,
+                 options: Dict[str, str] | None = None,
+                 argument: str = ''):
         """
         Object constructor.
 

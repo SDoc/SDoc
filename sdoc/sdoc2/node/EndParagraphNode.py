@@ -15,7 +15,7 @@ class EndParagraphNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, options: Dict[str, str], argument: str):
+    def __init__(self, *, io: IO, options: Dict[str, str], argument: str):
         """
         Object constructor.
 
@@ -23,7 +23,7 @@ class EndParagraphNode(Node):
         :param options: Not used.
         :param argument: Not used.
         """
-        Node.__init__(self, io, 'end_paragraph', options, argument)
+        Node.__init__(self, io=io, name='end_paragraph', options=options, argument=argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:

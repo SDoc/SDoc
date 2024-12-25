@@ -18,7 +18,7 @@ class HeadingNode(Node, ABC):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, name: str, options: Dict[str, str], argument: str):
+    def __init__(self, *, io: IO, name: str, options: Dict[str, str], argument: str):
         """
         Object constructor.
 
@@ -27,7 +27,7 @@ class HeadingNode(Node, ABC):
         :param options: The options of this heading.
         :param argument: The title of this heading.
         """
-        Node.__init__(self, io, name, options, argument)
+        Node.__init__(self, io=io, name=name, options=options, argument=argument)
 
         self.numbering: bool = True
         """

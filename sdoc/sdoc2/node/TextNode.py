@@ -14,7 +14,7 @@ class TextNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, options: Dict[str, str], argument: str):
+    def __init__(self, *, io: IO, options: Dict[str, str] | None = None, argument: str):
         """
         Object constructor.
 
@@ -22,7 +22,7 @@ class TextNode(Node):
         :param options: Not used.
         :param argument: The actual text.
         """
-        Node.__init__(self, io, 'TEXT', options, argument)
+        Node.__init__(self, io=io, name='TEXT', options=options, argument=argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def print_info(self, level: int) -> None:
@@ -80,7 +80,7 @@ class TextNode(Node):
 
             # Creating text and paragraph end nodes and put id's in list.
             for text in list_of_texts[:to]:
-                text_node = TextNode(self.io, {}, text)
+                text_node = TextNode(io=self.io, argument=text)
                 sdoc.sdoc2.node_store.store_node(text_node)
                 text_ids.append(text_node.id)
 

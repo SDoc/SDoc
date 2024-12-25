@@ -12,7 +12,7 @@ class CodeNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, options: Dict[str, str], argument: str):
+    def __init__(self, *, io: IO, options: Dict[str, str], argument: str):
         """
         Object constructor.
 
@@ -20,7 +20,7 @@ class CodeNode(Node):
         :param options: The options of this figure.
         :param argument: Not used.
         """
-        Node.__init__(self, io, 'code', options, argument)
+        Node.__init__(self, io=io, name='code', options=options, argument=argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:

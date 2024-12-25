@@ -15,7 +15,7 @@ class TocNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, options: Dict[str, str], argument: str):
+    def __init__(self, *, io: IO, options: Dict[str, str], argument: str):
         """
         Object constructor.
 
@@ -23,7 +23,7 @@ class TocNode(Node):
         :param options: The options of this table of contents.
         :param argument: The argument of this TOC.
         """
-        Node.__init__(self, io, 'toc', options, argument)
+        Node.__init__(self, io=io, name='toc', options=options, argument=argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:

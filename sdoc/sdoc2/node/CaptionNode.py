@@ -12,7 +12,7 @@ class CaptionNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, options: Dict[str, str], argument: str):
+    def __init__(self, *, io: IO, options: Dict[str, str], argument: str):
         """
         Object constructor.
 
@@ -20,7 +20,7 @@ class CaptionNode(Node):
         :param options: The options of this caption.
         :param argument: The title of this caption.
         """
-        Node.__init__(self, io, 'caption', options, argument)
+        Node.__init__(self, io=io, name='caption', options=options, argument=argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:
