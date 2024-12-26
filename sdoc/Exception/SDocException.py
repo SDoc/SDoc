@@ -1,0 +1,2 @@
+class SDocException(Exception):
+    pass

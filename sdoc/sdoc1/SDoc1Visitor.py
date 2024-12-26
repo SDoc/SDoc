@@ -9,6 +9,8 @@ from cleo.io.io import IO
 from sdoc.antlr.sdoc1Lexer import sdoc1Lexer
 from sdoc.antlr.sdoc1Parser import sdoc1Parser
 from sdoc.antlr.sdoc1ParserVisitor import sdoc1ParserVisitor
+from sdoc.Exception.SDocException import SDocException
+from sdoc.helper.PathResolver import PathResolver
 from sdoc.helper.SDoc import SDoc
 from sdoc.sdoc.SDocVisitor import SDocVisitor
 from sdoc.sdoc1.data_type.ArrayDataType import ArrayDataType
@@ -25,11 +27,11 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, root_dir: str = os.getcwd()):
+    def __init__(self, io: IO, path: str):
         """
         Object constructor.
 
-        :param root_dir: The root directory for including sub-documents.
+        :param path: The relative path from the CWD to the SDoc1 document.
         """
         SDocVisitor.__init__(self, io)
 
@@ -58,9 +60,9 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         The options.
         """
 
-        self._root_dir: str = root_dir
+        self._path: str = path
         """
-        The root directory for including sub-documents.
+        The relative path from the CWD to the SDoc1 document.
         """
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -420,40 +422,40 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
             return
 
         # Open a stream for the sub-document.
-        file_name = SDoc.unescape(ctx.SIMPLE_ARG().getText())
-        if not os.path.isabs(file_name):
-            file_name = os.path.join(self._root_dir, file_name)
-        real_path = os.path.relpath(file_name)
-        self._io.write_line("Including <fso>{0!s}</fso>".format(real_path))
+        filename = SDoc.unescape(ctx.SIMPLE_ARG().getText())
         try:
-            stream = antlr4.FileStream(file_name, 'utf-8')
+            path = PathResolver.resolve_path(self._path, filename)
+            self._io.write_line("Including <fso>{0!s}</fso>".format(path))
+            try:
+                stream = antlr4.FileStream(path, 'utf-8')
 
-            # root_dir
+                # root_dir
 
-            # Create a new lexer and parser for the sub-document.
-            lexer = sdoc1Lexer(stream)
-            tokens = antlr4.CommonTokenStream(lexer)
-            parser = sdoc1Parser(tokens)
-            tree = parser.sdoc()
+                # Create a new lexer and parser for the sub-document.
+                lexer = sdoc1Lexer(stream)
+                tokens = antlr4.CommonTokenStream(lexer)
+                parser = sdoc1Parser(tokens)
+                tree = parser.sdoc()
 
-            # Create a visitor.
-            visitor = SDoc1Visitor(self._io, root_dir=os.path.dirname(os.path.realpath(file_name)))
+                # Create a visitor.
+                visitor = SDoc1Visitor(self._io, path=path)
 
-            # Set or inherit properties from the parser of the parent document.
-            visitor.include_level = self._include_level + 1
-            visitor.output = self._output
-            visitor.global_scope = self._global_scope
+                # Set or inherit properties from the parser of the parent document.
+                visitor.include_level = self._include_level + 1
+                visitor.output = self._output
+                visitor.global_scope = self._global_scope
 
-            # Run the visitor on the parse tree.
-            visitor.visit(tree)
+                # Run the visitor on the parse tree.
+                visitor.visit(tree)
 
-            # Copy properties from the child document.
-            self._errors += visitor.errors
+                # Copy properties from the child document.
+                self._errors += visitor.errors
 
-            self.put_position(ctx, 'stop')
-        except FileNotFoundError as e:
-            message = 'Unable to open file {0!s}.\nCause: {1!s}'.format(real_path, e)
-            self._error(message, ctx.INCLUDE().getSymbol())
+                self.put_position(ctx, 'stop')
+            except FileNotFoundError as e:
+                self._error(f'Unable to open file {path}.\nCause: {e.strerror}', ctx.INCLUDE().getSymbol())
+        except SDocException as e:
+            self._error(f'Unable to process file {filename}.\nCause: {str(e)}', ctx.INCLUDE().getSymbol())
 
     # ------------------------------------------------------------------------------------------------------------------
     def visitCmd_notice(self, ctx: sdoc1Parser.Cmd_noticeContext) -> None:

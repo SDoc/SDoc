@@ -5,6 +5,7 @@ from typing import List
 from sdoc import sdoc2
 from sdoc.error import SDocError
 from sdoc.format.Format import Format
+from sdoc.helper.PathResolver import PathResolver
 from sdoc.io.SDocIO import SDocIO
 from sdoc.sdoc1.SDoc1Interpreter import SDoc1Interpreter
 from sdoc.sdoc2.NodeStore import NodeStore
@@ -268,7 +269,7 @@ class SDoc:
         self._errors += interpreter1.process(sdoc1_path, sdoc2_path)
 
         if log_errors and self._errors:
-            self._io.write_line(" ")
+            self._io.write_line('')
             self._io.title('Errors')
             self._io.write_error('There were {0} errors in total'.format(self._errors))
 
@@ -319,10 +320,12 @@ class SDoc:
         """
         Runs the SDoc1 and SDoc2 parser and returns the error count.
 
-        :param main_filename: The path of the SDoc1 document.
+        :param main_filename: The path to the SDoc1 document.
         :param log_errors: Whether the number of errors will be logged.
         """
         self.init()
+
+        PathResolver.set_home(main_filename)
 
         temp_filename = self._temp_dir + '/' + os.path.basename(main_filename) + '.sdoc2'
         self.run_sdoc1(main_filename, temp_filename, False)
@@ -330,9 +333,9 @@ class SDoc:
         self.run_format(False)
 
         if log_errors and self._errors:
-            self._io.write_line(" ")
+            self._io.write_line('')
             self._io.title('Errors')
-            self._io.write_error('There were {0} errors in total'.format(self._errors))
+            self._io.write_error(f'There were {self._errors} errors in total.')
 
         return self._errors
 
