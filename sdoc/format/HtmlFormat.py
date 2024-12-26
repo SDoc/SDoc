@@ -104,7 +104,7 @@ class HtmlFormat(Format):
             file_name = os.path.join(self._target_dir, 'output.html')
             self._io.write_line('Writing <fso>{0!s}</fso>'.format(file_name))
             with open(file_name, 'wt', encoding='utf8') as general_file:
-                formatter = sdoc2.node_store.create_formatter(self._io, 'document')
+                formatter = sdoc2.node_store.create_formatter(self._io, sdoc2.node_store.nodes[1])
                 formatter.generate(sdoc2.node_store.nodes[1], general_file)
                 self._errors += formatter.errors
 

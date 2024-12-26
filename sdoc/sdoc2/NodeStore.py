@@ -96,7 +96,7 @@ class NodeStore:
             filename = node.position.file_name
             line_number = node.position.start_line
             column_number = node.position.start_column + 1
-            messages.append('Position: {0!s}:{1:d}.{2:d}'.format(filename, line_number, column_number))
+            messages.append(' at position: {0!s}:{1:d}.{2:d}'.format(filename, line_number, column_number))
         NodeStore._io.write_error(messages)
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -287,22 +287,23 @@ class NodeStore:
         return node
 
     # ------------------------------------------------------------------------------------------------------------------
-    def create_formatter(self, io: IO, command: str, parent=None):
+    def create_formatter(self, io: IO, node, parent=None):
         """
         Creates a formatter for generating the output of nodes in the requested output format.
 
         :param io: The IO object.
-        :param command: The inline or block command.
+        :param node: The SDoc2 node.
         :param parent: The parent formatter.
         """
         if self.format not in formatters:
             raise RuntimeError("Unknown output format '{0!s}'.".format(self.format))
 
-        if command not in formatters[self.format]:
-            # @todo use default none decorator with warning
-            raise RuntimeError("Unknown formatter '{0!s}' for format '{1!s}'.".format(command, self.format))
+        if node.name in formatters[self.format]:
+            constructor = formatters[self.format][node.name]
+        else:
+            self.error(f"No formatter available for SDoc2 command \\{node.name}q", node)
+            constructor = formatters[self.format]['none']
 
-        constructor = formatters[self.format][command]
         formatter = constructor(io, parent)
 
         return formatter

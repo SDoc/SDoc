@@ -3,7 +3,6 @@ from typing import Any
 from cleo.io.io import IO
 
 from sdoc.sdoc2 import in_scope, node_store, out_scope
-from sdoc.sdoc2.node.Node import Node
 
 
 class Formatter:
@@ -48,7 +47,7 @@ class Formatter:
         return self._errors
 
     # ------------------------------------------------------------------------------------------------------------------
-    def error(self, message: str, node: Node | None = None) -> None:
+    def error(self, message: str, node = None) -> None:
         """
         Logs an error.
 
@@ -69,7 +68,7 @@ class Formatter:
             self._io.write_error(messages)
 
     # ------------------------------------------------------------------------------------------------------------------
-    def generate(self, node: Node, file: Any) -> None:
+    def generate(self, node, file: Any) -> None:
         """
         Generates the representation of a node in the requested output format.
 
@@ -79,7 +78,7 @@ class Formatter:
         for node_id in node.child_nodes:
             child_node = in_scope(node_id)
 
-            formatter = node_store.create_formatter(self._io, child_node.name, self)
+            formatter = node_store.create_formatter(self._io, child_node, self)
             formatter.generate(child_node, file)
 
             out_scope(child_node)
