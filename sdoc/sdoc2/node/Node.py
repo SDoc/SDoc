@@ -142,13 +142,14 @@ class Node(metaclass=abc.ABCMeta):
         raise RuntimeError("This method MUST only be called when a node is a part of an hierarchy.")
 
     # ------------------------------------------------------------------------------------------------------------------
-    def get_option_value(self, option_name: str) -> Any:
+    def get_option_value(self, option_name: str, default: Any = None) -> Any:
         """
-        Returns the value of an option. Returns None if the option is not set.
+        Returns the value of an option.
 
         :param option_name: The name of the option.
+        :param default: The value to return if the option doesn't exist.
         """
-        return self._options[option_name] if option_name in self._options else None
+        return self._options[option_name] if option_name in self._options else default
 
     # ------------------------------------------------------------------------------------------------------------------
     def set_option_value(self, option: str, value: str) -> None:
