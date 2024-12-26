@@ -41,6 +41,7 @@ mode MODE_OPT_ARG;
 
 OPT_ARG_RIGHT_BRACKET: ']'  -> popMode;
 OPT_ARG_EQUALS:        '=';
+OPT_ARG_SEPARATOR:     ',';
 
 OPT_ARG_NAME: [a-zA-Z][a-zA-Z0-9_]*;
 
@@ -67,5 +68,3 @@ mode INLINE_MODE_ARG;
 INLINE_ARG_RIGHT_BRACE:  '}'  -> popMode,popMode;
 
 INLINE_ARG_ARG: (~[{}] | '\\'. )+;
-
-
