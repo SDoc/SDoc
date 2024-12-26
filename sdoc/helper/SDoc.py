@@ -29,7 +29,7 @@ class SDoc:
     @staticmethod
     def unescape(text: str) -> str:
         """
-        Returns an unescaped SDoc escaped string. I.e., removes back slashes.
+        Returns an unescaped SDoc escaped string. I.e., removes backslashes.
 
         :param text: The SDoc escaped string.
         """
