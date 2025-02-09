@@ -1,5 +1,3 @@
-from typing import Any
-
 from sdoc.helper.Html import Html
 from sdoc.sdoc2.formatter.html.HtmlFormatter import HtmlFormatter
 from sdoc.sdoc2.node.ItemNode import ItemNode
@@ -12,19 +10,15 @@ class ItemHtmlFormatter(HtmlFormatter):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def generate(self, node: ItemNode, file: Any) -> None:
+    def struct(self, node: ItemNode) -> Html:
         """
         Generates the HTML code for an item node.
 
         :param node: The item node.
-        :param file: The output file.
         """
-        attributes = {'id': node.get_option_value('id')}
-
-        file.write('<li {0}>'.format(Html.generate_attribute('id', attributes['id'])))
-        node.prepare_content_tree()
-        HtmlFormatter.generate(self, node, file)
-        file.write('</li>')
+        return Html(tag='li',
+                    attr={'id': node.get_option_value('id')},
+                    inner=self._struct_inner(node))
 
 
 # ----------------------------------------------------------------------------------------------------------------------

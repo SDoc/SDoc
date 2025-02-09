@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Dict, List
 
 from sdoc.helper.Html import Html
 from sdoc.sdoc2.formatter.html.HtmlFormatter import HtmlFormatter
@@ -12,76 +12,58 @@ class TocHtmlFormatter(HtmlFormatter):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def generate(self, node: TocNode, file: Any) -> None:
+    def struct(self, node: TocNode) -> Html:
         """
         Generates the HTML code for a table of contents node.
 
         :param node: The table of contents node.
-        :param file: The output file.
         """
-        self.write_into_file(node, file)
-
-        HtmlFormatter.generate(self, node, file)
+        return Html(tag='nav',
+                    attr={'role':  'navigation',
+                          'class': 'table-of-contents'},
+                    inner=[Html(tag='h3', text=node.argument),
+                           Html(tag='ul', inner=TocHtmlFormatter.__struct_toc_items(node))])
 
     # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
-    def write_into_file(node: TocNode, file: Any) -> None:
-        """
-        Writes data into the opened HTML file.
-
-        :param node: The table of contents node.
-        :param file: The output file.
-        """
-        attributes = {'role': 'navigation', 'class': 'table-of-contents'}
-
-        file.write(Html.generate_tag('nav', attributes))
-        file.write(Html.generate_element('h3', {}, node.argument))
-
-        file.write('<ul>')
-        TocHtmlFormatter.write_contents(node, file)
-        file.write('</ul>')
-
-        file.write('</nav>')
-
-    # ------------------------------------------------------------------------------------------------------------------
-    @staticmethod
-    def write_contents(node: TocNode, file: Any) -> None:
+    def __struct_toc_items(node: TocNode) -> List[Html]:
         """
         Writes the contents into file.
 
         :param TocNode node: The table of contents node.
-        :param file: The output file.
         """
+        toc_items = []
+
         depth = node.get_option_value('depth')
-
         for item in node.get_option_value('ids'):
-            if depth and item['level'] <= int(depth):
-                TocHtmlFormatter.write_elements(item, file)
+            if not depth or (depth and item['level'] <= int(depth)):
+                toc_items.append(TocHtmlFormatter.__struct_toc_item(item))
 
-            elif not depth:
-                TocHtmlFormatter.write_elements(item, file)
+        return toc_items
 
     # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
-    def write_elements(item: Dict[str, str], file: Any) -> None:
+    def __struct_toc_item(item: Dict[str, str]) -> Html:
         """
         Write the containing elements.
 
         :param item: The item which we outputs.
-        :param file: The output file.
         """
-        class_attr = 'level{}'.format(item['level'])
-        file.write(Html.generate_tag('li', {'class': class_attr}))
-
-        file.write(Html.generate_tag('a', {'href': '#{}'.format(item['id'])}))
+        inner = []
 
         number = item['number'] if item['numbering'] else None
         if number:
-            file.write(Html.generate_element('span', {}, str(number)))
+            inner.append(Html(tag='span', text=number))
+            inner.append(Html(text=' '))
+        inner.append(Html(text=item['arg']))
 
-        file.write(' {}'.format(item['arg']))
-        file.write('</a>')
-        file.write('</li>')
+        link = Html(tag='a',
+                    attr={'href': f'#{item['id']}'},
+                    inner=inner)
+
+        return Html(tag='li',
+                    attr={'class': f'level{item['level']}'},
+                    inner=link)
 
 
 # ----------------------------------------------------------------------------------------------------------------------

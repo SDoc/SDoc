@@ -99,7 +99,7 @@ class HtmlFormat(Format):
         # Generate table of contents.
         sdoc2.node_store.generate_toc()
 
-        # Generate whole HTML output file.
+        # Generates the whole HTML output file.
         if self._one_file:
             file_name = os.path.join(self._target_dir, 'output.html')
             self._io.write_line('Writing <fso>{0!s}</fso>'.format(file_name))

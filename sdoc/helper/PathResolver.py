@@ -47,10 +47,12 @@ class PathResolver:
 
         :param main: The path to the root SDoc file.
         """
-        if PathResolver._home is not None:
+        resolved = Path.cwd().resolve()
+
+        if PathResolver._home is not None and PathResolver._home != resolved:
             raise RuntimeError('Home folder is set already.')
 
-        PathResolver._home = Path.cwd().resolve()
+        PathResolver._home = resolved
         PathResolver._main = Path(main).resolve().parent
 
 # ----------------------------------------------------------------------------------------------------------------------

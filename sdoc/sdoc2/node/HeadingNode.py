@@ -167,7 +167,7 @@ class HeadingNode(Node, ABC):
                     paragraph_node = None
 
                 # End paragraph nodes are created temporary to separate paragraphs in a flat list of (text) node. There
-                # role ae replaced by the content hierarchy now. So, we must no store end paragraph nodes.
+                # role is replaced by the content hierarchy now. So, we must not store end paragraph nodes.
                 if not isinstance(node, EndParagraphNode):
                     new_child_nodes.append(node.id)
 
@@ -180,5 +180,21 @@ class HeadingNode(Node, ABC):
 
         # Setting child nodes.
         self.child_nodes = new_child_nodes
+
+    # ------------------------------------------------------------------------------------------------------------------
+    def print_info(self, level: int) -> None:
+        """
+        Temp function for development.
+
+        :param level: The level of block commands.
+        """
+        self.io.write_line(f"{' ' * 4 * level}{self.id} {self.name} {self.argument.replace("\n", '\\n')}")
+
+        for node_id in self.child_nodes:
+            node = in_scope(node_id)
+
+            node.print_info(level + 1)
+
+            out_scope(node)
 
 # ----------------------------------------------------------------------------------------------------------------------

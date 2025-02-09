@@ -1,5 +1,4 @@
-from typing import Any
-
+from sdoc.helper.Html import Html
 from sdoc.sdoc2.formatter.html.HtmlFormatter import HtmlFormatter
 from sdoc.sdoc2.node.Node import Node
 from sdoc.sdoc2.NodeStore import NodeStore
@@ -11,34 +10,15 @@ class UnknownHtmlFormatter(HtmlFormatter):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def generate(self, node: Node, file: Any) -> None:
+    def struct(self, node: Node) -> Html:
         """
         Generates the HTML code for an unknown node.
-
-        :param node: The unknown node.
-        :param file: The output file.
-        """
-        self.write_into_file(node)
-
-    # ------------------------------------------------------------------------------------------------------------------
-    def generate_chapter(self, node: Node, file: Any) -> None:
-        """
-        Generates the HTML code for an unknown node.
-
-        :param node: The unknown node.
-        :param file: The output file.
-        """
-        if file:
-            self.write_into_file(node)
-
-    # ------------------------------------------------------------------------------------------------------------------
-    def write_into_file(self, node: Node):
-        """
-        Writes into the opened file.
 
         :param node: The unknown node.
         """
         self.error(f"Unknown SDoc2 command '\\{node.argument}'", node)
+
+        return Html()
 
 
 # ----------------------------------------------------------------------------------------------------------------------

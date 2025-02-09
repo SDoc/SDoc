@@ -1,5 +1,4 @@
-from typing import Any
-
+from sdoc.helper.Html import Html
 from sdoc.sdoc2.formatter.html.HtmlFormatter import HtmlFormatter
 from sdoc.sdoc2.node.LabelNode import LabelNode
 from sdoc.sdoc2.NodeStore import NodeStore
@@ -11,14 +10,13 @@ class LabelHtmlFormatter(HtmlFormatter):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def generate(self, node: LabelNode, file: Any) -> None:
+    def struct(self, node: LabelNode) -> Html:
         """
         Generates the HTML code for a label node.
 
         :param node: The label node.
-        :param file: The output file.
         """
-        HtmlFormatter.generate(self, node, file)
+        return Html(inner=self._struct_inner(node))
 
 
 # ----------------------------------------------------------------------------------------------------------------------

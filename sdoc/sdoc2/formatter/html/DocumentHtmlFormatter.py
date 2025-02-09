@@ -1,5 +1,3 @@
-from typing import Any
-
 from sdoc.helper.Html import Html
 from sdoc.sdoc2 import in_scope, out_scope
 from sdoc.sdoc2.formatter.html.HtmlFormatter import HtmlFormatter
@@ -13,48 +11,48 @@ class DocumentHtmlFormatter(HtmlFormatter):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def generate(self, node: DocumentNode, file: Any) -> None:
-        """
-        Generates the HTML code for a document node.
-
-        :param node: The document node.
-        :param file: The output file.
-        """
-        self.generate_document_node(node, file)
-
-        HtmlFormatter.generate(self, node, file)
-
-    # ------------------------------------------------------------------------------------------------------------------
-    @staticmethod
-    def generate_document_node(node: DocumentNode, file: Any) -> None:
+    def struct(self, node: DocumentNode) -> Html:
         """
         Generates the HTML code for heading node.
 
         :param node: The document node.
-        :param file: The output file.
         """
-        file.write('<div class="sdoc-document-title-outer">')
+        body = []
+
+        inner1 = []
         if node.title_node_id:
             title_node = in_scope(node.title_node_id)
-            file.write(Html.generate_element('h1', {}, title_node.argument))
+            inner1.append(Html(tag='h1', text=title_node.argument))
             out_scope(title_node)
 
-        file.write('<div class="sdoc-document-title-inner">')
-
+        inner2 = []
         if node.date_node_id:
             date_node = in_scope(node.date_node_id)
             if date_node.argument:
-                file.write(Html.generate_element('span', {'class': 'sdoc-document-date'}, date_node.argument))
+                inner2.append(Html(tag='span',
+                                   attr={'class': 'sdoc-document-date'},
+                                   text=date_node.argument))
             out_scope(date_node)
 
         if node.version_node_id:
             version_node = in_scope(node.version_node_id)
             if version_node.argument:
-                file.write(Html.generate_element('span', {'class': 'sdoc-document-version'}, version_node.argument))
+                inner2.append(Html(tag='span',
+                                   attr={'class': 'sdoc-document-version'},
+                                   text=version_node.argument))
             out_scope(version_node)
 
-        file.write('</div>')
-        file.write('</div>')
+        inner1.append(Html(tag='div',
+                           attr={'class': 'sdoc-document-title-inner'},
+                           inner=inner2))
+
+        body.append(Html(tag='div',
+                         attr={'class': 'sdoc-document-title-outer'},
+                         inner=inner1))
+
+        body += self._struct_inner(node)
+
+        return Html(inner=body)
 
 
 # ----------------------------------------------------------------------------------------------------------------------

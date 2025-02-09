@@ -1,5 +1,3 @@
-from typing import Any
-
 from sdoc.helper.Html import Html
 from sdoc.sdoc2.formatter.html.HtmlFormatter import HtmlFormatter
 from sdoc.sdoc2.node.ReferenceNode import ReferenceNode
@@ -12,41 +10,17 @@ class ReferenceHtmlFormatter(HtmlFormatter):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def generate(self, node: ReferenceNode, file: Any) -> None:
+    def struct(self, node: ReferenceNode) -> Html:
         """
         Generates the HTML code for a reference node.
 
         :param node: The reference node.
-        :param file: The output file.
         """
-        self.write_into_file(node, file)
-
-        HtmlFormatter.generate(self, node, file)
-
-    # ------------------------------------------------------------------------------------------------------------------
-    @staticmethod
-    def write_into_file(node: ReferenceNode, file: Any) -> None:
-        """
-        Writes data into the opened HTML file.
-
-        :param node: The reference node.
-        :param file: The output file.
-        """
-        file.write(ReferenceHtmlFormatter.get_html(node))
-
-    # ------------------------------------------------------------------------------------------------------------------
-    @staticmethod
-    def get_html(node: ReferenceNode) -> str:
-        """
-        Returns string with generated HTML tag.
-
-        :param node: The reference node.
-        """
-        attributes = {'class': node.get_option_value('class'),
-                      'href':  node.get_option_value('href'),
-                      'title': node.get_option_value('title')}
-
-        return Html.generate_element('a', attributes, str(node.text))
+        return Html(tag='a',
+                    attr={'class': node.get_option_value('class'),
+                          'href':  node.get_option_value('href'),
+                          'title': node.get_option_value('title')},
+                    text=node.text)
 
 
 # ----------------------------------------------------------------------------------------------------------------------

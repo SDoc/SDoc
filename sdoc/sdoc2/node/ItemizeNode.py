@@ -86,22 +86,25 @@ class ItemizeNode(Node):
         obsolete_node_ids = []
 
         for node_id in self.child_nodes:
-            node = in_scope(node_id)
+            child_node = in_scope(node_id)
 
-            if isinstance(node, TextNode):
+            if isinstance(child_node, TextNode):
                 # Ignore text nodes with only whitespace silently.
-                if re.sub(r'\s+', '', node.argument) != '':
+                if re.sub(r'\s+', '', child_node.argument) != '':
                     # This text node contains more than only whitespace.
-                    node_store.error("Unexpected text '{0}'".format(node.argument), node)
+                    node_store.error(f"Unexpected text '{child_node.argument}'.", child_node)
                 obsolete_node_ids.append(node_id)
 
-            elif not isinstance(node, ItemNode):
+            elif not isinstance(child_node, ItemNode):
                 # An itemize node can have only item nodes as direct child nodes.
-                node_store.error("Node: id:{0!s}, {1!s} is not instance of 'ItemNode'".format(str(node.id), node.name),
-                                 node)
+                node_store.error(f"Node: id:{child_node.id}, {child_node.name} is not instance of 'ItemNode'.",
+                                 child_node)
                 obsolete_node_ids.append(node_id)
 
-            out_scope(node)
+            else:
+                child_node.prepare_content_tree()
+
+            out_scope(child_node)
 
         self._remove_child_nodes(obsolete_node_ids)
 

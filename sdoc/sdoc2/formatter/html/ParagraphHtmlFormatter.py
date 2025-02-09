@@ -1,5 +1,4 @@
-from typing import Any
-
+from sdoc.helper.Html import Html
 from sdoc.sdoc2.formatter.html.HtmlFormatter import HtmlFormatter
 from sdoc.sdoc2.node.ParagraphNode import ParagraphNode
 from sdoc.sdoc2.NodeStore import NodeStore
@@ -11,16 +10,13 @@ class ParagraphHtmlFormatter(HtmlFormatter):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def generate(self, node: ParagraphNode, file: Any) -> None:
+    def struct(self, node: ParagraphNode) -> Html:
         """
         Generates the HTML code for a paragraph node.
 
         :param node: The paragraph node.
-        :param file: The output file.
         """
-        file.write('<p>')
-        HtmlFormatter.generate(self, node, file)
-        file.write('</p>')
+        return Html(tag='p', inner=self._struct_inner(node))
 
 
 # ----------------------------------------------------------------------------------------------------------------------

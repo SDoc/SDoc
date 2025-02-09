@@ -1,5 +1,3 @@
-from typing import Any
-
 from sdoc.helper.Html import Html
 from sdoc.sdoc2.formatter.html.HtmlFormatter import HtmlFormatter
 from sdoc.sdoc2.node.DateNode import DateNode
@@ -12,16 +10,13 @@ class DateHtmlFormatter(HtmlFormatter):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def generate(self, node: DateNode, file: Any) -> None:
+    def struct(self, node: DateNode) -> Html:
         """
         Generates HTML code for a date node.
 
         :param DateNode node: The date node.
-        :param file: The output file.
         """
-        html = Html.generate_element('span', {}, node.argument)
-
-        file.write(html)
+        return Html(tag='span', text=node.argument)
 
 
 # ----------------------------------------------------------------------------------------------------------------------

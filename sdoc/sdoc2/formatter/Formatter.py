@@ -1,11 +1,11 @@
+import abc
+from abc import ABC
 from typing import Any
 
 from cleo.io.io import IO
 
-from sdoc.sdoc2 import in_scope, node_store, out_scope
 
-
-class Formatter:
+class Formatter(ABC):
     """
     Abstract parent class for all formatters for generating the output of nodes in a requested format.
     """
@@ -47,7 +47,7 @@ class Formatter:
         return self._errors
 
     # ------------------------------------------------------------------------------------------------------------------
-    def error(self, message: str, node = None) -> None:
+    def error(self, message: str, node=None) -> None:
         """
         Logs an error.
 
@@ -68,6 +68,7 @@ class Formatter:
             self._io.write_error(messages)
 
     # ------------------------------------------------------------------------------------------------------------------
+    @abc.abstractmethod
     def generate(self, node, file: Any) -> None:
         """
         Generates the representation of a node in the requested output format.
@@ -75,12 +76,7 @@ class Formatter:
         :param node: The node for which the output must be generated.
         :param file: The output file.
         """
-        for node_id in node.child_nodes:
-            child_node = in_scope(node_id)
+        raise NotImplementedError()
 
-            formatter = node_store.create_formatter(self._io, child_node, self)
-            formatter.generate(child_node, file)
-
-            out_scope(child_node)
 
 # ----------------------------------------------------------------------------------------------------------------------

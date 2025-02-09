@@ -1,5 +1,3 @@
-from typing import Any
-
 from sdoc.helper.Html import Html
 from sdoc.sdoc2.formatter.html.HtmlFormatter import HtmlFormatter
 from sdoc.sdoc2.node.CodeNode import CodeNode
@@ -12,16 +10,13 @@ class CodeHtmlFormatter(HtmlFormatter):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def generate(self, node: CodeNode, file: Any) -> None:
+    def struct(self, node: CodeNode) -> Html:
         """
         Generates the HTML code for an icon node.
 
         :param node: The code node.
-        :param file: The output file.
         """
-        html_code = Html.generate_element('code', {}, node.argument)
-
-        file.write(html_code)
+        return Html(tag='code', text=node.argument)
 
 
 # ----------------------------------------------------------------------------------------------------------------------

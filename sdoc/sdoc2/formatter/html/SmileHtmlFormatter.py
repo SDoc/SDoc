@@ -1,5 +1,3 @@
-from typing import Any
-
 from sdoc.helper.Html import Html
 from sdoc.sdoc2.formatter.html.HtmlFormatter import HtmlFormatter
 from sdoc.sdoc2.node.SmileNode import SmileNode
@@ -12,24 +10,13 @@ class SmileHtmlFormatter(HtmlFormatter):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def generate(self, node: SmileNode, file: Any) -> None:
+    def struct(self, node: SmileNode) -> Html:
         """
         Generates the HTML code for a smile node.
 
         :param node: The smile node.
-        :param file: The output file.
         """
-        file.write(SmileHtmlFormatter.get_html())
-
-        HtmlFormatter.generate(self, node, file)
-
-    # ------------------------------------------------------------------------------------------------------------------
-    @staticmethod
-    def get_html() -> str:
-        """
-        Returns string with generated HTML tag for smile.
-        """
-        return Html.generate_element('b', {}, 'SMILE')
+        return Html(tag='b', text='SMILE')
 
 
 # ----------------------------------------------------------------------------------------------------------------------

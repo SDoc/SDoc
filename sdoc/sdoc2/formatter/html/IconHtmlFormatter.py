@@ -1,5 +1,3 @@
-from typing import Any
-
 from sdoc.helper.Html import Html
 from sdoc.sdoc2.formatter.html.HtmlFormatter import HtmlFormatter
 from sdoc.sdoc2.node.IconNode import IconNode
@@ -12,20 +10,19 @@ class IconHtmlFormatter(HtmlFormatter):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def generate(self, node: IconNode, file: Any) -> None:
+    def struct(self, node: IconNode) -> Html:
         """
         Generates the HTML code for an icon node.
 
         :param IconNode node: The icon node.
-        :param file: The output file.
         """
         attributes = IconNode.get_definition(node.argument)
-
         if attributes:
-            img_element = Html.generate_void_element('img', attributes)
-            file.write(img_element)
-        else:
-            NodeStore.error("There is no definition for icon with name '{}'".format(node.argument), node)
+            return Html(tag='img', attr=attributes)
+
+        NodeStore.error(f"There is no definition for icon with name '{node.argument}'.", node)
+
+        return Html()
 
 
 # ----------------------------------------------------------------------------------------------------------------------

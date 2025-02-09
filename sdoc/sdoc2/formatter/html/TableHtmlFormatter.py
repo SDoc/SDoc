@@ -12,78 +12,67 @@ class TableHtmlFormatter(HtmlFormatter):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def generate(self, node: TableNode, file: Any) -> None:
+    def struct(self, node: TableNode) -> Html:
         """
         Generates the HTML code for a table node.
 
         :param TableNode node: The table node.
-        :param file: The output file.
         """
-        attributes = {'class': node.get_option_value('class'),
-                      'id':    node.get_option_value('id')}
-
-        html = Html.generate_tag('table', attributes)
-
-        html += TableHtmlFormatter._generate_caption(node)
-
-        html += self._generate_table_body(node)
-
-        html += '</table>'
-
-        file.write(html)
+        return Html(tag='table',
+                    attr={'class': node.get_option_value('class'),
+                          'id':    node.get_option_value('id')},
+                    inner=[self.__struct_caption(node),
+                           self.__struct_table_body(node)])
 
     # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
-    def _generate_caption(node: TableNode) -> str:
+    def __struct_caption(node: TableNode) -> Html | None:
         """
         Generates the caption for the table in HTML representation.
 
         :param node: The table node.
         """
-        if node.caption:
-            table_number = node.get_option_value('number')
+        if not node.caption:
+            return None
 
-            if table_number:
-                inner_text = 'Tabel {}: {}'.format(table_number, node.caption)  # TODO Internationalization
-            else:
-                inner_text = node.caption
+        table_number = node.get_option_value('number')
+        if table_number:
+            text = f'Tabel {table_number}: {node.caption}'  # TODO Internationalization
+        else:
+            text = node.caption
 
-            return Html.generate_element('caption', {}, inner_text)
-
-        return ''
+        return Html(tag='caption', text=text)
 
     # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
-    def _generate_table_body(node: TableNode) -> str:
+    def __struct_table_body(node: TableNode) -> Html:
         """
         Generates table with header.
 
         :param node: The table node.
         """
-        html = '<tbody>'
+        rows = []
 
         if node.column_headers:
-            html += '<tr>'
+            cells = []
             for column in node.column_headers:
-                html += Html.generate_element('th', {}, column)
-            html += '</tr>'
+                cells.append(Html(tag='th', inner=column))
+            rows.append(Html(tag='tr', inner=cells))
 
         for row in node.rows:
             header_column_counter = 0
-            html += '<tr>'
             for col in row:
+                cells = []
                 align = TableHtmlFormatter._get_align(node.alignments, header_column_counter)
-                html += TableHtmlFormatter._generate_table_cell(align, col)
+                cells.append(TableHtmlFormatter.__struct_table_cell(align, col))
                 header_column_counter += 1
-            html += '</tr>'
+                rows.append(Html(tag='tr', inner=cells))
 
-        html += '</tbody>'
-
-        return html
+        return Html(tag='body', inner=rows)
 
     # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
-    def _generate_table_cell(align: str | None, cell: Any) -> str:
+    def __struct_table_cell(align: str | None, cell: Any) -> Html:
         """
         Returns the 'column' with HTML data.
 
@@ -93,24 +82,23 @@ class TableHtmlFormatter(HtmlFormatter):
         attributes = {}
 
         if align:
-            attributes['style'] = "text-align: {0}".format(align)
+            attributes['style'] = f'text-align: {align}'
 
         if isinstance(cell, str):
-            data = cell
-            is_html = False
+            html = Html.txt2html(cell)
         else:
-            # Generates HTML in nested node ('cell') with specified formatter.
             formatter = NodeStore.get_formatter('html', cell.name)
-            data = formatter.get_html(cell)
-            is_html = True
+            html = formatter.get_html(cell)
 
-        return Html.generate_element('td', attributes, data, is_html)
+        return Html(tag='td',
+                    attr=attributes,
+                    html=html)
 
     # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
     def _get_align(align_list: List[str | None], column: int) -> List[str | None] | None:
         """
-        Returns the align or None.
+        Returns the alignment or None.
 
         :param align_list: The list with alignments.
         :param column: The column number.

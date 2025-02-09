@@ -21,7 +21,7 @@ class IconDefNode(Node):
         :param options: The options of this figure.
         :param argument: Not used.
         """
-        Node.__init__(self, io=io, name='icon_def', options=options, argument=argument)
+        Node.__init__(self, io=io, name='icondef', options=options, argument=argument)
 
     # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:

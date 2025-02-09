@@ -1,5 +1,3 @@
-from typing import Dict
-
 from cleo.io.io import IO
 
 from sdoc.sdoc2.node.Node import Node

@@ -31,7 +31,7 @@ class TextNode(Node):
 
         :param level: The level of block commands.
         """
-        self.io.write_line("{0!s}{1:4d} {2!s} {3!s}".format(' ' * 4 * level, self.id, self.name, ''))
+        self.io.write_line(f"{' ' * 4 * level}{self.id} {self.name} {self.argument.replace("\n", '\\n')}")
 
     # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:

@@ -1,5 +1,4 @@
-from typing import Any
-
+from sdoc.helper.Html import Html
 from sdoc.sdoc2.formatter.html.HtmlFormatter import HtmlFormatter
 from sdoc.sdoc2.node.ItemizeNode import ItemizeNode
 from sdoc.sdoc2.NodeStore import NodeStore
@@ -11,16 +10,13 @@ class ItemizeHtmlFormatter(HtmlFormatter):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def generate(self, node: ItemizeNode, file: Any) -> None:
+    def struct(self, node: ItemizeNode) -> Html:
         """
         Generates the HTML code for an itemize node.
 
         :param node: The itemize node.
-        :param file: The output file.
         """
-        file.write('<ul>')
-        HtmlFormatter.generate(self, node, file)
-        file.write('</ul>')
+        return Html(tag='ul', inner=self._struct_inner(node))
 
 
 # ----------------------------------------------------------------------------------------------------------------------
