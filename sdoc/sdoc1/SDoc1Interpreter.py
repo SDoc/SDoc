@@ -1,5 +1,3 @@
-import os
-
 import antlr4
 from cleo.io.io import IO
 
