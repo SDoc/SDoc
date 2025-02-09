@@ -56,7 +56,7 @@ class sdoc2Parser ( Parser ):
     literalNames = [ "<INVALID>", "<INVALID>", "'\\begin'", "'\\end'", "'\\position'", 
                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                     "']'", "'='", "','", "<INVALID>", "<INVALID>", "<INVALID>", 
+                     "']'", "'='", "' '", "<INVALID>", "<INVALID>", "<INVALID>", 
                      "'}'" ]
 
     symbolicNames = [ "<INVALID>", "TEXT", "BEGIN", "END", "POSITION", "SDOC2_COMMAND", 
