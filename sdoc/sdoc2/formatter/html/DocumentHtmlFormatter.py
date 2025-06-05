@@ -1,4 +1,5 @@
 from sdoc.helper.Html import Html
+from sdoc.helper.RenderWalker import RenderWalker
 from sdoc.sdoc2 import in_scope, out_scope
 from sdoc.sdoc2.formatter.html.HtmlFormatter import HtmlFormatter
 from sdoc.sdoc2.node.DocumentNode import DocumentNode
@@ -17,6 +18,8 @@ class DocumentHtmlFormatter(HtmlFormatter):
 
         :param node: The document node.
         """
+        walker = RenderWalker('sdoc-document')
+
         body = []
 
         inner1 = []
@@ -30,7 +33,7 @@ class DocumentHtmlFormatter(HtmlFormatter):
             date_node = in_scope(node.date_node_id)
             if date_node.argument:
                 inner2.append(Html(tag='span',
-                                   attr={'class': 'sdoc-document-date'},
+                                   attr={'class': walker.get_classes('date')},
                                    text=date_node.argument))
             out_scope(date_node)
 
@@ -38,16 +41,16 @@ class DocumentHtmlFormatter(HtmlFormatter):
             version_node = in_scope(node.version_node_id)
             if version_node.argument:
                 inner2.append(Html(tag='span',
-                                   attr={'class': 'sdoc-document-version'},
+                                   attr={'class': walker.get_classes('version')},
                                    text=version_node.argument))
             out_scope(version_node)
 
         inner1.append(Html(tag='div',
-                           attr={'class': 'sdoc-document-title-inner'},
+                           attr={'class': walker.get_classes('title-inner')},
                            inner=inner2))
 
         body.append(Html(tag='div',
-                         attr={'class': 'sdoc-document-title-outer'},
+                         attr={'class': walker.get_classes('title-outer')},
                          inner=inner1))
 
         body += self._struct_inner(node)
