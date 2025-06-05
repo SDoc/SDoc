@@ -49,7 +49,9 @@ class HtmlFormatter(Formatter):
             child_node = sdoc2.in_scope(node_id)
 
             formatter = sdoc2.node_store.create_formatter(self._io, child_node, self)
-            inner.append(formatter.struct(child_node))
+            struct = formatter.struct(child_node)
+            if struct.is_not_empty:
+                inner.append(struct)
 
             sdoc2.out_scope(child_node)
 

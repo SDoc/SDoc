@@ -35,6 +35,14 @@ class Html:
     """
 
     # ------------------------------------------------------------------------------------------------------------------
+    @property
+    def is_not_empty(self) -> bool:
+        """
+        Returns whether this HTML element is not empty.
+        """
+        return self.tag or self.attr or self.inner or self.html or self.text
+
+    # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
     def txt2html(value: Any) -> str:
         """

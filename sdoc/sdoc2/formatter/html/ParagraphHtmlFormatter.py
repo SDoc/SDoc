@@ -16,7 +16,9 @@ class ParagraphHtmlFormatter(HtmlFormatter):
 
         :param node: The paragraph node.
         """
-        return Html(tag='p', inner=self._struct_inner(node))
+        inner = self._struct_inner(node)
+
+        return Html(tag='p' if inner else None, inner=inner)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
