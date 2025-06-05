@@ -32,7 +32,7 @@ class SDoc1Interpreter:
         """
         in_stream = antlr4.FileStream(infile)
 
-        self._io.write_line('Writing <fso>{0!s}</fso>'.format(outfile))
+        self._io.write_line(f'Writing <fso>{outfile}</fso>')
         with open(outfile, 'wt') as out_stream:
             lexer = sdoc1Lexer(in_stream)
             tokens = antlr4.CommonTokenStream(lexer)

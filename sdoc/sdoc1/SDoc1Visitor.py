@@ -156,7 +156,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         if position == 'stop':
             column += len(token.text)
 
-        self.stream('\\position{{{0!s}:{1:d}.{2:d}}}'.format(SDoc.escape(filename), line_number, column))
+        self.stream(f'\\position{{{SDoc.escape(filename)}:{line_number}.{column}}}')
 
     # ------------------------------------------------------------------------------------------------------------------
     def _data_is_true(self, data: DataType, token: CommonToken | None = None) -> bool | None:
@@ -198,7 +198,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         # Left hand side must be an identifier.
         # @todo implement array element.
         if not isinstance(left_hand_side, IdentifierDataType):
-            message = "Left hand side '{0!s}' is not an identifier.".format(str(left_hand_side))
+            message = f"Left hand side '{str(left_hand_side)!s}' is not an identifier."
             self._error(message, ctx.postfixExpression().start)
             return None
 
@@ -258,13 +258,13 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         # First, get the value of key.
         expression = ctx.expression().accept(self)
         if not expression.is_defined():
-            message = '{0!s} is not defined.'.format(ctx.expression().getSymbol())
+            message = f'{ctx.expression().getSymbol()!s} is not defined.'
             self._error(message, ctx.expression().start)
             return None
 
         postfix_expression = ctx.postfixExpression().accept(self)
         if not isinstance(postfix_expression, IdentifierDataType):
-            message = "'{0!s}' is not an identifier.".format(ctx.postfixExpression().getSymbol())
+            message = f"'{ctx.postfixExpression().getSymbol()!s}' is not an identifier."
             self._error(message, ctx.postfixExpression().start)
             return None
 
@@ -425,7 +425,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         filename = SDoc.unescape(ctx.SIMPLE_ARG().getText())
         try:
             path = PathResolver.resolve_path(self._path, filename)
-            self._io.write_line("Including <fso>{0!s}</fso>".format(path))
+            self._io.write_line(f'Including <fso>{path}</fso>')
             try:
                 stream = antlr4.FileStream(path, 'utf-8')
 
@@ -469,8 +469,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         line_number = token.line
         message = SDoc.unescape(ctx.SIMPLE_ARG().getText())
 
-        self._io.write_line(
-                '<notice>Notice: {0!s} at {1!s}:{2:d}</notice>'.format(message, os.path.relpath(filename), line_number))
+        self._io.write_line(f'<notice>Notice: {message} at {os.path.relpath(filename)}:{line_number}</notice>')
 
         self.put_position(ctx, 'stop')
 

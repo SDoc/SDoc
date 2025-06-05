@@ -38,8 +38,8 @@ class ArrayDataType(DataType):
 
         # Find the length of the longest key.
         for key in self._elements:
-            if len("{0!s}".format(key)) >= longest:
-                longest = len("{0!s}".format(key))
+            if len(f'{key!s}') >= longest:
+                longest = len(f'{key!s}')
                 if isinstance(key, str):
                     # The longest key is a string. Add 2 positions for quotes.
                     longest += 2
@@ -47,9 +47,9 @@ class ArrayDataType(DataType):
         for key in sorted(self._elements, key=lambda x: str(x)):
             # Checking the key type, and setting quotes.
             if isinstance(key, int):
-                str1 = " " + " " * indent + "{}".format(key).ljust(longest, " ")
+                str1 = " " + " " * indent + f"{key}".ljust(longest, " ")
             elif isinstance(key, str):
-                str1 = " " + " " * indent + "'{}'".format(key).ljust(longest, " ")
+                str1 = " " + " " * indent + f"'{key}'".ljust(longest, " ")
             else:
                 raise ValueError()
 
@@ -60,10 +60,10 @@ class ArrayDataType(DataType):
                     indent += len(str1 + sep)
                 else:
                     indent = len(str1 + sep)
-                str2 = "{}".format(self._elements[key].debug(indent)).ljust(longest, " ")
+                str2 = f"{self._elements[key].debug(indent)}".ljust(longest, " ")
                 ret += str1 + sep + str2
             else:
-                str2 = "{}".format(self._elements[key].debug()).strip()
+                str2 = f"{self._elements[key].debug()}".strip()
                 ret += str1 + sep + str2 + "\n"
 
             first = False
@@ -106,7 +106,7 @@ class ArrayDataType(DataType):
         :param value: The value of the new element.
         """
         if not key.is_scalar():
-            raise DataTypeError("Key '{0!s}' is not a scalar.".format(str(key)))
+            raise DataTypeError(f"Key '{str(key)!s}' is not a scalar.")
 
         self._elements[key.get_value()] = value.dereference()
 
@@ -120,7 +120,7 @@ class ArrayDataType(DataType):
         :param name: The name of the elements
         """
         if name not in self._elements:
-            raise DataTypeError("Identifier '{0!s}' does not have a value.".format(name))
+            raise DataTypeError(f"Identifier '{name!s}' does not have a value.")
 
         return self._elements[name]
 

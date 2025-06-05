@@ -81,7 +81,7 @@ class FigureNode(Node):
             chapter = 0
 
         if 'figures' not in enumerable_numbers:
-            enumerable_numbers['figures'] = '{0!s}.{1!s}'.format(chapter, '0')
+            enumerable_numbers['figures'] = f'{chapter}.0'
 
         else:
             numbers_level = enumerable_numbers['figures'].split('.')

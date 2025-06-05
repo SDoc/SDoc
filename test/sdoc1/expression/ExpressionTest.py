@@ -31,6 +31,6 @@ class ExpressionTest(unittest.TestCase):
                 command_tester = CommandTester(command)
                 command_tester.execute(f'{test_file_name} t.sdoc2')
 
-                self.assertTrue(command_tester.io.fetch_output().rstrip().endswith(text.strip()))
+                self.assertTrue(command_tester.io.fetch_output().rstrip().endswith(text.strip()), test_file_name)
 
 # ----------------------------------------------------------------------------------------------------------------------

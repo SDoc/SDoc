@@ -97,7 +97,7 @@ class Node(metaclass=abc.ABCMeta):
 
         :param level: The level of block commands.
         """
-        self._io.write_line("{0!s}{1:4d} {2!s}".format(' ' * 4 * level, self.id, self.name))
+        self._io.write_line(f"{' ' * 4 * level}{self.id:4d} {self.name}")
 
         for node_id in self.child_nodes:
             node = sdoc2.in_scope(node_id)
@@ -335,7 +335,7 @@ class Node(metaclass=abc.ABCMeta):
             if node.name == 'ref':
 
                 if node.argument in sdoc2.node_store.labels:
-                    node.set_option_value('href', '#{0}'.format(node.argument))
+                    node.set_option_value('href', f'#{node.argument}')
 
                     if sdoc2.node_store.labels[node.argument]['title']:
                         node.set_option_value('title', sdoc2.node_store.labels[node.argument]['title'])
@@ -343,7 +343,7 @@ class Node(metaclass=abc.ABCMeta):
                     node.text = sdoc2.node_store.labels[node.argument]['argument']
 
                 else:
-                    sdoc2.node_store.error("Label '{}' not found".format(node.argument), node)
+                    sdoc2.node_store.error(f"Label '{node.argument}' not found", node)
 
             node.change_ref_argument()
 

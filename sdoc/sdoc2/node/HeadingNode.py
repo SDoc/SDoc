@@ -82,11 +82,9 @@ class HeadingNode(Node, ABC):
         """
         if 'id' not in self._options:
             if 'part_number' in self._options:
-                self._options['id'] = '{}:{}:{}'.format(self.name,
-                                                        self._options['part_number'],
-                                                        self._options['number'])
+                self._options['id'] = f'{self.name}:{self._options["part_number"]}:{self._options["number"]}'
             else:
-                self._options['id'] = '{}:{}'.format(self.name, self._options['number'])
+                self._options['id'] = f'{self.name}:{self._options["number"]}'
 
     # ------------------------------------------------------------------------------------------------------------------
     def prepare_content_tree(self) -> None:

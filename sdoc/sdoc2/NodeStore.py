@@ -95,7 +95,7 @@ class NodeStore:
             filename = node.position.file_name
             line_number = node.position.start_line
             column_number = node.position.start_column + 1
-            messages.append(' at position: {0!s}:{1:d}.{2:d}'.format(filename, line_number, column_number))
+            messages.append(f' at position: {filename}:{line_number}.{column_number}')
         NodeStore._io.write_error(messages)
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -122,7 +122,7 @@ class NodeStore:
 
         if not self.nested_nodes:
             # @todo position
-            raise RuntimeError("Unexpected \\end{{{0!s}}}.".format(command))
+            raise RuntimeError(f"Unexpected \\end{{{command}}}.")
 
         # Get the last node on the block stack.
         node = self.nested_nodes[-1]
@@ -130,7 +130,7 @@ class NodeStore:
         if node.name != command:
             # @todo position \end
             # @todo position \begin
-            raise RuntimeError("\\begin{{{0!s}}} and \\end{{{1!s}}} do not match.".format(node.name, command))
+            raise RuntimeError(f"\\begin{{{node.name}}} and \\end{{{command}}} do not match.")
 
         # Pop the last node of the block stack.
         self.nested_nodes.pop()
@@ -295,7 +295,7 @@ class NodeStore:
         :param parent: The parent formatter.
         """
         if self.format not in formatters:
-            raise RuntimeError("Unknown output format '{0!s}'.".format(self.format))
+            raise RuntimeError(f"Unknown output format '{self.format}'.")
 
         if node.name in formatters[self.format]:
             constructor = formatters[self.format][node.name]
@@ -323,8 +323,7 @@ class NodeStore:
                 if node.is_hierarchy_root():
                     parent_found = True
                 else:
-                    self.error("Improper nesting of node '{0!s}' at {1!s} and node '{2!s}' at {3!s}.".format(
-                            parent_node.name, parent_node.position, node.name, node.position))
+                    self.error(f"Improper nesting of node '{parent_node.name}' at {parent_node.position!s} and node '{node.name}' at {node.position!s}.")
 
             if not parent_found:
                 parent_hierarchy_level = parent_node.get_hierarchy_level()
@@ -339,9 +338,9 @@ class NodeStore:
         node_hierarchy_level = node.get_hierarchy_level(parent_hierarchy_level)
 
         if node_hierarchy_level - parent_hierarchy_level > 1:
-            self.error("Improper nesting of levels:{0:d} at {1!s} and {2:d} at {3!s}.".format(
-                    parent_hierarchy_level, parent_node.position, node_hierarchy_level, node.position),
-                    node)
+            self.error(
+                f"Improper nesting of levels:{parent_hierarchy_level} at {parent_node.position!s} and {node_hierarchy_level} at {node.position!s}.",
+                node)
 
     # ------------------------------------------------------------------------------------------------------------------
     def store_node(self, node) -> int:
@@ -371,7 +370,7 @@ class NodeStore:
             # The first node must be a document root.
             if not node.is_document_root():
                 # @todo position of block node.
-                raise RuntimeError("Node {0!s} is not a document root".format(node.name))
+                raise RuntimeError(f"Node {node.name} is not a document root.")
 
             self.nested_nodes.append(node)
 
@@ -379,7 +378,7 @@ class NodeStore:
             # All other nodes must not be a document root.
             if node.is_document_root():
                 # @todo position of block node.
-                raise RuntimeError("Unexpected {0!s}. Node is document root".format(node.name))
+                raise RuntimeError(f"Unexpected {node.name}. Node is document root.")
 
             # If the node is a part of a hierarchy, adjust the nested nodes stack.
             if node.get_hierarchy_name():
@@ -389,7 +388,7 @@ class NodeStore:
             if self.nested_nodes:
                 parent_node = self.nested_nodes[-1]
 
-                # Pop from stack if we have two list element nodes (e.g. item nodes) in a row.
+                # Pop from stack if we have two list element nodes (e.g., item nodes) in a row.
                 if node.is_list_element() and type(parent_node) == type(node):
                     self.nested_nodes.pop()
                     parent_node = self.nested_nodes[-1]

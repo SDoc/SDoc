@@ -129,8 +129,9 @@ class DocumentNode(Node):
             position = node.position
             sdoc2.out_scope(node)
 
-            NodeStore.error("Document info {0} can be specified only once. Previous definition at {1}.".format(
-                    info_node_new.name, str(position)), info_node_new)
+            NodeStore.error(f'Document info {info_node_new.name} can be specified only once. '
+                            f'Previous definition at {position!s}.',
+                            info_node_new)
 
     # ------------------------------------------------------------------------------------------------------------------
     def __remove_document_info_nodes(self):

@@ -110,19 +110,17 @@ class SDoc:
         # Read the target format of the document.
         target_format = config.get('sdoc', 'format', fallback=None)
         if target_format not in available_formats:
-            raise SDocError("The format '{}' is not available in SDoc. Set another in config file '{}'"
-                            .format(target_format, self._config_path))
+            raise SDocError(
+                f"The format '{target_format}' is not available in SDoc. Set another in config file '{self._config_path}'")
 
         if not target_format:
-            raise SDocError("Option 'format' in section 'sdoc' not set in config file '{0!s}'"
-                            .format(self._config_path))
+            raise SDocError(f"Option 'format' in section 'sdoc' not set in config file '{self._config_path}'")
 
         # Read the class name for formatting the SDoc2 nodes into the target format.
         section = 'format_' + target_format
         class_name = config.get(section, 'class', fallback=None)
         if not class_name:
-            raise SDocError("Option 'class' in section '{0!s}' not set in config file '{1!s}'".
-                            format(section, self._config_path))
+            raise SDocError(f"Option 'class' in section '{section}' not set in config file '{self._config_path}'")
 
         # Import the class.
         try:
@@ -133,8 +131,8 @@ class SDoc:
             for comp in parts[1:]:
                 m = getattr(m, comp)
         except AttributeError:
-            raise SDocError("There is no module named '{0!s}'! Set name correctly in config file '{1!s}'"
-                            .format(class_name, self._config_path))
+            raise SDocError(
+                f"There is no module named '{class_name}'! Set name correctly in config file '{self._config_path}'")
 
         # Create the formatter.
         self._format = m(self._io, target_format, config)
@@ -153,7 +151,7 @@ class SDoc:
                             format(self._config_path))
 
         if not os.access(self._temp_dir, os.W_OK):
-            raise SDocError("Directory '{0!s}' is not writable".format(self._temp_dir))
+            raise SDocError(f"Directory '{self._temp_dir}' is not writable")
 
     # ------------------------------------------------------------------------------------------------------------------
     def _config_set_target_dir(self, config: configparser.ConfigParser) -> None:
@@ -165,11 +163,11 @@ class SDoc:
         self._target_dir = config.get('sdoc', 'target_dir', fallback=self._target_dir)
 
         if not self._target_dir:
-            raise SDocError("Option 'target_dir' in section 'sdoc' not set correctly in config file '{0!s}'".
-                            format(self._config_path))
+            raise SDocError(
+                f"Option 'target_dir' in section 'sdoc' not set correctly in config file '{self._config_path}'")
 
         if not os.access(self._target_dir, os.W_OK):
-            raise SDocError("Directory '{0!s}' is not writable".format(self._target_dir))
+            raise SDocError(f"Directory '{self._target_dir}' is not writable")
 
     # ------------------------------------------------------------------------------------------------------------------
     def _read_config_file(self) -> None:
@@ -255,7 +253,7 @@ class SDoc:
         if log_errors and self._errors:
             self._io.write_line('')
             self._io.title('Errors')
-            self._io.write_error('There were {0} errors in total'.format(self._errors))
+            self._io.write_error(f'There were {self._errors} errors in total.')
 
         return self._errors
 
@@ -276,7 +274,7 @@ class SDoc:
         if log_errors and self._errors:
             self._io.write_line(" ")
             self._io.title('Errors')
-            self._io.write_error('There were {0} errors in total'.format(self._errors))
+            self._io.write_error(f'There were {self._errors} errors in total.')
 
         return self._errors
 
@@ -295,7 +293,7 @@ class SDoc:
         if log_errors and self._errors:
             self._io.write_line(" ")
             self._io.title('Errors')
-            self._io.write_error('There were {0} errors in total'.format(self._errors))
+            self._io.write_error(f'There were {self._errors} errors in total.')
 
         return self._errors
 

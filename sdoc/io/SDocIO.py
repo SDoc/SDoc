@@ -22,15 +22,15 @@ class SDocIO(IO):
         if not isinstance(messages, list):
             messages = [messages]
 
-        lines = ['<{}></>'.format(block_type)]
+        lines = [f'<{block_type}></>']
         for key, message in enumerate(messages):
             if key == 0:
-                text = ' [{}] {}'.format(block_type, self.output.formatter.format(message))
+                text = f' [{block_type}] {self.output.formatter.format(message)}'
             else:
-                text = ' {}'.format(self.output.formatter.format(message))
-            line = '<{}>{}{}'.format(block_type, text, ' ' * (terminal_width - len(text)))
+                text = f' {self.output.formatter.format(message)}'
+            line = f'<{block_type}>{text}{" " * (terminal_width - len(text))}'
             lines.append(line)
-        lines.append('<{}></>'.format(block_type))
+        lines.append(f'<{block_type}></>')
 
         self.output.write_line(lines)
 

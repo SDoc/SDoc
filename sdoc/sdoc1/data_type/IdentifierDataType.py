@@ -34,12 +34,12 @@ class IdentifierDataType(DataType):
         :param indent: Unused.
         """
         if not self._scope.has_element(self._name):
-            return "'{0!s}' = {1!s}".format(self._name, 'UNDEFINED')
+            return f"'{self._name}' = UNDEFINED"
 
         # Setting first indentation.
-        first_indent = len("{0!s} = ".format(self._name))
+        first_indent = len(f"{self._name} = ")
 
-        return "{0!s} = {1!s}".format(self._name, self._scope.get_reference(self._name).debug(first_indent))
+        return f"{self._name} = {self._scope.get_reference(self._name).debug(first_indent)}"
 
     # ------------------------------------------------------------------------------------------------------------------
     def dereference(self) -> DataType:

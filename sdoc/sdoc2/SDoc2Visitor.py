@@ -157,7 +157,7 @@ class SDoc2Visitor(sdoc2ParserVisitor, SDocVisitor):
         argument = ctx.INLINE_ARG_ARG()
         parts = re.match(r'(.+):([0-9]+)\.([0-9]+)', str(argument))
         if not parts:
-            self._error('{0!s} is not a valid position'.format(argument))
+            self._error(f'{argument} is not a valid position.')
             return
 
         self._sdoc1_file_name = parts.group(1)

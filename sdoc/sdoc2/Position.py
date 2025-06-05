@@ -15,7 +15,7 @@ class Position:
         :param int start_line: The line where the node definition starts.
         :param int start_column: The column where the node definition starts.
         :param int end_line: The line where the node definition ends.
-        :param int end_column: The column where the node definition end.
+        :param int end_column: The column where the node definition ends.
         """
         self.file_name: str = file_name
         """
@@ -36,19 +36,21 @@ class Position:
         """
         The line where the node definition ends.
         """
+
         self.end_column: int = end_column
         """
         The column where the node definition end.
         """
 
     # ------------------------------------------------------------------------------------------------------------------
+    @property
     def __str__(self) -> str:
         """
         String representation of the position.
         """
         if not self.file_name:
-            return "{0:d}.{1:d}".format(self.start_line, self.start_column + 1)
+            return f'{self.start_line}.{self.start_column + 1}'
 
-        return "{0!s}:{1:d}.{2:d}".format(os.path.relpath(self.file_name), self.start_line, self.start_column + 1)
+        return f'{os.path.relpath(self.file_name)}:{self.start_line}.{self.start_column + 1}'
 
 # ----------------------------------------------------------------------------------------------------------------------

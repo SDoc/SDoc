@@ -60,10 +60,10 @@ class HyperlinkNode(Node):
         """
         if not request.urlparse(url).scheme:
             if url.startswith('ftp.'):
-                url = 'ftp://{0!s}'.format(url)
+                url = f'ftp://{url}'
                 self._options['href'] = url
             else:
-                url = 'http://{0!s}'.format(url)
+                url = f'http://{url}'
                 self._options['href'] = url
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -77,7 +77,7 @@ class HyperlinkNode(Node):
 
             # Check if we can connect to host.
             if response.getcode() not in range(200, 400):
-                self._io.warning("Cannot connect to: '{0!s}'".format(self._options['href']))
+                self._io.warning(f"Cannot connect to: '{self._options['href']}'")
             else:
                 # If we connected, check the redirect.
                 url = self._options['href'].lstrip('(http://)|(https://)')
@@ -96,7 +96,7 @@ class HyperlinkNode(Node):
                         self._options['href'].replace('http://', 'https://')
 
         except Exception as exception:
-            self._io.warning("Unable to retrieve URL: '{0!s}'".format(self._options['href']))
+            self._io.warning(f"Unable to retrieve URL: '{self._options['href']}'")
             self._io.warning(str(exception.__class__))
             self._io.warning(str(exception))
 
