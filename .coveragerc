@@ -2,7 +2,7 @@
 branch = True
 data_file = .coverage
 source = sdoc/
-omit = test/*
+omit = test/*,sdoc/antlr/*
 
 [report]
 # Regexes for lines to exclude from consideration

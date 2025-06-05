@@ -47,7 +47,7 @@ class HtmlTest(unittest.TestCase):
     def test_html_nested_element_with_list_of_elements(self):
         html = Html.html_nested([Html(tag='a',
                                       attr={'href': 'https://github.com/PhpPlaisio/helper-html'},
-                                      inner=Html(tag='b',         text='helper-html')),
+                                      inner=Html(tag='b', text='helper-html')),
                                  Html(tag='br')])
         self.assertEqual('<a href="https://github.com/PhpPlaisio/helper-html"><b>helper-html</b></a><br/>', html)
 
@@ -101,8 +101,8 @@ class HtmlTest(unittest.TestCase):
                                  Html(text='The End'),
                                  Html(html='!')])
         self.assertEqual(
-            '<table class="test"><tr id="first-row"><td>hello</td><td class="bold"><b>world</b></td></tr><tr><td>foo</td><td>bar</td></tr><tr id="last-row"><td>foo</td><td>bar</td></tr></table>The End!',
-            html)
+                '<table class="test"><tr id="first-row"><td>hello</td><td class="bold"><b>world</b></td></tr><tr><td>foo</td><td>bar</td></tr><tr id="last-row"><td>foo</td><td>bar</td></tr></table>The End!',
+                html)
 
 
 # ----------------------------------------------------------------------------------------------------------------------

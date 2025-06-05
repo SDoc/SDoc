@@ -9,11 +9,10 @@ from cleo.testers.command_tester import CommandTester
 
 from sdoc import sdoc2
 from sdoc.command.SDoc2Command import SDoc2Command
-
 from sdoc.sdoc2 import in_scope
 
 
-class SDoc2EnumerationTest(unittest.TestCase):
+class EnumerationTest(unittest.TestCase):
     """
     Test cases for SDoc2 enumerations.
     """
@@ -56,8 +55,9 @@ class SDoc2EnumerationTest(unittest.TestCase):
         """
         Runs all test cases in the test/enumeration directory.
         """
-        test_file_names = glob.glob(os.path.dirname(os.path.abspath(__file__)) + "/enumeration/*.sdoc")
-        config_path = glob.glob(os.path.dirname(os.path.abspath(__file__)) + "/enumeration/sdoc.cfg")
+        folder = os.path.dirname(os.path.abspath(__file__))
+        test_file_names = glob.glob(folder + "/enumeration/*.sdoc")
+        config_path = glob.glob(folder + "/enumeration/sdoc.cfg")
 
         for test_file_name in sorted(test_file_names):
             with self.subTest(test_file_name=test_file_name):
@@ -66,10 +66,9 @@ class SDoc2EnumerationTest(unittest.TestCase):
 
                 application = Application()
                 application.add(SDoc2Command())
-
                 command = application.find('sdoc2')
                 command_tester = CommandTester(command)
-                command_tester.execute('{} {}'.format(config_path[0], test_file_name))
+                command_tester.execute(f'{config_path[0]} {test_file_name}')
 
                 root = in_scope(1)
                 sdoc2.node_store.number_numerable()

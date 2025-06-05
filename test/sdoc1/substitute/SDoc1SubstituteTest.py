@@ -2,6 +2,7 @@ import glob
 import os
 import re
 import unittest
+from pathlib import Path
 
 from cleo.application import Application
 from cleo.testers.command_tester import CommandTester
@@ -9,7 +10,7 @@ from cleo.testers.command_tester import CommandTester
 from sdoc.command.SDoc1Command import SDoc1Command
 
 
-class SDoc1SubstitutionTest(unittest.TestCase):
+class SubstitutionTest(unittest.TestCase):
     """
     Test cases for SDoc1 expressions.
     """
@@ -19,25 +20,19 @@ class SDoc1SubstitutionTest(unittest.TestCase):
         """
         Runs all test cases in the test/debug directory.
         """
-        test_file_names = glob.glob(os.path.dirname(os.path.abspath(__file__)) + "/substitute/*.sdoc1")
+        test_file_names = glob.glob(os.path.dirname(os.path.abspath(__file__)) + "/*.sdoc1")
 
         for test_file_name in sorted(test_file_names):
             with self.subTest(test_file_name=test_file_name):
-                pre, ext = os.path.splitext(test_file_name)
-                text_file_name = pre + '.sdoc2'
-                with open(text_file_name, 'r') as file:
-                    expected = file.read()
-
                 application = Application()
                 application.add(SDoc1Command())
-
                 command = application.find('sdoc1')
                 command_tester = CommandTester(command)
-                command_tester.execute('{} t.sdoc2'.format(test_file_name))
+                command_tester.execute(f'{test_file_name} t.sdoc2')
 
-                with open('t.sdoc2', 'r') as file:
-                    actual = file.read()
-                    actual = re.sub(r'\\position\{[^\}]*\}', '', actual)
+                actual = Path('t.sdoc2').read_text()
+                actual = re.sub(r'\\position\{[^}]*}', '', actual)
+                expected = Path(test_file_name).with_suffix('.sdoc2').read_text()
 
                 self.assertEqual(expected.strip(), actual.strip())
 

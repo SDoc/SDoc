@@ -8,9 +8,9 @@ from cleo.testers.command_tester import CommandTester
 from sdoc.command.SDoc1Command import SDoc1Command
 
 
-class SDoc1ErrorTest(unittest.TestCase):
+class ErrorTest(unittest.TestCase):
     """
-    Test cases for SDoc1 expressions.
+    Test cases for SDoc1 errors.
     """
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -18,7 +18,7 @@ class SDoc1ErrorTest(unittest.TestCase):
         """
         Runs all test cases in the test/debug directory.
         """
-        test_file_names = glob.glob(os.path.dirname(os.path.abspath(__file__)) + "/error/*.sdoc1")
+        test_file_names = glob.glob(os.path.dirname(os.path.abspath(__file__)) + "/*.sdoc1")
 
         for test_file_name in sorted(test_file_names):
             with self.subTest(test_file_name=test_file_name):
@@ -33,7 +33,7 @@ class SDoc1ErrorTest(unittest.TestCase):
 
                 command = application.find('sdoc1')
                 command_tester = CommandTester(command)
-                status = command_tester.execute('{} t.sdoc2'.format(test_file_name))
+                status = command_tester.execute(f'{test_file_name} t.sdoc2')
 
                 actual = command_tester.io.fetch_output().rstrip()
 

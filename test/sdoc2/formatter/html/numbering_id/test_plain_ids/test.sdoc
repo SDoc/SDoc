@@ -1,0 +1,27 @@
+\begin{document}
+
+\toc[depth=3]{Contents}
+
+\chapter{Chapter 1}
+\section{Chapter 1, Section 1}
+Hello, World!
+
+\part{First Part}
+\chapter{Part 1, Chapter 1}
+
+\section{Part 1, Chapter 1, Section 1}
+Hello, World!
+
+\section{Part 1, Chapter 1, Section 2}
+Hello, World!
+
+\part{Second Part}
+\chapter{Part 2, Chapter 1}
+
+\section{Part 2, Chapter 1, Section 1}
+Hello, World!
+
+\section{Part 2, Chapter 1, Section 2}
+Hello, World!
+
+\end{document}

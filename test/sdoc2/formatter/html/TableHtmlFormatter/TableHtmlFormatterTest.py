@@ -28,7 +28,6 @@ class TableHtmlFormatterTest(unittest.TestCase):
 
         actual = Path(folder + '/test_plain_table/output.html').read_text()
         expected = Path(folder + '/test_plain_table/expected.html').read_text()
-
         self.assertEqual(actual, expected)
 
 # ----------------------------------------------------------------------------------------------------------------------

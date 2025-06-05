@@ -1,0 +1,10 @@
+\begin{document}
+
+\chapter{Bug}
+\label{chap:bug}
+
+\begin{itemize}
+  \item{} This is a reference to chapter \ref{chap:bug} in the middle of an item, and this is a reference at the end of an item \ref{chap:bug}.
+\end{itemize}
+
+\end{document}
