@@ -1,7 +1,7 @@
 from typing import Dict
 
+from sdoc import sdoc2
 from sdoc.io.SDocIO import SDocIO
-from sdoc.sdoc2 import in_scope, out_scope
 from sdoc.sdoc2.node.HeadingNode import HeadingNode
 from sdoc.sdoc2.node.Node import Node
 from sdoc.sdoc2.node.TextNode import TextNode
@@ -63,7 +63,7 @@ class ParagraphNode(HeadingNode):
         last = self.child_nodes[-1]
 
         for node_id in self.child_nodes:
-            node = in_scope(node_id)
+            node = sdoc2.in_scope(node_id)
 
             if isinstance(node, TextNode):
                 if node.id == first:
@@ -73,7 +73,7 @@ class ParagraphNode(HeadingNode):
                 if node.id != last and node.id != first:
                     node.prune_whitespace()
 
-            out_scope(node)
+            sdoc2.out_scope(node)
 
 
 # ----------------------------------------------------------------------------------------------------------------------

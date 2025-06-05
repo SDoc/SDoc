@@ -1,8 +1,8 @@
 import re
 from typing import Dict
 
+from sdoc import sdoc2
 from sdoc.io.SDocIO import SDocIO
-from sdoc.sdoc2 import in_scope, node_store, out_scope
 from sdoc.sdoc2.node.ItemNode import ItemNode
 from sdoc.sdoc2.node.Node import Node
 from sdoc.sdoc2.node.TextNode import TextNode
@@ -29,7 +29,7 @@ class ItemizeNode(Node):
         The hierarchy level of the itemize.
         """
 
-        node_store.first = True
+        sdoc2.node_store.first = True
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_hierarchy_level(self, parent_hierarchy_level: int = -1) -> int:
@@ -85,25 +85,25 @@ class ItemizeNode(Node):
         obsolete_node_ids = []
 
         for node_id in self.child_nodes:
-            child_node = in_scope(node_id)
+            child_node = sdoc2.in_scope(node_id)
 
             if isinstance(child_node, TextNode):
                 # Ignore text nodes with only whitespace silently.
                 if re.sub(r'\s+', '', child_node.argument) != '':
                     # This text node contains more than only whitespace.
-                    node_store.error(f"Unexpected text '{child_node.argument}'.", child_node)
+                    sdoc2.node_store.error(f"Unexpected text '{child_node.argument}'.", child_node)
                 obsolete_node_ids.append(node_id)
 
             elif not isinstance(child_node, ItemNode):
                 # An itemize node can have only item nodes as direct child nodes.
-                node_store.error(f"Node: id:{child_node.id}, {child_node.name} is not instance of 'ItemNode'.",
-                                 child_node)
+                sdoc2.node_store.error(f"Node: id:{child_node.id}, {child_node.name} is not instance of 'ItemNode'.",
+                                       child_node)
                 obsolete_node_ids.append(node_id)
 
             else:
                 child_node.prepare_content_tree()
 
-            out_scope(child_node)
+            sdoc2.out_scope(child_node)
 
         self._remove_child_nodes(obsolete_node_ids)
 

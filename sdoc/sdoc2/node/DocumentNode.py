@@ -1,7 +1,7 @@
 from typing import Dict
 
+from sdoc import sdoc2
 from sdoc.io.SDocIO import SDocIO
-from sdoc.sdoc2 import in_scope, out_scope
 from sdoc.sdoc2.node.DateNode import DateNode
 from sdoc.sdoc2.node.Node import Node
 from sdoc.sdoc2.node.TitleNode import TitleNode
@@ -87,12 +87,12 @@ class DocumentNode(Node):
         Prepares this node for further processing.
         """
         for node_id in self.child_nodes:
-            node = in_scope(node_id)
+            node = sdoc2.in_scope(node_id)
 
             node.prepare_content_tree()
             self.__set_document_info(node)
 
-            out_scope(node)
+            sdoc2.out_scope(node)
 
         self.__remove_document_info_nodes()
 
@@ -125,9 +125,9 @@ class DocumentNode(Node):
         :param info_node_new: The (new) document info node.
         """
         if info_node_current:
-            node = in_scope(info_node_current)
+            node = sdoc2.in_scope(info_node_current)
             position = node.position
-            out_scope(node)
+            sdoc2.out_scope(node)
 
             NodeStore.error("Document info {0} can be specified only once. Previous definition at {1}.".format(
                     info_node_new.name, str(position)), info_node_new)

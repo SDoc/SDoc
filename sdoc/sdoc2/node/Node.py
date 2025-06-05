@@ -1,8 +1,8 @@
 import abc
 from typing import Any, Dict, List, Tuple
 
+from sdoc import sdoc2
 from sdoc.io.SDocIO import SDocIO
-from sdoc.sdoc2 import in_scope, node_store, out_scope
 from sdoc.sdoc2.Position import Position
 
 
@@ -100,11 +100,11 @@ class Node(metaclass=abc.ABCMeta):
         self._io.write_line("{0!s}{1:4d} {2!s}".format(' ' * 4 * level, self.id, self.name))
 
         for node_id in self.child_nodes:
-            node = in_scope(node_id)
+            node = sdoc2.in_scope(node_id)
 
             node.print_info(level + 1)
 
-            out_scope(node)
+            sdoc2.out_scope(node)
 
     # ------------------------------------------------------------------------------------------------------------------
     def _remove_child_nodes(self, node_list: List[int]) -> None:
@@ -211,9 +211,9 @@ class Node(metaclass=abc.ABCMeta):
         Prepares this node for further processing.
         """
         for node_id in self.child_nodes:
-            node = in_scope(node_id)
+            node = sdoc2.in_scope(node_id)
             node.prepare_content_tree()
-            out_scope(node)
+            sdoc2.out_scope(node)
 
     # ------------------------------------------------------------------------------------------------------------------
     def number(self, numbers: Dict[str, str]) -> None:
@@ -223,9 +223,9 @@ class Node(metaclass=abc.ABCMeta):
         :param numbers: The current numbers.
         """
         for node_id in self.child_nodes:
-            node = in_scope(node_id)
+            node = sdoc2.in_scope(node_id)
             node.number(numbers)
-            out_scope(node)
+            sdoc2.out_scope(node)
 
     # ------------------------------------------------------------------------------------------------------------------
     def get_enumerated_items(self) -> List[Tuple[str, str, str] | List[Tuple[str, str]]]:
@@ -242,13 +242,13 @@ class Node(metaclass=abc.ABCMeta):
 
         # Second append the enumeration of child nodes (if any).
         for node_id in self.child_nodes:
-            node = in_scope(node_id)
+            node = sdoc2.in_scope(node_id)
 
             tmp = node.get_enumerated_items()
             if tmp:
                 items.append(tmp)
 
-            out_scope(node)
+            sdoc2.out_scope(node)
 
         return items
 
@@ -265,11 +265,11 @@ class Node(metaclass=abc.ABCMeta):
     # ------------------------------------------------------------------------------------------------------------------
     def modify_label_list(self) -> None:
         """
-        Creates a label list for each heading node, and for node_store. Removes label nodes from child list.
+        Creates a label list for each heading node, and for sdoc2.node_store. Removes label nodes from child list.
         """
         obsolete_node_ids = []
         for node_id in self.child_nodes:
-            node = in_scope(node_id)
+            node = sdoc2.in_scope(node_id)
 
             if node.name == 'label':
                 # Appending in Node labels list.
@@ -283,14 +283,14 @@ class Node(metaclass=abc.ABCMeta):
                     label_arg = self.argument
                     title_attribute = None
 
-                node_store.labels[node.argument] = {'argument': label_arg, 'title': title_attribute}
+                sdoc2.node_store.labels[node.argument] = {'argument': label_arg, 'title': title_attribute}
 
                 # Removing node from child nodes.
                 obsolete_node_ids.append(node.id)
 
             node.parse_labels()
 
-            out_scope(node)
+            sdoc2.out_scope(node)
 
         self._remove_child_nodes(obsolete_node_ids)
 
@@ -301,15 +301,15 @@ class Node(metaclass=abc.ABCMeta):
 
         :param node: The current node.
         """
-        if node.argument not in node_store.labels:
+        if node.argument not in sdoc2.node_store.labels:
             if self.argument:
-                node_store.labels[node.argument] = self.argument
+                sdoc2.node_store.labels[node.argument] = self.argument
 
             else:
                 if 'number' in self._options:
-                    node_store.labels[node.argument] = self._options['number']
+                    sdoc2.node_store.labels[node.argument] = self._options['number']
                 else:
-                    node_store.labels[node.argument] = node.argument
+                    sdoc2.node_store.labels[node.argument] = node.argument
 
         else:
             # @todo log definitions of both labels
@@ -320,9 +320,9 @@ class Node(metaclass=abc.ABCMeta):
         """
         Sets id to heading node. (Argument of first label)
         """
-        node = in_scope(self.labels[0])
+        node = sdoc2.in_scope(self.labels[0])
         self._options['id'] = node.argument
-        out_scope(node)
+        sdoc2.out_scope(node)
 
     # ------------------------------------------------------------------------------------------------------------------
     def change_ref_argument(self) -> None:
@@ -330,23 +330,23 @@ class Node(metaclass=abc.ABCMeta):
         Changes reference argument on number of depending on heading node.
         """
         for node_id in self.child_nodes:
-            node = in_scope(node_id)
+            node = sdoc2.in_scope(node_id)
 
             if node.name == 'ref':
 
-                if node.argument in node_store.labels:
+                if node.argument in sdoc2.node_store.labels:
                     node.set_option_value('href', '#{0}'.format(node.argument))
 
-                    if node_store.labels[node.argument]['title']:
-                        node.set_option_value('title', node_store.labels[node.argument]['title'])
+                    if sdoc2.node_store.labels[node.argument]['title']:
+                        node.set_option_value('title', sdoc2.node_store.labels[node.argument]['title'])
 
-                    node.text = node_store.labels[node.argument]['argument']
+                    node.text = sdoc2.node_store.labels[node.argument]['argument']
 
                 else:
-                    node_store.error("Label '{}' not found".format(node.argument), node)
+                    sdoc2.node_store.error("Label '{}' not found".format(node.argument), node)
 
             node.change_ref_argument()
 
-            out_scope(node)
+            sdoc2.out_scope(node)
 
 # ----------------------------------------------------------------------------------------------------------------------

@@ -1,9 +1,9 @@
 import abc
 from typing import Any, List
 
+from sdoc import sdoc2
 from sdoc.helper.Html import Html
 from sdoc.io.SDocIO import SDocIO
-from sdoc.sdoc2 import in_scope, node_store, out_scope
 from sdoc.sdoc2.formatter.Formatter import Formatter
 
 
@@ -46,12 +46,12 @@ class HtmlFormatter(Formatter):
         """
         inner = []
         for node_id in node.child_nodes:
-            child_node = in_scope(node_id)
+            child_node = sdoc2.in_scope(node_id)
 
-            formatter = node_store.create_formatter(self._io, child_node, self)
+            formatter = sdoc2.node_store.create_formatter(self._io, child_node, self)
             inner.append(formatter.struct(child_node))
 
-            out_scope(child_node)
+            sdoc2.out_scope(child_node)
 
         return inner
 

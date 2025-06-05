@@ -1,7 +1,7 @@
 from typing import Dict
 
+from sdoc import sdoc2
 from sdoc.io.SDocIO import SDocIO
-from sdoc.sdoc2 import in_scope, out_scope
 from sdoc.sdoc2.node.Node import Node
 from sdoc.sdoc2.node.TextNode import TextNode
 from sdoc.sdoc2.NodeStore import NodeStore
@@ -76,7 +76,7 @@ class ItemNode(Node):
         last = self.child_nodes[-1]
 
         for node_id in self.child_nodes:
-            node = in_scope(node_id)
+            node = sdoc2.in_scope(node_id)
 
             if isinstance(node, TextNode):
                 if node_id == first:
@@ -91,7 +91,7 @@ class ItemNode(Node):
             # if not node.is_phrasing():
             #    raise RuntimeError("Node: id:%s, %s is not phrasing" % (str(node.id), node.name))
 
-            out_scope(node)
+            sdoc2.out_scope(node)
 
     # ------------------------------------------------------------------------------------------------------------------
     @staticmethod

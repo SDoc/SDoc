@@ -1,7 +1,7 @@
 from typing import Dict
 
+from sdoc import sdoc2
 from sdoc.io.SDocIO import SDocIO
-from sdoc.sdoc2 import node_store
 from sdoc.sdoc2.node.HeadingNode import HeadingNode
 from sdoc.sdoc2.node.Node import Node
 from sdoc.sdoc2.node.ParagraphNode import ParagraphNode
@@ -45,7 +45,7 @@ class TocNode(Node):
         """
         self._options['ids'] = []
 
-        for node in node_store.nodes.values():
+        for node in sdoc2.node_store.nodes.values():
             if not isinstance(node, ParagraphNode) and isinstance(node, HeadingNode):
                 node.set_toc_id()
 

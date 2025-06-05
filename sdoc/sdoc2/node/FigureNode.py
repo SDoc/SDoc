@@ -1,7 +1,7 @@
 from typing import Any, Dict
 
+from sdoc import sdoc2
 from sdoc.io.SDocIO import SDocIO
-from sdoc.sdoc2 import in_scope, out_scope
 from sdoc.sdoc2.node.CaptionNode import CaptionNode
 from sdoc.sdoc2.node.LabelNode import LabelNode
 from sdoc.sdoc2.node.Node import Node
@@ -48,7 +48,7 @@ class FigureNode(Node):
         Prepares this node for further processing.
         """
         for node_id in self.child_nodes:
-            node = in_scope(node_id)
+            node = (sdoc2.in_scope(node_id))
 
             if isinstance(node, CaptionNode):
                 self.caption = node.argument
@@ -56,7 +56,7 @@ class FigureNode(Node):
             if isinstance(node, LabelNode):
                 self.setup_label(node)
 
-            out_scope(node)
+            sdoc2.out_scope(node)
 
     # ------------------------------------------------------------------------------------------------------------------
     def setup_label(self, node: LabelNode) -> None:

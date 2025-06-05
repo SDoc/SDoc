@@ -2,8 +2,8 @@ from abc import ABC
 from typing import Any, Dict
 
 import sdoc
+from sdoc import sdoc2
 from sdoc.io.SDocIO import SDocIO
-from sdoc.sdoc2 import in_scope, out_scope
 from sdoc.sdoc2.helper.Enumerable import Enumerable
 from sdoc.sdoc2.node.EndParagraphNode import EndParagraphNode
 from sdoc.sdoc2.node.Node import Node
@@ -126,7 +126,7 @@ class HeadingNode(Node, ABC):
         new_child_nodes = []
 
         for node_id in self.child_nodes:
-            node = in_scope(node_id)
+            node = sdoc2.in_scope(node_id)
 
             if isinstance(node, TextNode):
                 list_ids = node.split_by_paragraph()
@@ -135,7 +135,7 @@ class HeadingNode(Node, ABC):
             else:
                 new_child_nodes.append(node.id)
 
-            out_scope(node)
+            sdoc2.out_scope(node)
 
         self.child_nodes = new_child_nodes
 
@@ -151,7 +151,7 @@ class HeadingNode(Node, ABC):
         paragraph_node = None
 
         for node_id in self.child_nodes:
-            node = in_scope(node_id)
+            node = sdoc2.in_scope(node_id)
 
             if node.is_phrasing():
                 if not paragraph_node:
@@ -170,7 +170,7 @@ class HeadingNode(Node, ABC):
                 if not isinstance(node, EndParagraphNode):
                     new_child_nodes.append(node.id)
 
-            out_scope(node)
+            sdoc2.out_scope(node)
 
         if paragraph_node:
             paragraph_node.prune_whitespace()
@@ -190,10 +190,10 @@ class HeadingNode(Node, ABC):
         self._io.write_line(f"{' ' * 4 * level}{self.id} {self.name} {self.argument.replace("\n", '\\n')}")
 
         for node_id in self.child_nodes:
-            node = in_scope(node_id)
+            node = sdoc2.in_scope(node_id)
 
             node.print_info(level + 1)
 
-            out_scope(node)
+            sdoc2.out_scope(node)
 
 # ----------------------------------------------------------------------------------------------------------------------

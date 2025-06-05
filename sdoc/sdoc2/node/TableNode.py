@@ -3,8 +3,8 @@ import io
 import re
 from typing import Any, Dict, List
 
+from sdoc import sdoc2
 from sdoc.io.SDocIO import SDocIO
-from sdoc.sdoc2 import in_scope, out_scope
 from sdoc.sdoc2.helper.Enumerable import Enumerable
 from sdoc.sdoc2.node.CaptionNode import CaptionNode
 from sdoc.sdoc2.node.LabelNode import LabelNode
@@ -87,7 +87,7 @@ class TableNode(Node):
         table_nodes = []
 
         for node_id in self.child_nodes:
-            node = in_scope(node_id)
+            node = sdoc2.in_scope(node_id)
 
             if isinstance(node, LabelNode):
                 self.setup_label(node)
@@ -100,7 +100,7 @@ class TableNode(Node):
 
             node.prepare_content_tree()
 
-            out_scope(node)
+            sdoc2.out_scope(node)
 
         self.generate_table(table_nodes)
 
