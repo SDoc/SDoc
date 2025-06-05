@@ -1,7 +1,6 @@
 from typing import Dict
 
-from cleo.io.io import IO
-
+from sdoc.io.SDocIO import SDocIO
 from sdoc.sdoc2 import in_scope, out_scope
 from sdoc.sdoc2.node.DateNode import DateNode
 from sdoc.sdoc2.node.Node import Node
@@ -16,7 +15,7 @@ class DocumentNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, *, io: IO, options: Dict[str, str]):
+    def __init__(self, *, io: SDocIO, options: Dict[str, str]):
         """
         Object constructor.
 

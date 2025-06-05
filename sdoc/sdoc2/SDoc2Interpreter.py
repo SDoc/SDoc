@@ -1,9 +1,9 @@
 import antlr4
-from cleo.io.io import IO
 
 from sdoc import sdoc2
 from sdoc.antlr.sdoc2Lexer import sdoc2Lexer
 from sdoc.antlr.sdoc2Parser import sdoc2Parser
+from sdoc.io.SDocIO import SDocIO
 from sdoc.sdoc2.SDoc2Visitor import SDoc2Visitor
 
 
@@ -13,12 +13,12 @@ class SDoc2Interpreter:
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO):
+    def __init__(self, io: SDocIO):
         """
         Object constructor.
         """
 
-        self._io: IO = io
+        self._io: SDocIO = io
         """
         Styled output formatter.
         """

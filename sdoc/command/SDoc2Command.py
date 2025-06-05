@@ -16,8 +16,8 @@ class SDoc2Command(BaseCommand):
         """
         Reads the arguments and starts SDoc application.
         """
-        sdoc = SDoc()
-        sdoc.io = SDocIO(self.io.input, self.io.output, self.io.error_output)
+        io = SDocIO(self.io.input, self.io.output, self.io.error_output)
+        sdoc = SDoc(io)
         sdoc.config_path = self.argument('config.cfg')
         sdoc.init()
 

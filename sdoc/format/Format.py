@@ -1,6 +1,6 @@
 import abc
 
-from cleo.io.io import IO
+from sdoc.io.SDocIO import SDocIO
 
 
 class Format(metaclass=abc.ABCMeta):
@@ -9,13 +9,13 @@ class Format(metaclass=abc.ABCMeta):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO):
+    def __init__(self, io: SDocIO):
         """
         Object constructor.
 
         :param io: The IO object.
         """
-        self._io: IO = io
+        self._io: SDocIO = io
         """
         The IO object.
         """

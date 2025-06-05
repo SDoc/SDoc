@@ -1,7 +1,8 @@
 # ----------------------------------------------------------------------------------------------------------------------
 
 from antlr4.Token import CommonToken
-from cleo.io.io import IO
+
+from sdoc.io.SDocIO import SDocIO
 
 
 class SDocVisitor:
@@ -10,12 +11,12 @@ class SDocVisitor:
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO):
+    def __init__(self, io: SDocIO):
         """
         Object constructor.
         """
 
-        self._io: IO = io
+        self._io: SDocIO = io
         """
         Styled output formatter.
         """

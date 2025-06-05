@@ -1,4 +1,4 @@
-from cleo.io.io import IO
+from sdoc.io.SDocIO import SDocIO
 
 from sdoc.sdoc2.node.Node import Node
 from sdoc.sdoc2.NodeStore import NodeStore
@@ -10,7 +10,7 @@ class UnknownNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, *, io: IO, command: str):
+    def __init__(self, *, io: SDocIO, command: str):
         """
         Object constructor.
 

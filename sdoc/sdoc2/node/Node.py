@@ -1,8 +1,7 @@
 import abc
 from typing import Any, Dict, List, Tuple
 
-from cleo.io.io import IO
-
+from sdoc.io.SDocIO import SDocIO
 from sdoc.sdoc2 import in_scope, node_store, out_scope
 from sdoc.sdoc2.Position import Position
 
@@ -14,7 +13,7 @@ class Node(metaclass=abc.ABCMeta):
 
     # ------------------------------------------------------------------------------------------------------------------
     def __init__(self, *,
-                 io: IO,
+                 io: SDocIO,
                  name: str,
                  options: Dict[str, str] | None = None,
                  argument: str = ''):
@@ -26,7 +25,7 @@ class Node(metaclass=abc.ABCMeta):
         :param options: The options of this node.
         :param argument: The argument of this node (inline commands only).
         """
-        self._io: IO = io
+        self._io: SDocIO = io
         """
         The IO object.
         """
@@ -68,14 +67,6 @@ class Node(metaclass=abc.ABCMeta):
 
     # ------------------------------------------------------------------------------------------------------------------
     @property
-    def io(self) -> IO:
-        """
-        Getter for io.
-        """
-        return self._io
-
-    # ------------------------------------------------------------------------------------------------------------------
-    @property
     def name(self) -> str:
         """
         Returns the name of this node.
@@ -106,7 +97,7 @@ class Node(metaclass=abc.ABCMeta):
 
         :param level: The level of block commands.
         """
-        self.io.write_line("{0!s}{1:4d} {2!s}".format(' ' * 4 * level, self.id, self.name))
+        self._io.write_line("{0!s}{1:4d} {2!s}".format(' ' * 4 * level, self.id, self.name))
 
         for node_id in self.child_nodes:
             node = in_scope(node_id)

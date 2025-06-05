@@ -1,7 +1,6 @@
 from typing import Any, Dict
 
-from cleo.io.io import IO
-
+from sdoc.io.SDocIO import SDocIO
 from sdoc.sdoc2.helper.Enumerable import Enumerable
 from sdoc.sdoc2.node.HeadingNode import HeadingNode
 from sdoc.sdoc2.NodeStore import NodeStore
@@ -13,7 +12,7 @@ class PartNode(HeadingNode):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, *, io: IO, options: Dict[str, str], argument: str):
+    def __init__(self, *, io: SDocIO, options: Dict[str, str], argument: str):
         """
         PartNode constructor
 

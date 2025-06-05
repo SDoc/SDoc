@@ -2,8 +2,8 @@ from typing import Dict
 from urllib import request
 
 import httplib2
-from cleo.io.io import IO
 
+from sdoc.io.SDocIO import SDocIO
 from sdoc.sdoc2.node.Node import Node
 from sdoc.sdoc2.NodeStore import NodeStore
 
@@ -14,7 +14,7 @@ class HyperlinkNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, *, io: IO, options: Dict[str, str], argument: str):
+    def __init__(self, *, io: SDocIO, options: Dict[str, str], argument: str):
         """
         Object constructor.
 
@@ -77,7 +77,7 @@ class HyperlinkNode(Node):
 
             # Check if we can connect to host.
             if response.getcode() not in range(200, 400):
-                self.io.warning("Cannot connect to: '{0!s}'".format(self._options['href']))
+                self._io.warning("Cannot connect to: '{0!s}'".format(self._options['href']))
             else:
                 # If we connected, check the redirect.
                 url = self._options['href'].lstrip('(http://)|(https://)')
@@ -96,9 +96,9 @@ class HyperlinkNode(Node):
                         self._options['href'].replace('http://', 'https://')
 
         except Exception as exception:
-            self.io.warning("Unable to retrieve URL: '{0!s}'".format(self._options['href']))
-            self.io.warning(str(exception.__class__))
-            self.io.warning(str(exception))
+            self._io.warning("Unable to retrieve URL: '{0!s}'".format(self._options['href']))
+            self._io.warning(str(exception.__class__))
+            self._io.warning(str(exception))
 
     # ------------------------------------------------------------------------------------------------------------------
     def is_phrasing(self) -> bool:

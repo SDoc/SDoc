@@ -246,7 +246,7 @@ class Html:
         """
         clean = set()
 
-        if type(classes) is List:
+        if type(classes) is list:
             for cls in classes:
                 cls = Html.txt2html(cls).strip()
                 if cls != '':

@@ -1,11 +1,10 @@
 import os
 from configparser import ConfigParser
 
-from cleo.io.io import IO
-
 from sdoc import sdoc2
 from sdoc.error import SDocError
 from sdoc.format.Format import Format
+from sdoc.io.SDocIO import SDocIO
 
 
 class HtmlFormat(Format):
@@ -14,7 +13,7 @@ class HtmlFormat(Format):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, target_format: str, config: ConfigParser):
+    def __init__(self, io: SDocIO, target_format: str, config: ConfigParser):
         """
         Object constructor.
 

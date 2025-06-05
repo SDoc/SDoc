@@ -2,11 +2,11 @@ import re
 from typing import Any, Dict
 
 from antlr4.Token import CommonToken
-from cleo.io.io import IO
 
 from sdoc import sdoc2
 from sdoc.antlr.sdoc2Parser import sdoc2Parser
 from sdoc.antlr.sdoc2ParserVisitor import sdoc2ParserVisitor
+from sdoc.io.SDocIO import SDocIO
 from sdoc.sdoc.SDocVisitor import SDocVisitor
 from sdoc.sdoc2.Position import Position
 
@@ -17,7 +17,7 @@ class SDoc2Visitor(sdoc2ParserVisitor, SDocVisitor):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, sdoc1_path: str, io: IO):
+    def __init__(self, sdoc1_path: str, io: SDocIO):
         """
         Object constructor.
 
@@ -26,7 +26,7 @@ class SDoc2Visitor(sdoc2ParserVisitor, SDocVisitor):
         """
         SDocVisitor.__init__(self, io)
 
-        self._io: IO = io
+        self._io: SDocIO = io
         """
         Styled output formatter.
         """

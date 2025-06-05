@@ -3,8 +3,7 @@ import io
 import re
 from typing import Any, Dict, List
 
-from cleo.io.io import IO
-
+from sdoc.io.SDocIO import SDocIO
 from sdoc.sdoc2 import in_scope, out_scope
 from sdoc.sdoc2.helper.Enumerable import Enumerable
 from sdoc.sdoc2.node.CaptionNode import CaptionNode
@@ -19,14 +18,14 @@ class TableNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io_object: IO, options: Dict[str, str]):
+    def __init__(self, io: SDocIO, options: Dict[str, str]):
         """
         Object constructor.
 
-        :param OutputStyle io_object: The IO object.
+        :param OutputStyle io: The IO object.
         :param options: The options of this table.
         """
-        Node.__init__(self, io=io_object, name='table', options=options)
+        Node.__init__(self, io=io, name='table', options=options)
 
         self.rows: List[List[str]] = []
         """

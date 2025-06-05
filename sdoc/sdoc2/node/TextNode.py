@@ -1,9 +1,8 @@
 import re
 from typing import Dict, List
 
-from cleo.io.io import IO
-
 import sdoc
+from sdoc.io.SDocIO import SDocIO
 from sdoc.sdoc2.node.Node import Node
 from sdoc.sdoc2.NodeStore import NodeStore
 
@@ -14,7 +13,7 @@ class TextNode(Node):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, *, io: IO, options: Dict[str, str] | None = None, argument: str):
+    def __init__(self, *, io: SDocIO, options: Dict[str, str] | None = None, argument: str):
         """
         Object constructor.
 
@@ -31,7 +30,7 @@ class TextNode(Node):
 
         :param level: The level of block commands.
         """
-        self.io.write_line(f"{' ' * 4 * level}{self.id} {self.name} {self.argument.replace("\n", '\\n')}")
+        self._io.write_line(f"{' ' * 4 * level}{self.id} {self.name} {self.argument.replace("\n", '\\n')}")
 
     # ------------------------------------------------------------------------------------------------------------------
     def is_block_command(self) -> bool:
@@ -80,7 +79,7 @@ class TextNode(Node):
 
             # Creating text and paragraph end nodes and put id's in list.
             for text in list_of_texts[:to]:
-                text_node = TextNode(io=self.io, argument=text)
+                text_node = TextNode(io=self._io, argument=text)
                 sdoc.sdoc2.node_store.store_node(text_node)
                 text_ids.append(text_node.id)
 

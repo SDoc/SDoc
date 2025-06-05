@@ -2,7 +2,7 @@ import abc
 from abc import ABC
 from typing import Any
 
-from cleo.io.io import IO
+from sdoc.io.SDocIO import SDocIO
 
 
 class Formatter(ABC):
@@ -11,14 +11,14 @@ class Formatter(ABC):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, parent):
+    def __init__(self, io: SDocIO, parent):
         """
         Object constructor.
 
         :param io: The IO object.
         :param parent: The formatter for the parent node.
         """
-        self._io: IO = io
+        self._io: SDocIO = io
         """
         The IO object.
         """
@@ -77,6 +77,5 @@ class Formatter(ABC):
         :param file: The output file.
         """
         raise NotImplementedError()
-
 
 # ----------------------------------------------------------------------------------------------------------------------

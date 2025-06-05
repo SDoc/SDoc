@@ -4,7 +4,6 @@ from typing import Any, Dict
 import antlr4
 from antlr4 import ParserRuleContext
 from antlr4.Token import CommonToken
-from cleo.io.io import IO
 
 from sdoc.antlr.sdoc1Lexer import sdoc1Lexer
 from sdoc.antlr.sdoc1Parser import sdoc1Parser
@@ -12,6 +11,7 @@ from sdoc.antlr.sdoc1ParserVisitor import sdoc1ParserVisitor
 from sdoc.Exception.SDocException import SDocException
 from sdoc.helper.PathResolver import PathResolver
 from sdoc.helper.SDoc import SDoc
+from sdoc.io.SDocIO import SDocIO
 from sdoc.sdoc.SDocVisitor import SDocVisitor
 from sdoc.sdoc1.data_type.ArrayDataType import ArrayDataType
 from sdoc.sdoc1.data_type.DataType import DataType
@@ -27,7 +27,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, path: str):
+    def __init__(self, io: SDocIO, path: str):
         """
         Object constructor.
 
@@ -35,7 +35,7 @@ class SDoc1Visitor(sdoc1ParserVisitor, SDocVisitor):
         """
         SDocVisitor.__init__(self, io)
 
-        self._io: IO = io
+        self._io: SDocIO = io
         """
         Styled output formatter.
         """

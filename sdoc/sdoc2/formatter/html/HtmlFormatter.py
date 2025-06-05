@@ -1,9 +1,8 @@
 import abc
 from typing import Any, List
 
-from cleo.io.io import IO
-
 from sdoc.helper.Html import Html
+from sdoc.io.SDocIO import SDocIO
 from sdoc.sdoc2 import in_scope, node_store, out_scope
 from sdoc.sdoc2.formatter.Formatter import Formatter
 
@@ -14,7 +13,7 @@ class HtmlFormatter(Formatter):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO, parent: Formatter):
+    def __init__(self, io: SDocIO, parent: Formatter):
         """
         Object constructor.
 

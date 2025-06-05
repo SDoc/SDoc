@@ -1,9 +1,8 @@
 from abc import ABC
 from typing import Any, Dict
 
-from cleo.io.io import IO
-
 import sdoc
+from sdoc.io.SDocIO import SDocIO
 from sdoc.sdoc2 import in_scope, out_scope
 from sdoc.sdoc2.helper.Enumerable import Enumerable
 from sdoc.sdoc2.node.EndParagraphNode import EndParagraphNode
@@ -18,7 +17,7 @@ class HeadingNode(Node, ABC):
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, *, io: IO, name: str, options: Dict[str, str], argument: str):
+    def __init__(self, *, io: SDocIO, name: str, options: Dict[str, str], argument: str):
         """
         Object constructor.
 
@@ -188,7 +187,7 @@ class HeadingNode(Node, ABC):
 
         :param level: The level of block commands.
         """
-        self.io.write_line(f"{' ' * 4 * level}{self.id} {self.name} {self.argument.replace("\n", '\\n')}")
+        self._io.write_line(f"{' ' * 4 * level}{self.id} {self.name} {self.argument.replace("\n", '\\n')}")
 
         for node_id in self.child_nodes:
             node = in_scope(node_id)

@@ -18,11 +18,13 @@ class SDoc:
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self):
+    def __init__(self, io: SDocIO):
         """
         Object contructor.
+
+        :param io: The IO object.
         """
-        self._io: SDocIO | None = None
+        self._io: SDocIO = io
         """
         The IO object.
         """
@@ -61,24 +63,6 @@ class SDoc:
         """
         The total number of errors encountered at SDoc level 1 and level 2.
         """
-
-    # ------------------------------------------------------------------------------------------------------------------
-    @property
-    def io(self) -> SDocIO:
-        """
-        Getter for io.
-        """
-        return self._io
-
-    # ------------------------------------------------------------------------------------------------------------------
-    @io.setter
-    def io(self, io: SDocIO) -> None:
-        """
-        Setter for io.
-
-        :param io: The IO object.
-        """
-        self._io = io
 
     # ------------------------------------------------------------------------------------------------------------------
     @property

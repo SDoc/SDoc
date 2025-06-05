@@ -1,7 +1,6 @@
 from typing import Any, Dict, List, Tuple
 
-from cleo.io.io import IO
-
+from sdoc.io.SDocIO import SDocIO
 from sdoc.sdoc2.helper.Enumerable import Enumerable
 from sdoc.sdoc2.Position import Position
 
@@ -39,13 +38,13 @@ class NodeStore:
     The error count.
     """
 
-    _io: IO | None = None
+    _io: SDocIO | None = None
     """
     Styled output formatter.
     """
 
     # ------------------------------------------------------------------------------------------------------------------
-    def __init__(self, io: IO):
+    def __init__(self, io: SDocIO):
         """
         Object constructor.
         """
@@ -287,7 +286,7 @@ class NodeStore:
         return node
 
     # ------------------------------------------------------------------------------------------------------------------
-    def create_formatter(self, io: IO, node, parent=None):
+    def create_formatter(self, io: SDocIO, node, parent=None):
         """
         Creates a formatter for generating the output of nodes in the requested output format.
 
