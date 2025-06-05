@@ -8,6 +8,7 @@
 /doc/
 /poetry.lock
 /sdoc/antlr/*.interp
+/test/sdoc2/formatter/html/**/output.html
 /test/html/
 /vendor/
 /venv/

@@ -56,19 +56,19 @@ class TableHtmlFormatter(HtmlFormatter):
         if node.column_headers:
             cells = []
             for column in node.column_headers:
-                cells.append(Html(tag='th', inner=column))
+                cells.append(Html(tag='th', text=column))
             rows.append(Html(tag='tr', inner=cells))
 
         for row in node.rows:
             header_column_counter = 0
+            cells = []
             for col in row:
-                cells = []
                 align = TableHtmlFormatter._get_align(node.alignments, header_column_counter)
                 cells.append(TableHtmlFormatter.__struct_table_cell(align, col))
                 header_column_counter += 1
-                rows.append(Html(tag='tr', inner=cells))
+            rows.append(Html(tag='tr', inner=cells))
 
-        return Html(tag='body', inner=rows)
+        return Html(tag='tbody', inner=rows)
 
     # ------------------------------------------------------------------------------------------------------------------
     @staticmethod

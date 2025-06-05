@@ -1,0 +1,12 @@
+\begin{document}
+
+\begin{table}
+\caption{A plain table.}
+  Language     | Year | Chief Developer
+ :------------:| ----:|------------------
+  C            | 1972 | Dennis Ritchie
+  Python       | 1991 | Guido van Rossum
+  PHP          | 1995 | Rasmus Lerdorf
+\end{table}
+
+\end{document}
