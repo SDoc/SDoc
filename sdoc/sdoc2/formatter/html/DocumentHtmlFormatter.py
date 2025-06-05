@@ -45,13 +45,15 @@ class DocumentHtmlFormatter(HtmlFormatter):
                                    text=version_node.argument))
             sdoc2.out_scope(version_node)
 
-        inner1.append(Html(tag='div',
-                           attr={'class': walker.get_classes('title-inner')},
-                           inner=inner2))
+        if inner2:
+            inner1.append(Html(tag='div',
+                               attr={'class': walker.get_classes('title-inner')},
+                               inner=inner2))
 
-        body.append(Html(tag='div',
-                         attr={'class': walker.get_classes('title-outer')},
-                         inner=inner1))
+        if inner1:
+            body.append(Html(tag='div',
+                             attr={'class': walker.get_classes('title-outer')},
+                             inner=inner1))
 
         body += self._struct_inner(node)
 
