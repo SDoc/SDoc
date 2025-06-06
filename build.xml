@@ -62,6 +62,17 @@
                 </replaceregexp>
             </filterchain>
         </reflexive>
+        <reflexive>
+            <fileset dir=".">
+                <include name="sdoc/application/SDocApplication.py"/>
+            </fileset>
+            <filterchain>
+                <replaceregexp>
+                    <regexp pattern="Application\.__init__\(self, 'SDoc', .*"
+                            replace="Application.__init__(self, 'SDoc', '${VERSION}')"/>
+                </replaceregexp>
+            </filterchain>
+        </reflexive>
         <exec executable="git" checkreturn="true" passthru="true">
             <arg value="commit"/>
             <arg value="-a"/>
