@@ -72,8 +72,8 @@ class SDoc2Visitor(sdoc2ParserVisitor, SDocVisitor):
         options = {}
         i = 0
         while True:
-            name_token = ctx.OPT_ARG_NAME(i)
-            value_token = ctx.OPT_ARG_VALUE(i)
+            name_token = ctx.OPT_ARGS_NAME(i)
+            value_token = ctx.OPT_ARGS_VALUE(i)
             if not name_token:
                 break
 
@@ -154,7 +154,7 @@ class SDoc2Visitor(sdoc2ParserVisitor, SDocVisitor):
 
         :param sdoc2Parser.Cmd_positionContext ctx: The parse tree.
         """
-        argument = ctx.INLINE_ARG_ARG()
+        argument = ctx.MAIN_ARG()
         parts = re.match(r'(.+):([0-9]+)\.([0-9]+)', str(argument))
         if not parts:
             self._error(f'{argument} is not a valid position.')
@@ -176,7 +176,7 @@ class SDoc2Visitor(sdoc2ParserVisitor, SDocVisitor):
         :param ctx: The parse tree.
         """
         command = ctx.SDOC2_COMMAND().getText()
-        argument = ctx.INLINE_ARG_ARG()
+        argument = ctx.MAIN_ARG()
 
         sdoc2.node_store.append_inline_node(command[1:],
                                             self._get_options(ctx),

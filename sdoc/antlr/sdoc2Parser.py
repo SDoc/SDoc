@@ -60,12 +60,11 @@ class sdoc2Parser ( Parser ):
                      "'}'" ]
 
     symbolicNames = [ "<INVALID>", "TEXT", "BEGIN", "END", "POSITION", "SDOC2_COMMAND", 
-                      "BLOCK_ARG_LEFT_BRACKET", "BLOCK_ARG_LEFT_BRACE", 
-                      "BLOCK_ARG_WS", "BLOCK_ARG_RIGHT_BRACE", "BLOCK_ARG_ARG", 
-                      "INLINE_ARG_LEFT_BRACKET", "INLINE_ARG_LEFT_BRACE", 
-                      "OPT_ARG_RIGHT_BRACKET", "OPT_ARG_EQUALS", "OPT_ARG_SEPARATOR", 
-                      "OPT_ARG_NAME", "OPT_ARG_VALUE", "OPT_ARG_WS", "INLINE_ARG_RIGHT_BRACE", 
-                      "INLINE_ARG_ARG" ]
+                      "BLOCK_LEFT_BRACKET", "BLOCK_LEFT_BRACE", "BLOCK_WS", 
+                      "BLOCK_RIGHT_BRACE", "BLOCK_ARG_ARG", "OPT_ARGS_LEFT_BRACKET", 
+                      "MAIN_ARG_LEFT_BRACE", "OPT_ARGS_RIGHT_BRACKET", "OPT_ARGS_EQUALS", 
+                      "OPT_ARGS_SEPARATOR", "OPT_ARGS_NAME", "OPT_ARGS_VALUE", 
+                      "OPT_ARGS_WS", "MAIN_ARG_RIGHT_BRACE", "MAIN_ARG" ]
 
     RULE_sdoc = 0
     RULE_text = 1
@@ -84,21 +83,21 @@ class sdoc2Parser ( Parser ):
     END=3
     POSITION=4
     SDOC2_COMMAND=5
-    BLOCK_ARG_LEFT_BRACKET=6
-    BLOCK_ARG_LEFT_BRACE=7
-    BLOCK_ARG_WS=8
-    BLOCK_ARG_RIGHT_BRACE=9
+    BLOCK_LEFT_BRACKET=6
+    BLOCK_LEFT_BRACE=7
+    BLOCK_WS=8
+    BLOCK_RIGHT_BRACE=9
     BLOCK_ARG_ARG=10
-    INLINE_ARG_LEFT_BRACKET=11
-    INLINE_ARG_LEFT_BRACE=12
-    OPT_ARG_RIGHT_BRACKET=13
-    OPT_ARG_EQUALS=14
-    OPT_ARG_SEPARATOR=15
-    OPT_ARG_NAME=16
-    OPT_ARG_VALUE=17
-    OPT_ARG_WS=18
-    INLINE_ARG_RIGHT_BRACE=19
-    INLINE_ARG_ARG=20
+    OPT_ARGS_LEFT_BRACKET=11
+    MAIN_ARG_LEFT_BRACE=12
+    OPT_ARGS_RIGHT_BRACKET=13
+    OPT_ARGS_EQUALS=14
+    OPT_ARGS_SEPARATOR=15
+    OPT_ARGS_NAME=16
+    OPT_ARGS_VALUE=17
+    OPT_ARGS_WS=18
+    MAIN_ARG_RIGHT_BRACE=19
+    MAIN_ARG=20
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -304,44 +303,44 @@ class sdoc2Parser ( Parser ):
         def BEGIN(self):
             return self.getToken(sdoc2Parser.BEGIN, 0)
 
-        def BLOCK_ARG_LEFT_BRACE(self):
-            return self.getToken(sdoc2Parser.BLOCK_ARG_LEFT_BRACE, 0)
+        def BLOCK_LEFT_BRACE(self):
+            return self.getToken(sdoc2Parser.BLOCK_LEFT_BRACE, 0)
 
         def BLOCK_ARG_ARG(self):
             return self.getToken(sdoc2Parser.BLOCK_ARG_ARG, 0)
 
-        def BLOCK_ARG_RIGHT_BRACE(self):
-            return self.getToken(sdoc2Parser.BLOCK_ARG_RIGHT_BRACE, 0)
+        def BLOCK_RIGHT_BRACE(self):
+            return self.getToken(sdoc2Parser.BLOCK_RIGHT_BRACE, 0)
 
-        def BLOCK_ARG_LEFT_BRACKET(self):
-            return self.getToken(sdoc2Parser.BLOCK_ARG_LEFT_BRACKET, 0)
+        def BLOCK_LEFT_BRACKET(self):
+            return self.getToken(sdoc2Parser.BLOCK_LEFT_BRACKET, 0)
 
-        def OPT_ARG_RIGHT_BRACKET(self):
-            return self.getToken(sdoc2Parser.OPT_ARG_RIGHT_BRACKET, 0)
+        def OPT_ARGS_RIGHT_BRACKET(self):
+            return self.getToken(sdoc2Parser.OPT_ARGS_RIGHT_BRACKET, 0)
 
-        def OPT_ARG_NAME(self, i:int=None):
+        def OPT_ARGS_NAME(self, i:int=None):
             if i is None:
-                return self.getTokens(sdoc2Parser.OPT_ARG_NAME)
+                return self.getTokens(sdoc2Parser.OPT_ARGS_NAME)
             else:
-                return self.getToken(sdoc2Parser.OPT_ARG_NAME, i)
+                return self.getToken(sdoc2Parser.OPT_ARGS_NAME, i)
 
-        def OPT_ARG_EQUALS(self, i:int=None):
+        def OPT_ARGS_EQUALS(self, i:int=None):
             if i is None:
-                return self.getTokens(sdoc2Parser.OPT_ARG_EQUALS)
+                return self.getTokens(sdoc2Parser.OPT_ARGS_EQUALS)
             else:
-                return self.getToken(sdoc2Parser.OPT_ARG_EQUALS, i)
+                return self.getToken(sdoc2Parser.OPT_ARGS_EQUALS, i)
 
-        def OPT_ARG_VALUE(self, i:int=None):
+        def OPT_ARGS_VALUE(self, i:int=None):
             if i is None:
-                return self.getTokens(sdoc2Parser.OPT_ARG_VALUE)
+                return self.getTokens(sdoc2Parser.OPT_ARGS_VALUE)
             else:
-                return self.getToken(sdoc2Parser.OPT_ARG_VALUE, i)
+                return self.getToken(sdoc2Parser.OPT_ARGS_VALUE, i)
 
-        def OPT_ARG_SEPARATOR(self, i:int=None):
+        def OPT_ARGS_SEPARATOR(self, i:int=None):
             if i is None:
-                return self.getTokens(sdoc2Parser.OPT_ARG_SEPARATOR)
+                return self.getTokens(sdoc2Parser.OPT_ARGS_SEPARATOR)
             else:
-                return self.getToken(sdoc2Parser.OPT_ARG_SEPARATOR, i)
+                return self.getToken(sdoc2Parser.OPT_ARGS_SEPARATOR, i)
 
         def getRuleIndex(self):
             return sdoc2Parser.RULE_cmd_begin
@@ -369,17 +368,17 @@ class sdoc2Parser ( Parser ):
             _la = self._input.LA(1)
             if _la==6:
                 self.state = 30
-                self.match(sdoc2Parser.BLOCK_ARG_LEFT_BRACKET)
+                self.match(sdoc2Parser.BLOCK_LEFT_BRACKET)
                 self.state = 34
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if _la==16:
                     self.state = 31
-                    self.match(sdoc2Parser.OPT_ARG_NAME)
+                    self.match(sdoc2Parser.OPT_ARGS_NAME)
                     self.state = 32
-                    self.match(sdoc2Parser.OPT_ARG_EQUALS)
+                    self.match(sdoc2Parser.OPT_ARGS_EQUALS)
                     self.state = 33
-                    self.match(sdoc2Parser.OPT_ARG_VALUE)
+                    self.match(sdoc2Parser.OPT_ARGS_VALUE)
 
 
                 self.state = 42
@@ -388,13 +387,13 @@ class sdoc2Parser ( Parser ):
                 while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt==1:
                         self.state = 36
-                        self.match(sdoc2Parser.OPT_ARG_SEPARATOR)
+                        self.match(sdoc2Parser.OPT_ARGS_SEPARATOR)
                         self.state = 37
-                        self.match(sdoc2Parser.OPT_ARG_NAME)
+                        self.match(sdoc2Parser.OPT_ARGS_NAME)
                         self.state = 38
-                        self.match(sdoc2Parser.OPT_ARG_EQUALS)
+                        self.match(sdoc2Parser.OPT_ARGS_EQUALS)
                         self.state = 39
-                        self.match(sdoc2Parser.OPT_ARG_VALUE) 
+                        self.match(sdoc2Parser.OPT_ARGS_VALUE) 
                     self.state = 44
                     self._errHandler.sync(self)
                     _alt = self._interp.adaptivePredict(self._input,4,self._ctx)
@@ -404,19 +403,19 @@ class sdoc2Parser ( Parser ):
                 _la = self._input.LA(1)
                 if _la==15:
                     self.state = 45
-                    self.match(sdoc2Parser.OPT_ARG_SEPARATOR)
+                    self.match(sdoc2Parser.OPT_ARGS_SEPARATOR)
 
 
                 self.state = 48
-                self.match(sdoc2Parser.OPT_ARG_RIGHT_BRACKET)
+                self.match(sdoc2Parser.OPT_ARGS_RIGHT_BRACKET)
 
 
             self.state = 51
-            self.match(sdoc2Parser.BLOCK_ARG_LEFT_BRACE)
+            self.match(sdoc2Parser.BLOCK_LEFT_BRACE)
             self.state = 52
             self.match(sdoc2Parser.BLOCK_ARG_ARG)
             self.state = 53
-            self.match(sdoc2Parser.BLOCK_ARG_RIGHT_BRACE)
+            self.match(sdoc2Parser.BLOCK_RIGHT_BRACE)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -436,14 +435,14 @@ class sdoc2Parser ( Parser ):
         def END(self):
             return self.getToken(sdoc2Parser.END, 0)
 
-        def BLOCK_ARG_LEFT_BRACE(self):
-            return self.getToken(sdoc2Parser.BLOCK_ARG_LEFT_BRACE, 0)
+        def BLOCK_LEFT_BRACE(self):
+            return self.getToken(sdoc2Parser.BLOCK_LEFT_BRACE, 0)
 
         def BLOCK_ARG_ARG(self):
             return self.getToken(sdoc2Parser.BLOCK_ARG_ARG, 0)
 
-        def BLOCK_ARG_RIGHT_BRACE(self):
-            return self.getToken(sdoc2Parser.BLOCK_ARG_RIGHT_BRACE, 0)
+        def BLOCK_RIGHT_BRACE(self):
+            return self.getToken(sdoc2Parser.BLOCK_RIGHT_BRACE, 0)
 
         def getRuleIndex(self):
             return sdoc2Parser.RULE_cmd_end
@@ -466,11 +465,11 @@ class sdoc2Parser ( Parser ):
             self.state = 55
             self.match(sdoc2Parser.END)
             self.state = 56
-            self.match(sdoc2Parser.BLOCK_ARG_LEFT_BRACE)
+            self.match(sdoc2Parser.BLOCK_LEFT_BRACE)
             self.state = 57
             self.match(sdoc2Parser.BLOCK_ARG_ARG)
             self.state = 58
-            self.match(sdoc2Parser.BLOCK_ARG_RIGHT_BRACE)
+            self.match(sdoc2Parser.BLOCK_RIGHT_BRACE)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -490,14 +489,14 @@ class sdoc2Parser ( Parser ):
         def POSITION(self):
             return self.getToken(sdoc2Parser.POSITION, 0)
 
-        def INLINE_ARG_LEFT_BRACE(self):
-            return self.getToken(sdoc2Parser.INLINE_ARG_LEFT_BRACE, 0)
+        def MAIN_ARG_LEFT_BRACE(self):
+            return self.getToken(sdoc2Parser.MAIN_ARG_LEFT_BRACE, 0)
 
-        def INLINE_ARG_ARG(self):
-            return self.getToken(sdoc2Parser.INLINE_ARG_ARG, 0)
+        def MAIN_ARG(self):
+            return self.getToken(sdoc2Parser.MAIN_ARG, 0)
 
-        def INLINE_ARG_RIGHT_BRACE(self):
-            return self.getToken(sdoc2Parser.INLINE_ARG_RIGHT_BRACE, 0)
+        def MAIN_ARG_RIGHT_BRACE(self):
+            return self.getToken(sdoc2Parser.MAIN_ARG_RIGHT_BRACE, 0)
 
         def getRuleIndex(self):
             return sdoc2Parser.RULE_cmd_position
@@ -520,11 +519,11 @@ class sdoc2Parser ( Parser ):
             self.state = 60
             self.match(sdoc2Parser.POSITION)
             self.state = 61
-            self.match(sdoc2Parser.INLINE_ARG_LEFT_BRACE)
+            self.match(sdoc2Parser.MAIN_ARG_LEFT_BRACE)
             self.state = 62
-            self.match(sdoc2Parser.INLINE_ARG_ARG)
+            self.match(sdoc2Parser.MAIN_ARG)
             self.state = 63
-            self.match(sdoc2Parser.INLINE_ARG_RIGHT_BRACE)
+            self.match(sdoc2Parser.MAIN_ARG_RIGHT_BRACE)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -544,44 +543,44 @@ class sdoc2Parser ( Parser ):
         def SDOC2_COMMAND(self):
             return self.getToken(sdoc2Parser.SDOC2_COMMAND, 0)
 
-        def INLINE_ARG_LEFT_BRACKET(self):
-            return self.getToken(sdoc2Parser.INLINE_ARG_LEFT_BRACKET, 0)
+        def OPT_ARGS_LEFT_BRACKET(self):
+            return self.getToken(sdoc2Parser.OPT_ARGS_LEFT_BRACKET, 0)
 
-        def OPT_ARG_RIGHT_BRACKET(self):
-            return self.getToken(sdoc2Parser.OPT_ARG_RIGHT_BRACKET, 0)
+        def OPT_ARGS_RIGHT_BRACKET(self):
+            return self.getToken(sdoc2Parser.OPT_ARGS_RIGHT_BRACKET, 0)
 
-        def INLINE_ARG_LEFT_BRACE(self):
-            return self.getToken(sdoc2Parser.INLINE_ARG_LEFT_BRACE, 0)
+        def MAIN_ARG_LEFT_BRACE(self):
+            return self.getToken(sdoc2Parser.MAIN_ARG_LEFT_BRACE, 0)
 
-        def INLINE_ARG_RIGHT_BRACE(self):
-            return self.getToken(sdoc2Parser.INLINE_ARG_RIGHT_BRACE, 0)
+        def MAIN_ARG_RIGHT_BRACE(self):
+            return self.getToken(sdoc2Parser.MAIN_ARG_RIGHT_BRACE, 0)
 
-        def OPT_ARG_NAME(self, i:int=None):
+        def OPT_ARGS_NAME(self, i:int=None):
             if i is None:
-                return self.getTokens(sdoc2Parser.OPT_ARG_NAME)
+                return self.getTokens(sdoc2Parser.OPT_ARGS_NAME)
             else:
-                return self.getToken(sdoc2Parser.OPT_ARG_NAME, i)
+                return self.getToken(sdoc2Parser.OPT_ARGS_NAME, i)
 
-        def OPT_ARG_EQUALS(self, i:int=None):
+        def OPT_ARGS_EQUALS(self, i:int=None):
             if i is None:
-                return self.getTokens(sdoc2Parser.OPT_ARG_EQUALS)
+                return self.getTokens(sdoc2Parser.OPT_ARGS_EQUALS)
             else:
-                return self.getToken(sdoc2Parser.OPT_ARG_EQUALS, i)
+                return self.getToken(sdoc2Parser.OPT_ARGS_EQUALS, i)
 
-        def OPT_ARG_VALUE(self, i:int=None):
+        def OPT_ARGS_VALUE(self, i:int=None):
             if i is None:
-                return self.getTokens(sdoc2Parser.OPT_ARG_VALUE)
+                return self.getTokens(sdoc2Parser.OPT_ARGS_VALUE)
             else:
-                return self.getToken(sdoc2Parser.OPT_ARG_VALUE, i)
+                return self.getToken(sdoc2Parser.OPT_ARGS_VALUE, i)
 
-        def OPT_ARG_SEPARATOR(self, i:int=None):
+        def OPT_ARGS_SEPARATOR(self, i:int=None):
             if i is None:
-                return self.getTokens(sdoc2Parser.OPT_ARG_SEPARATOR)
+                return self.getTokens(sdoc2Parser.OPT_ARGS_SEPARATOR)
             else:
-                return self.getToken(sdoc2Parser.OPT_ARG_SEPARATOR, i)
+                return self.getToken(sdoc2Parser.OPT_ARGS_SEPARATOR, i)
 
-        def INLINE_ARG_ARG(self):
-            return self.getToken(sdoc2Parser.INLINE_ARG_ARG, 0)
+        def MAIN_ARG(self):
+            return self.getToken(sdoc2Parser.MAIN_ARG, 0)
 
         def getRuleIndex(self):
             return sdoc2Parser.RULE_cmd_sdoc2
@@ -609,17 +608,17 @@ class sdoc2Parser ( Parser ):
             _la = self._input.LA(1)
             if _la==11:
                 self.state = 66
-                self.match(sdoc2Parser.INLINE_ARG_LEFT_BRACKET)
+                self.match(sdoc2Parser.OPT_ARGS_LEFT_BRACKET)
                 self.state = 70
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if _la==16:
                     self.state = 67
-                    self.match(sdoc2Parser.OPT_ARG_NAME)
+                    self.match(sdoc2Parser.OPT_ARGS_NAME)
                     self.state = 68
-                    self.match(sdoc2Parser.OPT_ARG_EQUALS)
+                    self.match(sdoc2Parser.OPT_ARGS_EQUALS)
                     self.state = 69
-                    self.match(sdoc2Parser.OPT_ARG_VALUE)
+                    self.match(sdoc2Parser.OPT_ARGS_VALUE)
 
 
                 self.state = 78
@@ -628,13 +627,13 @@ class sdoc2Parser ( Parser ):
                 while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt==1:
                         self.state = 72
-                        self.match(sdoc2Parser.OPT_ARG_SEPARATOR)
+                        self.match(sdoc2Parser.OPT_ARGS_SEPARATOR)
                         self.state = 73
-                        self.match(sdoc2Parser.OPT_ARG_NAME)
+                        self.match(sdoc2Parser.OPT_ARGS_NAME)
                         self.state = 74
-                        self.match(sdoc2Parser.OPT_ARG_EQUALS)
+                        self.match(sdoc2Parser.OPT_ARGS_EQUALS)
                         self.state = 75
-                        self.match(sdoc2Parser.OPT_ARG_VALUE) 
+                        self.match(sdoc2Parser.OPT_ARGS_VALUE) 
                     self.state = 80
                     self._errHandler.sync(self)
                     _alt = self._interp.adaptivePredict(self._input,8,self._ctx)
@@ -644,11 +643,11 @@ class sdoc2Parser ( Parser ):
                 _la = self._input.LA(1)
                 if _la==15:
                     self.state = 81
-                    self.match(sdoc2Parser.OPT_ARG_SEPARATOR)
+                    self.match(sdoc2Parser.OPT_ARGS_SEPARATOR)
 
 
                 self.state = 84
-                self.match(sdoc2Parser.OPT_ARG_RIGHT_BRACKET)
+                self.match(sdoc2Parser.OPT_ARGS_RIGHT_BRACKET)
 
 
             self.state = 92
@@ -656,17 +655,17 @@ class sdoc2Parser ( Parser ):
             _la = self._input.LA(1)
             if _la==12:
                 self.state = 87
-                self.match(sdoc2Parser.INLINE_ARG_LEFT_BRACE)
+                self.match(sdoc2Parser.MAIN_ARG_LEFT_BRACE)
                 self.state = 89
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if _la==20:
                     self.state = 88
-                    self.match(sdoc2Parser.INLINE_ARG_ARG)
+                    self.match(sdoc2Parser.MAIN_ARG)
 
 
                 self.state = 91
-                self.match(sdoc2Parser.INLINE_ARG_RIGHT_BRACE)
+                self.match(sdoc2Parser.MAIN_ARG_RIGHT_BRACE)
 
 
         except RecognitionException as re:
