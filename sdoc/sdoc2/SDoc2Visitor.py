@@ -43,12 +43,12 @@ class SDoc2Visitor(sdoc2ParserVisitor, SDocVisitor):
 
         self._sdoc1_line: int = 0
         """
-        The offset of for computing the current line at SDoc1 level.
+        The offset for computing the current line at SDoc1 level.
         """
 
         self._sdoc1_column: int = 0
         """
-        The offset of for computing the current column at SDoc1 level.
+        The offset for computing the current column at SDoc1 level.
         """
 
         self._sdoc2_line: int = 0
