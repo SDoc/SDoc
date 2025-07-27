@@ -20,7 +20,6 @@ INLINE_ARG_RIGHT_BRACE=19
 INLINE_ARG_ARG=20
 '\\begin'=2
 '\\end'=3
-'\\position'=4
 ']'=13
 '='=14
 ' '=15

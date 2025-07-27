@@ -43,7 +43,6 @@ class Position:
         """
 
     # ------------------------------------------------------------------------------------------------------------------
-    @property
     def __str__(self) -> str:
         """
         String representation of the position.

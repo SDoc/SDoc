@@ -1,9 +1,10 @@
 import antlr4
 
 from sdoc import sdoc2
-from sdoc.antlr.sdoc2Lexer import sdoc2Lexer
 from sdoc.antlr.sdoc2Parser import sdoc2Parser
 from sdoc.io.SDocIO import SDocIO
+from sdoc.sdoc2.SDoc2ErrorListener import SDoc2ErrorListener
+from sdoc.sdoc2.SDoc2LexerWrapper import SDoc2LexerWrapper
 from sdoc.sdoc2.SDoc2Visitor import SDoc2Visitor
 
 
@@ -32,7 +33,9 @@ class SDoc2Interpreter:
         """
         in_stream = antlr4.FileStream(infile, 'utf-8')
 
-        lexer = sdoc2Lexer(in_stream)
+        lexer = SDoc2LexerWrapper(in_stream)
+        lexer.removeErrorListeners()
+        lexer.addErrorListener(SDoc2ErrorListener(self._io))
         tokens = antlr4.CommonTokenStream(lexer)
         parser = sdoc2Parser(tokens)
         tree = parser.sdoc()

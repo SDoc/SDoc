@@ -53,7 +53,7 @@ class sdoc2Parser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "<INVALID>", "'\\begin'", "'\\end'", "'\\position'", 
+    literalNames = [ "<INVALID>", "<INVALID>", "'\\begin'", "'\\end'", "<INVALID>", 
                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                      "']'", "'='", "' '", "<INVALID>", "<INVALID>", "<INVALID>", 
