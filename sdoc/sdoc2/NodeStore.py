@@ -90,13 +90,12 @@ class NodeStore:
         """
         NodeStore._errors += 1
 
-        messages = [message]
         if node:
             filename = node.position.file_name
             line_number = node.position.start_line
             column_number = node.position.start_column + 1
-            messages.append(f' at position: {filename}:{line_number}.{column_number}')
-        NodeStore._io.write_error(messages)
+            message += f' at position: {filename}:{line_number}.{column_number}'
+        NodeStore._io.write_error_line('<error>' + message + '</error>')
 
     # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
@@ -323,7 +322,8 @@ class NodeStore:
                 if node.is_hierarchy_root():
                     parent_found = True
                 else:
-                    self.error(f"Improper nesting of node '{parent_node.name}' at {parent_node.position!s} and node '{node.name}' at {node.position!s}.")
+                    self.error(
+                        f"Improper nesting of node '{parent_node.name}' at {parent_node.position!s} and node '{node.name}' at {node.position!s}.")
 
             if not parent_found:
                 parent_hierarchy_level = parent_node.get_hierarchy_level()
@@ -339,8 +339,8 @@ class NodeStore:
 
         if node_hierarchy_level - parent_hierarchy_level > 1:
             self.error(
-                f"Improper nesting of levels:{parent_hierarchy_level} at {parent_node.position!s} and {node_hierarchy_level} at {node.position!s}.",
-                node)
+                    f"Improper nesting of levels:{parent_hierarchy_level} at {parent_node.position!s} and {node_hierarchy_level} at {node.position!s}.",
+                    node)
 
     # ------------------------------------------------------------------------------------------------------------------
     def store_node(self, node) -> int:
