@@ -19,7 +19,6 @@ class SDoc2Command(BaseCommand):
         io = SDocIO(self.io.input, self.io.output, self.io.error_output)
         sdoc = SDoc(io)
         sdoc.config_path = self.argument('config.cfg')
-        sdoc.init()
 
         return sdoc.run_sdoc2(self.argument('main.sdoc2'))
 
