@@ -13,11 +13,6 @@ class PathResolver:
     The home folder of the current project.
     """
 
-    _main: Path | None = None
-    """
-    The home folder of the current project.
-    """
-
     # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
     def resolve_path(parent_file: str, local_file: str) -> str:
@@ -41,11 +36,9 @@ class PathResolver:
 
     # ------------------------------------------------------------------------------------------------------------------
     @staticmethod
-    def set_home(main: str) -> None:
+    def set_home() -> None:
         """
         Set the home folder of the current project.
-
-        :param main: The path to the root SDoc file.
         """
         resolved = Path.cwd().resolve()
 
@@ -53,6 +46,5 @@ class PathResolver:
             raise RuntimeError('Home folder is set already.')
 
         PathResolver._home = resolved
-        PathResolver._main = Path(main).resolve().parent
 
 # ----------------------------------------------------------------------------------------------------------------------

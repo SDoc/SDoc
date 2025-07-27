@@ -64,6 +64,8 @@ class SDoc:
         The total number of errors encountered at SDoc level 1 and level 2.
         """
 
+        PathResolver.set_home()
+
     # ------------------------------------------------------------------------------------------------------------------
     @property
     def config_path(self) -> str:
@@ -227,9 +229,9 @@ class SDoc:
         self.importing('/sdoc2/formatter/html/')
 
     # ------------------------------------------------------------------------------------------------------------------
-    def init(self) -> None:
+    def _init_sdoc2(self) -> None:
         """
-        Executes initiations required before running SDoc.
+        Executes initiations required before running SDoc2.
         """
         self._read_config_file()
         self._create_node_store()
@@ -268,11 +270,13 @@ class SDoc:
         self._io.write_line('')
         self._io.title('SDoc2')
 
+        self._init_sdoc2()
+
         interpreter2 = SDoc2Interpreter(self._io)
         self._errors += interpreter2.process(sdoc2_path)
 
         if log_errors and self._errors:
-            self._io.write_line(" ")
+            self._io.write_line(' ')
             self._io.title('Errors')
             self._io.write_error(f'There were {self._errors} errors in total.')
 
@@ -291,7 +295,7 @@ class SDoc:
         self._errors += sdoc2.node_store.generate(self._format)
 
         if log_errors and self._errors:
-            self._io.write_line(" ")
+            self._io.write_line(' ')
             self._io.title('Errors')
             self._io.write_error(f'There were {self._errors} errors in total.')
 
@@ -305,10 +309,6 @@ class SDoc:
         :param main_filename: The path to the SDoc1 document.
         :param log_errors: Whether the number of errors will be logged.
         """
-        self.init()
-
-        PathResolver.set_home(main_filename)
-
         temp_filename = self._temp_dir + '/' + os.path.basename(main_filename) + '.sdoc2'
         self.run_sdoc1(main_filename, temp_filename, False)
         self.run_sdoc2(temp_filename, False)
